@@ -1,4 +1,4 @@
-import type { Transition, Variants } from "framer-motion";
+import type { Variants } from "framer-motion";
 
 /**
  * Centralized motion system for Mirai Studios.
@@ -6,8 +6,8 @@ import type { Transition, Variants } from "framer-motion";
  * Components consume these via the <Reveal /> primitive or directly.
  */
 
-export const EASE_OUT_EXPO: Transition["ease"] = [0.16, 1, 0.3, 1];
-export const EASE_IN_OUT_SOFT: Transition["ease"] = [0.65, 0.05, 0.36, 1];
+export const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
+export const EASE_IN_OUT_SOFT: [number, number, number, number] = [0.65, 0.05, 0.36, 1];
 
 export const DURATION = {
   fast: 0.35,
