@@ -99,26 +99,61 @@ function QuoteCard({ t }: { t: Testimonial }) {
 
       <div className="mt-10 flex items-end justify-between">
         <Stars large={large} />
-        <LogoImg
-          src={`/logos/${t.logo.file}`}
-          name={t.logo.name}
-          className={cn(
-            "w-auto object-contain opacity-50 grayscale",
-            large ? "max-h-[40px] max-w-[160px]" : "max-h-[28px] max-w-[120px]",
-          )}
-          wordmarkClassName="text-black/30"
-        />
+        <BrandMark t={t} large={large} />
       </div>
     </m.figure>
   );
 }
 
-/** Decorative gallery tile (empty warm-gray square in the Figma design). */
-function GallerySquare() {
+/** Decorative gallery tile with Figma photo. */
+function GallerySquare({ src, alt }: { src: string; alt: string }) {
   return (
-    <div
-      aria-hidden
-      className="hidden size-[196px] shrink-0 rounded-[24px] border border-black/[0.06] bg-[#f5f3f1] lg:block"
+    <div className="relative hidden size-[196px] shrink-0 overflow-hidden rounded-[24px] border border-black/[0.06] bg-[#f5f3f1] lg:block">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={src} alt={alt} className="absolute inset-0 size-full object-cover" />
+    </div>
+  );
+}
+
+function BrandMark({ t, large }: { t: Testimonial; large?: boolean }) {
+  if (t.id === "enorta") {
+    return (
+      <span className={cn("flex items-center gap-1.5 text-black/25", large ? "text-[28px]" : "text-xl")}>
+        <LogoImg
+          src="/logos/enorta-testimonial.svg"
+          name=""
+          className={cn("object-contain opacity-40", large ? "size-6" : "size-5")}
+          wordmarkClassName="hidden"
+        />
+        <span className="font-[family-name:var(--font-sans)] tracking-tight">enorta</span>
+      </span>
+    );
+  }
+  if (t.id === "cero") {
+    return (
+      <span className="flex items-center gap-2 text-black/25">
+        <LogoImg
+          src="/logos/cero-testimonial.svg"
+          name=""
+          className="size-[22px] object-contain opacity-40"
+          wordmarkClassName="hidden"
+        />
+        <span className="text-[33px] font-medium leading-none tracking-tight">
+          Cero
+          <sup className="ml-0.5 text-[15px]">©</sup>
+        </span>
+      </span>
+    );
+  }
+  return (
+    <LogoImg
+      src={`/logos/${t.logo.file}`}
+      name={t.logo.name}
+      className={cn(
+        "w-auto object-contain opacity-50 grayscale",
+        large ? "max-h-[40px] max-w-[160px]" : "max-h-[28px] max-w-[120px]",
+      )}
+      wordmarkClassName="text-black/30"
     />
   );
 }
@@ -150,7 +185,7 @@ export function Testimonials() {
           {first ? (
             <div className="flex flex-1 flex-col items-end gap-6">
               <QuoteCard t={first} />
-              <GallerySquare />
+              <GallerySquare src="/testimonials/gallery-left.png" alt="" />
             </div>
           ) : null}
 
@@ -162,7 +197,7 @@ export function Testimonials() {
 
           {last ? (
             <div className="flex flex-1 flex-col items-start gap-6">
-              <GallerySquare />
+              <GallerySquare src="/testimonials/gallery-right.png" alt="" />
               <QuoteCard t={last} />
             </div>
           ) : null}

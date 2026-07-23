@@ -3,7 +3,6 @@
 import { m } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { PROJECTS, type Project } from "@/lib/content";
-import { cn } from "@/lib/utils";
 import { fadeUp, imageReveal, staggerContainer, viewportOnce } from "@/lib/motion";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
@@ -12,13 +11,13 @@ import { Button } from "@/components/ui/Button";
 function ProjectArtwork({ project }: { project: Project }) {
   return (
     <m.div variants={imageReveal} className="group relative">
-      <div className={cn("relative aspect-square overflow-hidden rounded-2xl bg-gradient-to-br", project.artwork)}>
-        <div aria-hidden className="dot-grid absolute inset-0 text-white/10" />
-        <div aria-hidden className="absolute inset-0 bg-[radial-gradient(70%_60%_at_50%_30%,rgba(255,255,255,0.12),transparent_70%)]" />
-        <span className="absolute left-6 top-6 text-sm font-medium tracking-snug text-white/80">{project.eyebrow}</span>
-        <span className="absolute bottom-6 left-6 right-6 text-2xl font-medium tracking-snug text-white sm:text-3xl">
-          {project.title}
-        </span>
+      <div className="relative aspect-square overflow-hidden rounded-[24px] border border-black/[0.08] bg-[#030303]">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={`/images/${project.image}`}
+          alt={project.title}
+          className="absolute inset-0 size-full object-cover transition-transform duration-700 ease-out-expo group-hover:scale-[1.03]"
+        />
       </div>
     </m.div>
   );
@@ -36,28 +35,30 @@ function ProjectRow({ project }: { project: Project }) {
       <ProjectArtwork project={project} />
 
       <div className="flex flex-col items-start">
-        <m.p variants={fadeUp} className="eyebrow">
+        <m.p variants={fadeUp} className="text-2xl text-black/40">
           {project.eyebrow}
         </m.p>
-        <m.h3 variants={fadeUp} className="display mt-3 text-[clamp(2rem,4vw,3rem)] leading-tight">
+        <m.h3 variants={fadeUp} className="display mt-6 text-[clamp(2rem,4vw,4rem)] leading-[1.05] tracking-[-0.01em]">
           {project.title}
         </m.h3>
-        <m.p variants={fadeUp} className="mt-5 text-pretty leading-relaxed text-muted-foreground sm:text-lg">
+        <m.p variants={fadeUp} className="mt-10 text-pretty text-2xl leading-8 text-black/70">
           {project.description}
         </m.p>
-        <m.ul variants={fadeUp} className="mt-6 flex flex-col gap-3">
+        <m.ul variants={fadeUp} className="mt-12 flex flex-col gap-8">
           {project.features.map((feature) => (
-            <li key={feature} className="flex items-start gap-3 text-[15px] text-foreground">
-              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-foreground/40" />
+            <li key={feature} className="flex items-center gap-4 text-2xl text-black/70">
+              <span className="grid size-[18px] shrink-0 place-items-center rounded-full bg-foreground/10 text-[10px] text-foreground">
+                ✓
+              </span>
               {feature}
             </li>
           ))}
         </m.ul>
-        <m.p variants={fadeUp} className="mt-6 text-pretty leading-relaxed text-muted-foreground sm:text-lg">
+        <m.p variants={fadeUp} className="mt-12 text-pretty text-2xl leading-8 text-black/70">
           {project.closing}
         </m.p>
-        <m.div variants={fadeUp} className="mt-8">
-          <Button href="#contact" className="group">
+        <m.div variants={fadeUp} className="mt-12">
+          <Button href="#contact" size="lg" className="group">
             {project.cta}
             <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </Button>

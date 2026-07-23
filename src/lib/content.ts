@@ -57,30 +57,25 @@ export interface ClientLogo {
   file: string;
 }
 
+/** Exact Figma logo wall order (3 rows × 4). */
 export const CLIENT_ROWS: ClientLogo[][] = [
   [
-    { name: "Rivian", file: "rivian.svg" },
-    { name: "Digital Saudi", file: "digital-saudi.png" },
-    { name: "Saudi Tourism Authority", file: "saudi-tourism.png" },
-    { name: "NHC Innovation", file: "nhc.svg" },
     { name: "Coca-Cola", file: "coca-cola.svg" },
+    { name: "Lilly AI", file: "lilly-ai-wordmark.svg" },
+    { name: "Rivian", file: "rivian.svg" },
     { name: "PwC", file: "pwc.svg" },
   ],
   [
-    { name: "Flipboard", file: "flipboard.svg" },
     { name: "Google", file: "google.svg" },
-    { name: "enorta", file: "enorta.svg" },
-    { name: "McLaren", file: "mclaren.svg" },
-    { name: "Cero", file: "cero.svg" },
+    { name: "enorta", file: "enorta-mark.svg" },
+    { name: "Cero", file: "cero-mark.svg" },
     { name: "salesforce", file: "salesforce.svg" },
   ],
   [
-    { name: "Eye of Riyadh", file: "eye-of-riyadh.svg" },
     { name: "Epidemic Sound", file: "epidemic-sound.svg" },
-    { name: "Lexus", file: "lexus.svg" },
-    { name: "WNBA", file: "wnba.svg" },
     { name: "LaunchDarkly", file: "launchdarkly.svg" },
     { name: "Tim Hortons", file: "tim-hortons.svg" },
+    { name: "Flipboard", file: "flipboard.svg" },
   ],
 ];
 
@@ -165,22 +160,22 @@ export interface Project {
   features: string[];
   closing: string;
   cta: string;
-  /** Tailwind gradient classes used for the product-showcase artwork. */
-  artwork: string;
+  /** Image under `public/images/`. */
+  image: string;
 }
 
 export const PROJECTS: Project[] = [
   {
     id: "cero",
     eyebrow: "AI-Powered Products",
-    title: "Cero: LinkedIn AI Tool",
+    title: "LinkedIn personal branding assistant",
     description:
       "We don't just design SaaS products: we co-build them. Cero is the first complete LinkedIn tool that uses AI, image creation, and carousels to craft personalized posts with humanity-level quality.",
     features: ["Founders & entrepreneurs", "Freelancers & consultants", "Coaches & personal brands"],
     closing:
       "Cero eliminates the gap between knowing you need a LinkedIn presence and actually having one, replacing hours of content creation with intelligent, on-brand output in minutes.",
     cta: "View Project",
-    artwork: "from-[#1a1a1d] via-[#241410] to-[#c7401f]",
+    image: "cero-project.png",
   },
   {
     id: "desert-oasis",
@@ -196,7 +191,7 @@ export const PROJECTS: Project[] = [
     closing:
       "Desert Oasis transforms a premium desert escape into a fully realized 3D world, blending modern architecture with natural Saudi landscapes through sunset lighting, infinity pools, and aerial visualization.",
     cta: "View Project",
-    artwork: "from-[#caa46a] via-[#b07a44] to-[#5c3b22]",
+    image: "desert-oasis.png",
   },
 ];
 
@@ -211,15 +206,30 @@ export interface WorkItem {
   id: string;
   title: string;
   size: "large" | "small";
-  artwork: string;
+  image: string;
 }
 
 export const WORK_ITEMS: WorkItem[] = [
-  { id: "enorta", title: "Enorta: Storytelling Reimagined", size: "large", artwork: "from-[#0a1418] via-[#0f2a33] to-[#16505f]" },
-  { id: "sakani", title: "Sakani Metaverse", size: "large", artwork: "from-[#101013] via-[#1c1430] to-[#3a2a66]" },
-  { id: "nhc", title: "NHC 3D Saudi Arabia", size: "small", artwork: "from-[#10130f] via-[#1c2a18] to-[#3c5c2c]" },
-  { id: "coke", title: "CokeStudio: CokeVerse", size: "small", artwork: "from-[#1a0b0b] via-[#3a1212] to-[#a01722]" },
-  { id: "rua", title: "RUA Al Madinah", size: "small", artwork: "from-[#16120b] via-[#2e2415] to-[#6e5226]" },
+  { id: "enorta", title: "Enorta: Storytelling Reimagined", size: "large", image: "work-enorta.png" },
+  {
+    id: "real-estate",
+    title: "Real Estate Virtual Sales Center",
+    size: "large",
+    image: "work-real-estate.png",
+  },
+  {
+    id: "virtual-community",
+    title: "Virtual Real Estate Community",
+    size: "small",
+    image: "work-virtual-community.png",
+  },
+  { id: "coke", title: "COCA COLA", size: "small", image: "work-coca-cola.png" },
+  {
+    id: "vr-prop",
+    title: "Interactive Prop VR Experience",
+    size: "small",
+    image: "work-vr-prop.png",
+  },
 ];
 
 export const PARTNER_BAR = {
@@ -253,27 +263,27 @@ export const TESTIMONIALS: Testimonial[] = [
       "Mirai Studios transformed our concept into a scalable, market-ready AI platform with flawless execution and 100% on-time delivery.",
     name: "Sarah Jenkins",
     role: "Director of Digital Delivery at Enorta",
-    logo: { name: "enorta", file: "enorta.svg" },
+    logo: { name: "enorta", file: "enorta-testimonial.svg" },
     avatar: "sarah-jenkins.png",
     size: "small",
   },
   {
-    id: "sta",
+    id: "cero",
     quote:
       "Their specialists operated as a seamless extension of our own company. Mirai's technical architecture has essentially future proofed our digital roadmap.",
     name: "Tariq Al-Fadli",
-    role: "Head of Digital Experiences, Saudi Tourism Authority",
-    logo: { name: "Saudi Tourism Authority", file: "saudi-tourism.png" },
+    role: "Head of Digital Experiences, Cero",
+    logo: { name: "Cero", file: "cero-testimonial.svg" },
     avatar: "tariq-al-fadli.png",
     size: "large",
   },
   {
-    id: "nhc",
+    id: "lilly",
     quote:
       "Their hyper-realistic 3D visualization and seamless enterprise integration were game-changing. Mirai Studios is a true innovation partner.",
     name: "Khalid Al-Dosari",
-    role: "VP of Digital Transformation at NHC",
-    logo: { name: "NHC", file: "nhc.svg" },
+    role: "VP of Digital Transformation at lilly AI",
+    logo: { name: "lilly AI", file: "lilly-ai.svg" },
     avatar: "khalid-al-dosari.png",
     size: "small",
   },

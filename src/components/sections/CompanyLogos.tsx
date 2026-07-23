@@ -7,16 +7,30 @@ import { LogoImg } from "@/components/ui/LogoImg";
 import { Reveal } from "@/components/animations/Reveal";
 
 function Logo({ name, file }: { name: string; file: string }) {
-  return (
-    <div className="flex h-[60px] w-full items-center justify-center">
+  const compound =
+    name === "enorta" ? (
+      <span className="flex items-center gap-2 text-[#717171]">
+        <LogoImg src={`/logos/${file}`} name="" className="size-7 object-contain grayscale" wordmarkClassName="hidden" />
+        <span className="text-[28px] leading-none tracking-tight">enorta</span>
+      </span>
+    ) : name === "Cero" ? (
+      <span className="flex items-center gap-2 text-[#717171]">
+        <LogoImg src={`/logos/${file}`} name="" className="size-6 object-contain grayscale" wordmarkClassName="hidden" />
+        <span className="text-[32px] font-medium leading-none">
+          Cero
+          <sup className="text-[10px]">©</sup>
+        </span>
+      </span>
+    ) : (
       <LogoImg
         src={`/logos/${file}`}
         name={name}
         className="max-h-[34px] w-auto max-w-[160px] object-contain grayscale"
         wordmarkClassName="text-foreground/40"
       />
-    </div>
-  );
+    );
+
+  return <div className="flex h-[60px] w-full max-w-[206px] items-center justify-center">{compound}</div>;
 }
 
 export function CompanyLogos() {
@@ -24,7 +38,6 @@ export function CompanyLogos() {
 
   return (
     <Container className="py-12 lg:py-16">
-      {/* Desktop: 3 rows of 6, evenly distributed (matches Figma) */}
       <Reveal className="hidden flex-col gap-y-12 opacity-60 transition-opacity duration-500 hover:opacity-100 lg:flex">
         {CLIENT_ROWS.map((row, i) => (
           <div key={i} className="flex items-center justify-between gap-x-8">
@@ -35,7 +48,6 @@ export function CompanyLogos() {
         ))}
       </Reveal>
 
-      {/* Mobile/tablet: continuous marquee */}
       <Reveal className="lg:hidden">
         <div className="mask-fade-x overflow-hidden opacity-70">
           <div
@@ -43,13 +55,8 @@ export function CompanyLogos() {
             style={{ "--marquee-duration": "32s" } as CSSProperties}
           >
             {[...all, ...all].map((logo, i) => (
-              <div key={`${logo.name}-${i}`} className="flex h-[48px] w-[150px] shrink-0 items-center justify-center">
-                <LogoImg
-                  src={`/logos/${logo.file}`}
-                  name={logo.name}
-                  className="max-h-[30px] w-auto max-w-[140px] object-contain grayscale"
-                  wordmarkClassName="text-foreground/40"
-                />
+              <div key={`${logo.name}-${i}`} className="flex h-[48px] w-[160px] shrink-0 items-center justify-center">
+                <Logo name={logo.name} file={logo.file} />
               </div>
             ))}
           </div>

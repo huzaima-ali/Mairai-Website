@@ -16,17 +16,21 @@ function WorkCard({ item, className }: { item: WorkItem; className?: string }) {
       href="#contact"
       variants={fadeUp}
       className={cn(
-        "group relative block overflow-hidden rounded-2xl bg-gradient-to-br shadow-card transition-transform duration-500 ease-out-expo hover:-translate-y-1.5",
-        item.artwork,
+        "group relative block overflow-hidden rounded-[24px] border border-black/[0.08] shadow-card transition-transform duration-500 ease-out-expo hover:-translate-y-1.5",
         className,
       )}
     >
-      <div aria-hidden className="dot-grid absolute inset-0 text-white/[0.08]" />
-      <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-      <span className="absolute right-5 top-5 grid h-11 w-11 place-items-center rounded-full bg-white/15 text-white backdrop-blur-md transition-all duration-300 group-hover:bg-white/25">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={`/images/${item.image}`}
+        alt={item.title}
+        className="absolute inset-0 size-full object-cover transition-transform duration-700 ease-out-expo group-hover:scale-[1.03]"
+      />
+      <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/5 to-transparent" />
+      <span className="absolute right-5 top-5 grid h-12 w-12 place-items-center rounded-2xl border border-white/16 bg-white/20 text-white backdrop-blur-[21px] transition-all duration-300 group-hover:bg-white/30">
         <ArrowUpRight className="h-5 w-5" />
       </span>
-      <span className="absolute bottom-6 left-6 right-6 text-xl font-medium tracking-snug text-white sm:text-2xl">
+      <span className="absolute bottom-6 left-6 right-16 rounded-[10px] border border-white/16 bg-white/20 px-6 py-5 text-xl font-medium tracking-snug text-white backdrop-blur-[21px] sm:text-2xl lg:text-[32px] lg:leading-none lg:tracking-[-0.01em]">
         {item.title}
       </span>
     </m.a>
@@ -47,16 +51,16 @@ export function OurWork() {
           initial="hidden"
           whileInView="show"
           viewport={viewportOnce}
-          className="mt-12 flex flex-col gap-5 lg:mt-16"
+          className="mt-12 flex flex-col gap-6 lg:mt-16"
         >
-          <div className="grid gap-5 lg:grid-cols-2">
+          <div className="grid gap-6 lg:grid-cols-2">
             {large.map((item) => (
-              <WorkCard key={item.id} item={item} className="aspect-[4/3] sm:aspect-[16/11]" />
+              <WorkCard key={item.id} item={item} className="aspect-[768/720] min-h-[280px]" />
             ))}
           </div>
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {small.map((item) => (
-              <WorkCard key={item.id} item={item} className="aspect-[4/3]" />
+              <WorkCard key={item.id} item={item} className="aspect-[504/372] min-h-[220px]" />
             ))}
           </div>
         </m.div>
