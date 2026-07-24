@@ -23,7 +23,7 @@ export function Navbar() {
             : "border-b border-transparent bg-background",
         )}
       >
-        <nav className="mx-auto flex h-[72px] w-full max-w-content items-center justify-between px-6 sm:px-8 lg:px-12">
+        <nav className="page-container flex h-[72px] items-center justify-between">
           <div className="flex items-center gap-6">
             <a href="#top" aria-label="Mirai Studios home" className="transition-transform duration-300 hover:scale-[1.01]">
               <Logo />

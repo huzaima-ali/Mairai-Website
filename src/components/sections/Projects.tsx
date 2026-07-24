@@ -9,15 +9,16 @@ import { Button } from "@/components/ui/Button";
 
 function ProjectArtwork({ project }: { project: Project }) {
   return (
-    <m.div variants={imageReveal} className="group relative">
-      <div className="relative aspect-square overflow-hidden rounded-[24px] border border-black/[0.08] bg-[#030303]">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={`/images/${project.image}`}
-          alt={project.title}
-          className="absolute inset-0 size-full object-cover transition-transform duration-700 ease-out-expo group-hover:scale-[1.03]"
-        />
-      </div>
+    <m.div
+      variants={imageReveal}
+      className="group relative aspect-square overflow-hidden rounded-[24px] border border-black/[0.08] bg-[#030303] lg:aspect-auto"
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={`/images/${project.image}`}
+        alt={project.title}
+        className="absolute inset-0 size-full object-cover transition-transform duration-700 ease-out-expo group-hover:scale-[1.03]"
+      />
     </m.div>
   );
 }
@@ -29,32 +30,46 @@ function ProjectRow({ project }: { project: Project }) {
       initial="hidden"
       whileInView="show"
       viewport={viewportOnce}
-      className="grid items-start gap-8 lg:grid-cols-2 lg:gap-16"
+      className="grid items-stretch gap-8 lg:grid-cols-2 lg:gap-[clamp(3rem,4.1667vw,5rem)]"
     >
       <ProjectArtwork project={project} />
 
-      <div className="flex flex-col items-start">
-        <m.p variants={fadeUp} className="text-2xl text-black/40">
+      <div className="flex min-w-0 flex-col items-start">
+        <m.p variants={fadeUp} className="text-[clamp(1.125rem,1.25vw,1.5rem)] text-black/40">
           {project.eyebrow}
         </m.p>
-        <m.h3 variants={fadeUp} className="display mt-6 text-[clamp(2rem,4vw,4rem)] leading-[1.05] tracking-[-0.01em]">
+        <m.h3
+          variants={fadeUp}
+          className="display mt-[clamp(1rem,1.25vw,1.5rem)] text-[clamp(2.5rem,3.333vw,4rem)] leading-[1.05] tracking-[-0.01em]"
+        >
           {project.title}
         </m.h3>
-        <m.p variants={fadeUp} className="mt-10 text-pretty text-2xl leading-8 text-black/70">
+        <m.p
+          variants={fadeUp}
+          className="mt-[clamp(1.5rem,2.083vw,2.5rem)] text-pretty text-[clamp(1.125rem,1.25vw,1.5rem)] leading-[1.35] text-black/70"
+        >
           {project.description}
         </m.p>
-        <m.ul variants={fadeUp} className="mt-8 flex list-disc flex-col gap-[18px] pl-7">
+        <m.ul
+          variants={fadeUp}
+          className="mt-[clamp(1.25rem,1.667vw,2rem)] flex list-disc flex-col gap-[clamp(0.75rem,0.938vw,1.125rem)] pl-7"
+        >
           {project.features.map((feature) => (
-            <li key={feature} className="text-2xl text-black/70">
+            <li key={feature} className="text-[clamp(1.125rem,1.25vw,1.5rem)] leading-[1.35] text-black/70">
               {feature}
             </li>
           ))}
         </m.ul>
-        <m.p variants={fadeUp} className="mt-10 text-pretty text-2xl leading-8 text-black/70">
+        <m.p
+          variants={fadeUp}
+          className="mt-[clamp(1.5rem,2.083vw,2.5rem)] text-pretty text-[clamp(1.125rem,1.25vw,1.5rem)] leading-[1.35] text-black/70"
+        >
           {project.closing}
         </m.p>
-        <m.div variants={fadeUp} className="mt-12">
-          <Button href="#contact" size="lg">{project.cta}</Button>
+        <m.div variants={fadeUp} className="mt-[clamp(2rem,2.5vw,3rem)]">
+          <Button href="#contact" size="lg">
+            {project.cta}
+          </Button>
         </m.div>
       </div>
     </m.div>
