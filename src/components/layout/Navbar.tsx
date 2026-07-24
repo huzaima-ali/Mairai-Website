@@ -23,7 +23,7 @@ export function Navbar() {
             : "border-b border-transparent bg-background",
         )}
       >
-        <nav className="mx-auto flex h-[72px] w-full max-w-content items-center justify-between px-6 sm:px-8 lg:px-12">
+        <nav className="page-container flex h-[72px] items-center justify-between">
           <div className="flex items-center gap-6">
             <a href="#top" aria-label="Mirai Studios home" className="transition-transform duration-300 hover:scale-[1.01]">
               <Logo />
@@ -48,13 +48,6 @@ export function Navbar() {
             <Button href="#contact" className="hidden h-11 px-6 text-sm sm:inline-flex">
               Contact Us
             </Button>
-            <button
-              type="button"
-              aria-label="Toggle theme"
-              className="hidden h-11 w-11 place-items-center rounded-full border border-border text-foreground transition-colors hover:bg-surface sm:grid"
-            >
-              <Sun className="h-[18px] w-[18px]" />
-            </button>
             <button
               type="button"
               aria-label="Open menu"

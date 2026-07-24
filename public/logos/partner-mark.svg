@@ -1,0 +1,9 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="94" height="94" viewBox="0 0 94 94" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Rectangle">
+<path id="Rectangle 1" d="M47 1.5H72.5C83.5457 1.5 92.5 10.4543 92.5 21.5V72.5C92.5 83.5457 83.5457 92.5 72.5 92.5H21.5C10.4543 92.5 1.5 83.5457 1.5 72.5V47" stroke="black" stroke-width="3" stroke-linecap="round"/>
+<g id="Icon Container">
+<rect x="11.5" y="11.5" width="72" height="72" rx="16" fill="black"/>
+<path id="Vector" d="M27.5 48.3189C27.6671 48.2629 27.8899 48.1509 28.057 48.0949C36.5234 44.9029 60.5859 41.3189 48.7775 57.3349C48.5547 57.6149 48.3319 57.8949 48.1091 58.2309C89.8843 30.8469 54.069 31.4629 27.5 48.3189Z" fill="white"/>
+</g>
+</g>
+</svg>

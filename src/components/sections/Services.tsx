@@ -56,11 +56,16 @@ export function Services() {
                       </span>
                     </span>
                     {open ? (
-                      <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-border bg-background text-foreground">
-                        <Minus className="h-5 w-5" />
+                      <span className="grid h-11 w-11 shrink-0 place-items-center rounded-lg border border-border bg-[#E2E0DE] text-foreground">
+                        <Minus aria-hidden="true" className="h-6 w-6" />
                       </span>
                     ) : (
-                      <Plus className="h-6 w-6 shrink-0 text-accent transition-transform duration-300" />
+                      <span className="grid h-11 w-11 shrink-0 place-items-center rounded-lg border border-transparent bg-[#E2E0DE] text-accent">
+                        <Plus
+                          aria-hidden="true"
+                          className="h-6 w-6 transition-transform duration-300"
+                        />
+                      </span>
                     )}
                   </button>
                 </h3>

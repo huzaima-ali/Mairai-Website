@@ -35,7 +35,7 @@ const config: Config = {
         snug: "-0.01em",
       },
       maxWidth: {
-        content: "1280px",
+        content: "1760px",
       },
       boxShadow: {
         soft: "0 1px 2px rgba(10, 10, 10, 0.04), 0 10px 30px -18px rgba(10, 10, 10, 0.12)",

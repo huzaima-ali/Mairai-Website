@@ -12,6 +12,7 @@
     --border: 36 10% 90%;
     --ring: 348 70% 46%;
     --card: 36 16% 96%;
+    --page-gutter: 24px;
   }
 
   * {
@@ -65,6 +66,16 @@
 }
 
 @layer components {
+  /*
+   * Shared page shell. The 1920px Figma frame uses an 80px gutter, while
+   * intermediate desktop widths scale that gutter fluidly instead of keeping
+   * the content locked to a narrow fixed-width container.
+   */
+  .page-container {
+    width: min(calc(100% - var(--page-gutter) - var(--page-gutter)), 1760px);
+    margin-inline: auto;
+  }
+
   /* Heading scale — Google Sans / Inter, regular weight, tight tracking */
   .display {
     @apply font-normal tracking-tightest text-foreground;
@@ -92,6 +103,18 @@
   .dot-grid {
     background-image: radial-gradient(currentColor 1px, transparent 1.4px);
     background-size: 22px 22px;
+  }
+}
+
+@media (min-width: 640px) {
+  :root {
+    --page-gutter: 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --page-gutter: clamp(48px, 4.1667vw, 80px);
   }
 }
 
