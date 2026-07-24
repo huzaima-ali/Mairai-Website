@@ -1,6 +1,13 @@
-import { NAV_LINKS, SITE } from "@/lib/content";
+import { SITE } from "@/lib/content";
 import { Container } from "@/components/ui/Container";
 import { Logo } from "@/components/ui/Logo";
+
+const SOCIAL_LINKS = [
+  { label: "X", href: "https://x.com" },
+  { label: "LinkedIn", href: "https://www.linkedin.com" },
+  { label: "Instagram", href: "https://www.instagram.com" },
+  { label: "Reddit", href: "https://www.reddit.com" },
+] as const;
 
 export function Footer() {
   return (
@@ -12,28 +19,30 @@ export function Footer() {
           {SITE.tagline}
         </p>
 
-        <div className="mt-14 flex flex-col items-start justify-between gap-6 border-t border-border pt-8 sm:flex-row sm:items-center">
-          <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} {SITE.name}. All rights reserved.
-          </p>
-          <nav className="flex flex-wrap gap-x-7 gap-y-2">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="group relative text-sm text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {link.label}
-                <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-accent transition-all duration-300 group-hover:w-full" />
-              </a>
-            ))}
-            <a
-              href={`mailto:${SITE.email}`}
-              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {SITE.email}
-            </a>
+        <div className="mt-14 flex flex-col items-start justify-between gap-6 border-t border-border pt-8 lg:flex-row lg:items-center">
+          <nav
+            aria-label="Social media"
+            className="flex flex-col items-start gap-2 text-sm font-normal leading-5 sm:flex-row sm:gap-8"
+          >
+            <span className="shrink-0 text-foreground/[0.42]">Socials</span>
+            <div className="flex flex-wrap items-start gap-x-7 gap-y-2">
+              {SOCIAL_LINKS.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-foreground transition-opacity duration-200 hover:opacity-60"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
           </nav>
+
+          <p className="shrink-0 whitespace-nowrap text-right text-sm font-normal leading-5 text-foreground">
+            <span className="text-foreground/[0.42]">©</span> {new Date().getFullYear()} {SITE.name}
+          </p>
         </div>
       </Container>
     </footer>
