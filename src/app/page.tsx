@@ -9,6 +9,7 @@ import { Testimonials } from "@/components/sections/Testimonials";
 import { EngagementModels } from "@/components/sections/EngagementModels";
 import { Contact } from "@/components/sections/Contact";
 import { MainCTA } from "@/components/sections/MainCTA";
+import { BlueprintFrame } from "@/components/ui/BlueprintFrame";
 import { Divider } from "@/components/ui/Divider";
 
 export default function HomePage() {
@@ -16,23 +17,26 @@ export default function HomePage() {
     <>
       <Hero />
       <TrustStrip />
-      <Divider />
-      <CompanyLogos />
-      <Divider />
-      <Services />
-      <PartnerBar />
-      <Divider />
-      <Projects />
-      <Divider />
-      <OurWork />
-      <Divider />
-      <Testimonials />
-      <Divider />
-      <EngagementModels />
-      <Divider />
-      <Contact />
-      <Divider />
-      <MainCTA />
+      <BlueprintFrame>
+        <Divider />
+        <CompanyLogos />
+        <Divider />
+        <Services />
+        <PartnerBar />
+        <Divider />
+        <Projects />
+        <Divider />
+        <OurWork />
+        <Divider />
+        <Testimonials />
+        <Divider />
+        <EngagementModels />
+        <Divider />
+        <Contact />
+        <Divider />
+        <MainCTA />
+        <Divider />
+      </BlueprintFrame>
     </>
   );
 }

@@ -76,6 +76,35 @@
     margin-inline: auto;
   }
 
+  /*
+   * Blueprint frame used below the trust strip. The outer rails stay aligned
+   * with the page shell while section content steps inward for a more
+   * editorial rhythm. Horizontal dividers span the viewport while their dots
+   * remain anchored exactly to the two rail intersections.
+  */
+  .blueprint-frame {
+    --blueprint-inset: 0px;
+  }
+
+  .blueprint-frame .page-container {
+    box-sizing: border-box;
+    padding-inline: var(--blueprint-inset);
+  }
+
+  .blueprint-frame .blueprint-rails,
+  .blueprint-frame .blueprint-divider-rail {
+    padding-inline: 0;
+  }
+
+  .blueprint-frame .blueprint-rails,
+  .blueprint-frame .blueprint-divider-container {
+    display: none;
+  }
+
+  .blueprint-rails {
+    border-inline: 1px solid hsl(var(--border));
+  }
+
   /* Heading scale — Google Sans / Inter, regular weight, tight tracking */
   .display {
     @apply font-normal tracking-tightest text-foreground;
@@ -110,11 +139,24 @@
   :root {
     --page-gutter: 32px;
   }
+
+  .blueprint-frame {
+    --blueprint-inset: 20px;
+  }
+
+  .blueprint-frame .blueprint-rails,
+  .blueprint-frame .blueprint-divider-container {
+    display: block;
+  }
 }
 
 @media (min-width: 1024px) {
   :root {
     --page-gutter: clamp(48px, 4.1667vw, 80px);
+  }
+
+  .blueprint-frame {
+    --blueprint-inset: clamp(32px, 2.5vw, 48px);
   }
 }
 
