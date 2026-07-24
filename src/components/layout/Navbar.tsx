@@ -50,13 +50,6 @@ export function Navbar() {
             </Button>
             <button
               type="button"
-              aria-label="Toggle theme"
-              className="hidden h-11 w-11 place-items-center rounded-full border border-border text-foreground transition-colors hover:bg-surface sm:grid"
-            >
-              <Sun className="h-[18px] w-[18px]" />
-            </button>
-            <button
-              type="button"
               aria-label="Open menu"
               aria-expanded={menuOpen}
               onClick={() => setMenuOpen(true)}

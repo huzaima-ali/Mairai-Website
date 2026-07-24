@@ -1,7 +1,6 @@
 "use client";
 
 import { m } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
 import { PROJECTS, type Project } from "@/lib/content";
 import { fadeUp, imageReveal, staggerContainer, viewportOnce } from "@/lib/motion";
 import { Container } from "@/components/ui/Container";
@@ -30,7 +29,7 @@ function ProjectRow({ project }: { project: Project }) {
       initial="hidden"
       whileInView="show"
       viewport={viewportOnce}
-      className="grid items-center gap-8 lg:grid-cols-2 lg:gap-16"
+      className="grid items-start gap-8 lg:grid-cols-2 lg:gap-16"
     >
       <ProjectArtwork project={project} />
 
@@ -44,24 +43,18 @@ function ProjectRow({ project }: { project: Project }) {
         <m.p variants={fadeUp} className="mt-10 text-pretty text-2xl leading-8 text-black/70">
           {project.description}
         </m.p>
-        <m.ul variants={fadeUp} className="mt-12 flex flex-col gap-8">
+        <m.ul variants={fadeUp} className="mt-8 flex list-disc flex-col gap-[18px] pl-7">
           {project.features.map((feature) => (
-            <li key={feature} className="flex items-center gap-4 text-2xl text-black/70">
-              <span className="grid size-[18px] shrink-0 place-items-center rounded-full bg-foreground/10 text-[10px] text-foreground">
-                ✓
-              </span>
+            <li key={feature} className="text-2xl text-black/70">
               {feature}
             </li>
           ))}
         </m.ul>
-        <m.p variants={fadeUp} className="mt-12 text-pretty text-2xl leading-8 text-black/70">
+        <m.p variants={fadeUp} className="mt-10 text-pretty text-2xl leading-8 text-black/70">
           {project.closing}
         </m.p>
         <m.div variants={fadeUp} className="mt-12">
-          <Button href="#contact" size="lg" className="group">
-            {project.cta}
-            <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </Button>
+          <Button href="#contact" size="lg">{project.cta}</Button>
         </m.div>
       </div>
     </m.div>

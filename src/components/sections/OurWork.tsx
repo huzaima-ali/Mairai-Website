@@ -27,10 +27,10 @@ function WorkCard({ item, className }: { item: WorkItem; className?: string }) {
         className="absolute inset-0 size-full object-cover transition-transform duration-700 ease-out-expo group-hover:scale-[1.03]"
       />
       <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/5 to-transparent" />
-      <span className="absolute right-5 top-5 grid h-12 w-12 place-items-center rounded-2xl border border-white/16 bg-white/20 text-white backdrop-blur-[21px] transition-all duration-300 group-hover:bg-white/30">
+      <span className="absolute right-5 top-5 grid h-10 w-10 place-items-center rounded-lg bg-white/20 text-white backdrop-blur-[21px] transition-all duration-300 group-hover:bg-white/30">
         <ArrowUpRight className="h-5 w-5" />
       </span>
-      <span className="absolute bottom-6 left-6 right-16 rounded-[10px] border border-white/16 bg-white/20 px-6 py-5 text-xl font-medium tracking-snug text-white backdrop-blur-[21px] sm:text-2xl lg:text-[32px] lg:leading-none lg:tracking-[-0.01em]">
+      <span className="absolute bottom-6 left-6 right-16 rounded-[10px] bg-white/20 px-6 py-5 text-xl font-medium tracking-snug text-white backdrop-blur-[21px] sm:text-2xl lg:text-[32px] lg:leading-none lg:tracking-[-0.01em]">
         {item.title}
       </span>
     </m.a>

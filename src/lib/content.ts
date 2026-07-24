@@ -1,6 +1,6 @@
 export const SITE = {
   name: "Mirai Studios",
-  tagline: "Bringing technology to life",
+  tagline: "Bringing\ntechnology to life",
   url: "https://miraistudios.com",
   description:
     "Innovation is the only way to thrive in the future. As an immersive technology partner, we design and build intelligent digital experiences at the intersection of AI, XR, real-time 3D, and next-generation platforms.",
@@ -24,7 +24,7 @@ export const HERO = {
   headline: "Bringing technology to life",
   body:
     "Innovation is the only way to thrive in the future. As an immersive technology partner, we design and build intelligent digital experiences at the intersection of AI, XR, real-time 3D, and next-generation platforms.",
-  cta: "Contact Us",
+  cta: "Book a Call",
 } as const;
 
 export interface Stat {
@@ -67,12 +67,12 @@ export const CLIENT_ROWS: ClientLogo[][] = [
   ],
   [
     { name: "Google", file: "google.svg" },
-    { name: "enorta", file: "enorta-mark.svg" },
-    { name: "Cero", file: "cero-mark.svg" },
+    { name: "enorta", file: "enorta.png" },
+    { name: "Cero", file: "cero.png" },
     { name: "salesforce", file: "salesforce.svg" },
   ],
   [
-    { name: "Epidemic Sound", file: "epidemic-sound.svg" },
+    { name: "Epidemic Sound", file: "epidemic-sound.png" },
     { name: "LaunchDarkly", file: "launchdarkly.svg" },
     { name: "Tim Hortons", file: "tim-hortons.svg" },
     { name: "Flipboard", file: "flipboard.svg" },
@@ -328,7 +328,7 @@ export const ENGAGEMENT_MODELS: EngagementModel[] = [
   },
   {
     id: "scale",
-    badge: "Most Popular",
+    badge: "Hybrid",
     name: "Scale With Us",
     description: "Extend your internal team with our specialists. Flexible engagement, your standards.",
     features: [

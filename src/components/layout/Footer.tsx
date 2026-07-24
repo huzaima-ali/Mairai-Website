@@ -8,7 +8,7 @@ export function Footer() {
       <div aria-hidden className="dot-grid absolute inset-0 text-foreground/[0.06]" />
       <Container className="relative py-16 lg:py-20">
         <Logo />
-        <p className="mt-8 max-w-2xl text-balance text-[clamp(1.75rem,4vw,2.75rem)] font-normal leading-[1.05] tracking-tightest text-foreground">
+        <p className="mt-8 max-w-2xl whitespace-pre-line text-balance text-[clamp(1.75rem,4vw,2.75rem)] font-normal leading-[1.05] tracking-tightest text-foreground">
           {SITE.tagline}
         </p>
 
