@@ -3,7 +3,7 @@ export const SITE = {
   tagline: "Bringing\ntechnology to life",
   url: "https://miraistudios.com",
   description:
-    "Innovation is the only way to thrive in the future. As an immersive technology partner, we design and build intelligent digital experiences at the intersection of AI, XR, real-time 3D, and next-generation platforms.",
+    "From AI products and internal business platforms to immersive digital twins and interactive experiences, our portfolio showcases solutions that transform how businesses operate and engage.",
   email: "hello@miraistudios.com",
 } as const;
 
@@ -21,9 +21,9 @@ export const NAV_LINKS = [
 ] as const;
 
 export const HERO = {
-  headline: "Bringing technology to life",
+  headline: "Building AI Products That Drive Business Growth",
   body:
-    "Innovation is the only way to thrive in the future. As an immersive technology partner, we design and build intelligent digital experiences at the intersection of AI, XR, real-time 3D, and next-generation platforms.",
+    "We help businesses design, build, and scale AI products, internal platforms, and intelligent automation. From strategy and product design to engineering and deployment, we deliver end-to-end solutions that create measurable business impact.",
   cta: "Book a Call",
 } as const;
 
@@ -91,7 +91,7 @@ export interface Service {
   index: string;
   title: string;
   description: string;
-  toolsLabel: string;
+  toolsLabel: string | null;
   tools: string[];
 }
 
@@ -102,49 +102,49 @@ export const SERVICES: Service[] = [
     title: "AI-Native Products & Agents",
     description:
       "We build intelligent AI products and autonomous agents that automate workflows, assist teams, and scale business operations.",
-    toolsLabel: "Used tools for AI-Native Products & Agents:",
+    toolsLabel: null,
     tools: [
-      "AI Software DEVELOPMENT",
-      "AI Agents & Copilots",
+      "AI Product Development (MVP -> scale)",
+      "AI Software Development",
       "AI Automation",
       "Predictive AI",
-      "Generative AI solutions",
-      "AI Product Development (mvp -> scale)",
+      "AI Agents & Copilots",
       "Industry AI Solutions",
-    ],
-  },
-  {
-    id: "ar-vr",
-    index: "02",
-    title: "IMMERSIVE XR SYSTEM",
-    description:
-      "We create immersive AR, VR, and mixed-reality experiences for training, simulation, product visualization, & interactive environments.",
-    toolsLabel: "Used tools for Immersive AR/VR Systems:",
-    tools: [
-      "Digital Twin Solutions",
-      "Immersive training & simulation",
-      "Metaverse & Virtual World",
-      "Gamified Engagements",
-      "XR application Dev.",
-      "Real Estate visualization",
+      "Generative AI solutions",
     ],
   },
   {
     id: "platforms",
-    index: "03",
+    index: "02",
     title: "Web, Mobile & SaaS Platform Builds",
     description:
       "We build scalable web, mobile, and SaaS platforms for startups, enterprises, marketplaces, dashboards, and customer-facing digital products.",
     toolsLabel: "Used tools for Web, Mobile & SaaS Platform Builds:",
     tools: [
-      "Web Application Development",
       "SaaS Product Development",
-      "AI-Powered Applications",
-      "Cloud & Backend Engineering",
-      "Mobile App Development",
       "Enterprise Software Dev.",
-      "Design Services",
+      "AI-Powered Applications",
+      "Web Application Development",
+      "Cloud & Backend Engineering",
       "Product Maintenance & Scaling",
+    ],
+  },
+  {
+    id: "3d",
+    index: "03",
+    title: "Real-time 3D Worlds & Digital Twins",
+    description:
+      "We create interactive 3D environments, simulations, and digital twins for visualization, training, planning, and real-time operational insight.",
+    toolsLabel: "Used tools for Real-time 3D Worlds & Digital Twins:",
+    tools: [
+      "Digital Twin Solutions",
+      "Real-Time 3D Applications",
+      "Interactive Masterplans",
+      "Virt. Showroom & Sales Galleries",
+      "Infrastructure Twins",
+      "Building & Facility Twins",
+      "Web-Based 3D Experiences",
+      "Live Data & IoT Visualization",
     ],
   },
   {
@@ -166,8 +166,22 @@ export const SERVICES: Service[] = [
     ],
   },
   {
-    id: "cloud",
+    id: "ar-vr",
     index: "05",
+    title: "Immersive XR Systems",
+    description:
+      "We create immersive AR, VR, and mixed-reality experiences for training, simulation, product visualization, & interactive environments.",
+    toolsLabel: "Used tools for Immersive AR/VR Systems:",
+    tools: [
+      "Immersive training & simulation",
+      "Metaverse & Virtual World",
+      "Gamified Engagements",
+      "XR application Dev.",
+    ],
+  },
+  {
+    id: "cloud",
+    index: "06",
     title: "Cloud, Cybersecurity & API Systems",
     description:
       "We architect secure cloud infrastructure, backend systems, integrations, and APIs for reliable, scalable, and protected digital operations.",
@@ -181,24 +195,6 @@ export const SERVICES: Service[] = [
       "Backend Infrastructure",
       "Monitoring & Observability",
       "Managed Cloud Infrastructure",
-    ],
-  },
-  {
-    id: "3d",
-    index: "06",
-    title: "Real-time 3D Worlds & Digital Twins",
-    description:
-      "We create interactive 3D environments, simulations, and digital twins for visualization, training, planning, and real-time operational insight.",
-    toolsLabel: "Used tools for Real-time 3D Worlds & Digital Twins:",
-    tools: [
-      "Digital Twin Solutions",
-      "Real-Time 3D Applications",
-      "Interactive Masterplans",
-      "Virt. Showroom & Sales Galleries",
-      "Infrastructure Twins",
-      "Building & Facility Twins",
-      "Web-Based 3D Experiences",
-      "Live Data & IoT Visualization",
     ],
   },
 ];
@@ -219,7 +215,7 @@ export const PROJECTS: Project[] = [
   {
     id: "cero",
     eyebrow: "AI-Powered Products",
-    title: "LinkedIn personal branding assistant",
+    title: "Cero LinkedIn personal branding assistant",
     description:
       "We don't just design SaaS products: we co-build them. Cero is the first complete LinkedIn tool that uses AI, image creation, and carousels to craft personalized posts with humanity-level quality.",
     features: ["Founders & entrepreneurs", "Freelancers & consultants", "Coaches & personal brands"],
@@ -250,7 +246,7 @@ export const WORK_INTRO = {
   eyebrow: "Our Work",
   title: "Proven innovations",
   body:
-    "From urban digital twins to AI-driven activations, our portfolio features executions that redefine digital interaction across industries.",
+    "From AI products and internal business platforms to immersive digital twins and interactive experiences, our portfolio showcases solutions that transform how businesses operate and engage.",
 } as const;
 
 export interface WorkItem {
@@ -311,7 +307,7 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     id: "enorta",
     quote:
-      "Mirai Studios transformed our concept into a scalable, market-ready AI platform with flawless execution and 100% on-time delivery.",
+      "Mirai Studios transformed our concept into a scalable, market-ready AI platform with flawless execution.",
     name: "Sarah Jenkins",
     role: "Director of Digital Delivery at Enorta",
     logo: { name: "enorta", file: "enorta-testimonial.svg" },
@@ -322,8 +318,8 @@ export const TESTIMONIALS: Testimonial[] = [
     id: "cero",
     quote:
       "Their specialists operated as a seamless extension of our own company. Mirai's technical architecture has essentially future proofed our digital roadmap.",
-    name: "Tariq Al-Fadli",
-    role: "Head of Digital Experiences, Cero",
+    name: "Ali Ahmed",
+    role: "Head of Product @ Cero",
     logo: { name: "Cero", file: "cero-testimonial.svg" },
     avatar: "tariq-al-fadli.png",
     size: "large",
@@ -332,8 +328,8 @@ export const TESTIMONIALS: Testimonial[] = [
     id: "lilly",
     quote:
       "Their hyper-realistic 3D visualization and seamless enterprise integration were game-changing. Mirai Studios is a true innovation partner.",
-    name: "Khalid Al-Dosari",
-    role: "VP of Digital Transformation at lilly AI",
+    name: "Riyan Siddique",
+    role: "ATR Entr",
     logo: { name: "lilly AI", file: "lilly-ai.svg" },
     avatar: "khalid-al-dosari.png",
     size: "small",
@@ -365,15 +361,16 @@ export const ENGAGEMENT_MODELS: EngagementModel[] = [
     name: "Build With Us",
     description: "End-to-end execution model. Share your vision, we define scope, architecture, and roadmap.",
     features: [
-      "Share your vision or RFP",
+      "Share your vision",
       "Fixed or milestone-based pricing",
       "We define scope, architecture & roadmap",
       "Full-cycle delivery: strategy to deployment",
     ],
     bestFor: [
-      "Governments and public sector",
-      "Enterprises and large organizations",
-      "Large-scale immersive or AI platforms",
+      "Startups building their first product",
+      "Businesses developing internal tools",
+      "Teams automating workflows with AI",
+      "Companies modernizing legacy systems"
     ],
     cta: "Contact Us",
   },
