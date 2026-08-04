@@ -8,10 +8,8 @@ import { CLIENT_ROWS } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
 const LOGO_DIMENSIONS: Record<string, string> = {
-  "Coca-Cola": "h-[60px] w-[206px]",
   "Lilly AI": "h-[48px] w-[138px]",
   Rivian: "h-[32px] w-[160px]",
-  PwC: "h-[48px] w-[100px]",
   Google: "h-[42px] w-[133px]",
   enorta: "h-[28px] w-[128px]",
   Cero: "h-[24px] w-[109px]",
@@ -61,19 +59,9 @@ export function CompanyLogos() {
   return (
     <Container className="py-12 lg:py-16">
       <Reveal className="hidden w-full lg:block">
-        <div className="flex w-full flex-col gap-y-20">
-          {CLIENT_ROWS.map((row, rowIndex) => (
-            <div
-              key={rowIndex}
-              className={cn(
-                "flex h-[60px] w-full items-center justify-between",
-                (rowIndex === 0 || rowIndex === 2) && "mix-blend-luminosity",
-              )}
-            >
-              {row.map((logo) => (
-                <Logo key={logo.name} name={logo.name} file={logo.file} />
-              ))}
-            </div>
+        <div className="grid w-full grid-cols-4 place-items-center gap-y-20">
+          {all.map((logo) => (
+            <Logo key={logo.name} name={logo.name} file={logo.file} blend={logo.blend} />
           ))}
         </div>
       </Reveal>

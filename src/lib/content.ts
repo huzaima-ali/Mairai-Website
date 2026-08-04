@@ -27,43 +27,26 @@ export const HERO = {
   cta: "Book a Call",
 } as const;
 
-export interface Stat {
-  value: number;
-  prefix?: string;
-  suffix: string;
-  label: string;
-}
-
-export const STATS: Stat[] = [
-  { value: 230, suffix: "+", label: "Projects Delivered" },
-  { value: 100, suffix: "%", label: "On-Time Delivery" },
-  { value: 23, prefix: "$", suffix: "M+", label: "Value Created" },
-  { value: 120, suffix: "+", label: "Trusted Clients" },
-];
-
 export const TRUST_STRIP = {
   text: "Trusted by leading startups and enterprises",
   cta: "Work with Us",
 } as const;
 
 /**
- * Client logo wall — 3 rows × 6, in the exact Figma order. Each logo points to
- * a real asset in `public/logos/` (download via `scripts/download-figma-assets.mjs`).
- * `name` is used for alt text and as a graceful wordmark fallback if the file
- * is missing.
+ * Client logo wall. Each logo points to a real asset in `public/logos/`
+ * (download via `scripts/download-figma-assets.mjs`). `name` is used for alt
+ * text and as a graceful wordmark fallback if the file is missing.
  */
 export interface ClientLogo {
   name: string;
   file: string;
 }
 
-/** Exact Figma logo wall order (3 rows × 4). */
+/** Logo wall order. */
 export const CLIENT_ROWS: ClientLogo[][] = [
   [
-    { name: "Coca-Cola", file: "coca-cola.svg" },
     { name: "Lilly AI", file: "lilly-ai-wordmark.svg" },
     { name: "Rivian", file: "rivian.svg" },
-    { name: "PwC", file: "pwc.svg" },
   ],
   [
     { name: "Google", file: "google.svg" },
@@ -224,22 +207,6 @@ export const PROJECTS: Project[] = [
     cta: "View Project",
     image: "cero-project.png",
   },
-  {
-    id: "desert-oasis",
-    eyebrow: "Immersive 3D Experience",
-    title: "Desert Oasis",
-    description:
-      "From sand-colored architectural renders to drone-view site walkthroughs, we don't just visualize spaces, we bring them to life. Immersive 3D experiences that turn concepts into compelling realities.",
-    features: [
-      "Photorealistic sand-colored architectural visualization",
-      "Drone-view aerial walkthroughs of the full site",
-      "Sunset-ready lighting with infinity pools & wellness spaces",
-    ],
-    closing:
-      "Desert Oasis transforms a premium desert escape into a fully realized 3D world, blending modern architecture with natural Saudi landscapes through sunset lighting, infinity pools, and aerial visualization.",
-    cta: "View Project",
-    image: "desert-oasis.png",
-  },
 ];
 
 export const WORK_INTRO = {
@@ -258,25 +225,6 @@ export interface WorkItem {
 
 export const WORK_ITEMS: WorkItem[] = [
   { id: "enorta", title: "Enorta: Storytelling Reimagined", size: "large", image: "work-enorta.png" },
-  {
-    id: "real-estate",
-    title: "Real Estate Virtual Sales Center",
-    size: "large",
-    image: "work-real-estate.png",
-  },
-  {
-    id: "virtual-community",
-    title: "Virtual Real Estate Community",
-    size: "small",
-    image: "work-virtual-community.png",
-  },
-  { id: "coke", title: "COCA COLA", size: "small", image: "work-coca-cola.png" },
-  {
-    id: "vr-prop",
-    title: "Interactive Prop VR Experience",
-    size: "small",
-    image: "work-vr-prop.png",
-  },
 ];
 
 export const PARTNER_BAR = {

@@ -38,9 +38,6 @@ function WorkCard({ item, className }: { item: WorkItem; className?: string }) {
 }
 
 export function OurWork() {
-  const large = WORK_ITEMS.filter((w) => w.size === "large");
-  const small = WORK_ITEMS.filter((w) => w.size === "small");
-
   return (
     <Section id="work">
       <Container>
@@ -51,18 +48,11 @@ export function OurWork() {
           initial="hidden"
           whileInView="show"
           viewport={viewportOnce}
-          className="mt-12 flex flex-col gap-6 lg:mt-16"
+          className="mt-12 grid gap-6 lg:mt-16 lg:grid-cols-2"
         >
-          <div className="grid gap-6 lg:grid-cols-2">
-            {large.map((item) => (
-              <WorkCard key={item.id} item={item} className="aspect-[768/720] min-h-[280px]" />
-            ))}
-          </div>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {small.map((item) => (
-              <WorkCard key={item.id} item={item} className="aspect-[504/372] min-h-[220px]" />
-            ))}
-          </div>
+          {WORK_ITEMS.map((item) => (
+            <WorkCard key={item.id} item={item} className="aspect-[768/720] min-h-[280px]" />
+          ))}
         </m.div>
       </Container>
 

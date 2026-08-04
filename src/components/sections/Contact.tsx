@@ -1,17 +1,17 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, m } from "framer-motion";
 import { CheckCircle2, Loader2 } from "lucide-react";
-import { CONTACT, STATS } from "@/lib/content";
+import { CONTACT } from "@/lib/content";
 import { contactSchema, type ContactFormValues } from "@/lib/validations";
 import { cn } from "@/lib/utils";
 import { EASE_OUT_EXPO } from "@/lib/motion";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
-import { StatValue } from "@/components/ui/StatValue";
 
 const inputBase =
   "w-full rounded-xl border bg-surface px-6 text-[15px] text-foreground transition-all duration-200 placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-offset-0";
@@ -48,7 +48,6 @@ export function Contact() {
     <Section id="contact">
       <Container>
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-12">
-          {/* Left: copy + form */}
           <div>
             <h2 className="display text-[clamp(2rem,4vw,3rem)] leading-tight">{CONTACT.title}</h2>
             <p className="mt-4 max-w-md text-pretty leading-relaxed text-muted-foreground sm:text-lg">{CONTACT.body}</p>
@@ -157,29 +156,14 @@ export function Contact() {
             </AnimatePresence>
           </div>
 
-          {/* Right: red stats panel */}
-          <div
-            className="relative min-h-[420px] overflow-hidden rounded-2xl lg:min-h-full"
-            style={{
-              background:
-                "radial-gradient(130% 120% at 30% 20%, #8a121d 0%, #520a12 42%, #1c0407 72%, #0a0203 100%)",
-            }}
-          >
-            <div aria-hidden className="dot-grid absolute inset-0 text-white/[0.12]" />
-            <div className="relative grid h-full grid-cols-2 grid-rows-2">
-              {STATS.map((stat, i) => (
-                <div
-                  key={stat.label}
-                  className={cn(
-                    "flex flex-col justify-center p-8 sm:p-10",
-                    i % 2 === 0 && "border-r border-white/15",
-                    i < 2 && "border-b border-white/15",
-                  )}
-                >
-                  <StatValue stat={stat} />
-                </div>
-              ))}
-            </div>
+          <div className="relative min-h-[360px] overflow-hidden rounded-2xl sm:min-h-[440px] lg:min-h-full">
+            <Image
+              src="/images/contactus.jpg"
+              alt="Laptop displaying a Contact Us page"
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="object-cover"
+            />
           </div>
         </div>
       </Container>
