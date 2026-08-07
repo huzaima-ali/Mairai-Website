@@ -1,9 +1,10 @@
 "use client";
 
-import { PARTNER_BAR } from "@/lib/content";
+import { PARTNER_BAR, PARTNER_LOGOS } from "@/lib/content";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/animations/Reveal";
+import { LogoImg } from "@/components/ui/LogoImg";
 
 export function PartnerBar() {
   return (
@@ -11,21 +12,20 @@ export function PartnerBar() {
       <Reveal>
         <div className="flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-center">
           <div className="flex items-center gap-4">
-            <div aria-hidden="true" className="flex shrink-0 items-center gap-[15px]">
-              <div className="flex items-center gap-[23px]">
-                <span className="size-[50px] shrink-0 rounded-[14px] border border-black/[0.08] bg-[#f5f3f1]" />
-                <span className="size-[50px] shrink-0 rounded-[14px] border border-black/[0.08] bg-[#f5f3f1]" />
-              </div>
-              <div className="relative size-[66px] shrink-0">
-                <div className="absolute inset-[-1.65%]">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/logos/partner-mark.svg"
-                    alt=""
-                    className="block size-full max-w-none"
+            <div className="flex shrink-0 items-center gap-3" aria-label="Partner logos">
+              {PARTNER_LOGOS.map((logo) => (
+                <span
+                  key={logo.name}
+                  className="grid size-[56px] shrink-0 place-items-center rounded-[14px] border border-black/[0.08] bg-[#f5f3f1] p-2 sm:size-[66px]"
+                >
+                  <LogoImg
+                    src={`/logos/${logo.file}`}
+                    name={logo.name}
+                    className="block max-h-full max-w-full object-contain"
+                    wordmarkClassName="text-center text-[10px] leading-tight text-foreground/50"
                   />
-                </div>
-              </div>
+                </span>
+              ))}
             </div>
             <div>
               <p className="text-lg font-medium text-foreground">{PARTNER_BAR.title}</p>

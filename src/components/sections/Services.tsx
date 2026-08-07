@@ -85,8 +85,7 @@ export function Services() {
                           {service.description}
                         </p>
                         <div>
-                          <p className="text-sm text-muted-foreground">{service.toolsLabel}</p>
-                          <ul className="mt-5 grid grid-cols-1 gap-x-10 gap-y-3 sm:grid-flow-col sm:grid-cols-2 sm:grid-rows-4">
+                          <ul className="grid grid-cols-1 gap-x-10 gap-y-3 sm:grid-flow-col sm:grid-cols-2 sm:grid-rows-4">
                             {service.tools.map((tool) => (
                               <li key={tool} className="flex items-center gap-3 text-[15px] text-foreground">
                                 <span className="h-3.5 w-3.5 rounded-full bg-border" />

@@ -1,5 +1,6 @@
 import { Hero } from "@/components/sections/Hero";
 import { TrustStrip } from "@/components/sections/TrustStrip";
+import { VideoShowcase } from "@/components/sections/VideoShowcase";
 import { CompanyLogos } from "@/components/sections/CompanyLogos";
 import { Services } from "@/components/sections/Services";
 import { PartnerBar } from "@/components/sections/PartnerBar";
@@ -11,6 +12,7 @@ import { Contact } from "@/components/sections/Contact";
 import { MainCTA } from "@/components/sections/MainCTA";
 import { BlueprintFrame } from "@/components/ui/BlueprintFrame";
 import { Divider } from "@/components/ui/Divider";
+import { VIDEO_SECTION } from "@/lib/content";
 
 export default function HomePage() {
   return (
@@ -19,6 +21,12 @@ export default function HomePage() {
       <TrustStrip />
       <BlueprintFrame>
         <Divider />
+        {VIDEO_SECTION.youtubeUrl ? (
+          <>
+            <VideoShowcase />
+            <Divider />
+          </>
+        ) : null}
         <CompanyLogos />
         <Divider />
         <Services />

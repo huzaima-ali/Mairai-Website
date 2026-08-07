@@ -3,10 +3,8 @@ import { Container } from "@/components/ui/Container";
 import { Logo } from "@/components/ui/Logo";
 
 const SOCIAL_LINKS = [
-  { label: "X", href: "https://x.com" },
-  { label: "LinkedIn", href: "https://www.linkedin.com" },
-  { label: "Instagram", href: "https://www.instagram.com" },
-  { label: "Reddit", href: "https://www.reddit.com" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/miraistudios1/" },
+  { label: "Instagram", href: "https://www.instagram.com/mirai_studios_?igsh=MXU2NnhiMXo4cGl2Nw==" },
 ] as const;
 
 export function Footer() {

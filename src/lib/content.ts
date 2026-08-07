@@ -32,6 +32,15 @@ export const TRUST_STRIP = {
   cta: "Work with Us",
 } as const;
 
+export const VIDEO_SECTION = {
+  eyebrow: "Inside Mirai",
+  title: "See how Mirai Studios brings technology to life",
+  body:
+    "A closer look at the product thinking, engineering craft, and visual systems behind our work.",
+  youtubeUrl: "https://www.youtube.com/embed/EbR1OEfwCFA?si=hngsfiP1_sDeKW8g",
+  titleLabel: "Mirai Studios video",
+} as const;
+
 /**
  * Client logo wall. Each logo points to a real asset in `public/logos/`
  * (download via `scripts/download-figma-assets.mjs`). `name` is used for alt
@@ -233,6 +242,10 @@ export const PARTNER_BAR = {
   cta: "Contact Us",
 } as const;
 
+export const PARTNER_LOGOS: ClientLogo[] = [
+  { name: "Mirai Studios Partner", file: "partner-mark.svg" },
+];
+
 export const TESTIMONIALS_INTRO = {
   title: "Trusted globally to deliver experiences that outperform.",
   cta: "Work with Us",
@@ -246,41 +259,56 @@ export interface Testimonial {
   role: string;
   /** Brand mark shown at the card's bottom-right (file in `public/logos/`). */
   logo: ClientLogo;
-  /** Avatar photo (file in `public/testimonials/`); initials are used as fallback. */
-  avatar: string;
-  size: "small" | "large";
 }
 
 export const TESTIMONIALS: Testimonial[] = [
   {
-    id: "enorta",
+    id: "lillyai",
     quote:
-      "Mirai Studios transformed our concept into a scalable, market-ready AI platform with flawless execution.",
-    name: "Sarah Jenkins",
-    role: "Director of Digital Delivery at Enorta",
-    logo: { name: "enorta", file: "enorta-testimonial.svg" },
-    avatar: "sarah-jenkins.png",
-    size: "small",
+      "Mirai Studios helped us transform LillyAI from an early AI reporting product into a structured enterprise platform. Their team brought clarity across product strategy, user experience, AI architecture and development, while working closely with us as a long-term technology partner.",
+    name: "Riyan Amjad Siddiqi",
+    role: "Director, ATR Enterprises",
+    logo: { name: "lilly AI", file: "lilly-ai.svg" },
   },
   {
     id: "cero",
     quote:
-      "Their specialists operated as a seamless extension of our own company. Mirai's technical architecture has essentially future proofed our digital roadmap.",
+      "Mirai Studios helped turn Cero from an early product idea into a complete AI-powered platform. Their ability to combine product strategy, user experience and technical execution allowed us to move quickly while still building a strong foundation for future growth.",
     name: "Ali Ahmed",
-    role: "Head of Product @ Cero",
+    role: "Head of Product, Cero",
     logo: { name: "Cero", file: "cero-testimonial.svg" },
-    avatar: "tariq-al-fadli.png",
-    size: "large",
   },
   {
-    id: "lilly",
+    id: "enorta",
     quote:
-      "Their hyper-realistic 3D visualization and seamless enterprise integration were game-changing. Mirai Studios is a true innovation partner.",
-    name: "Riyan Siddique",
-    role: "ATR Entr",
-    logo: { name: "lilly AI", file: "lilly-ai.svg" },
-    avatar: "khalid-al-dosari.png",
-    size: "small",
+      "We worked with Mirai Studios across the entire Enorta product journey, from early product thinking and user experience through to the design and development of the platform. What we appreciated most was their ability to balance the technical complexity of the build with the simplicity we wanted for our users.",
+    name: "Aneeq Duraiz",
+    role: "CEO, Enorta",
+    logo: { name: "enorta", file: "enorta-testimonial.svg" },
+  },
+  {
+    id: "thyssenkrupp",
+    quote:
+      "Working with Mirai Studios changed the way we communicate what we built. They took something enormously complex, including an entire U.S. manufacturing plant and the milestones of our partnership with Tesla, and transformed it into an experience that people could clearly see and understand.",
+    name: "Dezzeria Wright",
+    role: "Head of Marketing, thyssenkrupp",
+    logo: { name: "thyssenkrupp", file: "thyssenkrupp.webp" },
+  },
+  {
+    id: "storypage-ai",
+    quote:
+      "Mirai Studios understood that StoryPage.ai was not just about generating books, but about helping families create something personal and lasting. They turned that vision into a thoughtful, easy-to-use product that makes every story feel truly unique.",
+    name: "Awab Rizwan",
+    role: "Product at StoryPage.ai",
+    logo: { name: "StoryPage.ai", file: "storypage-ai.svg" },
+  },
+  {
+    id: "mindful-legal-solutions",
+    quote:
+      "Mirai Studios helped us transform the idea behind Mindful Legal Solutions into a practical AI-powered platform. They understood how to simplify complex legal workflows and created an experience that allows users to ask questions, generate documents and access guidance without feeling overwhelmed by the process.",
+    name: "[Client Name]",
+    role: "[Title], Mindful Legal Solutions",
+    logo: { name: "Mindful Legal Solutions", file: "mindful-legal-solutions.svg" },
   },
 ];
 
@@ -363,6 +391,27 @@ export const CONTACT = {
   messagePlaceholder: "Share your project details, and what you aim to achieve…",
   submit: "Send Message",
 } as const;
+
+export const CONTACT_STEPS = [
+  {
+    id: "contact",
+    eyebrow: "Step 1 of 3",
+    title: "Your contact details",
+    description: "Share the best way for us to reach you.",
+  },
+  {
+    id: "project",
+    eyebrow: "Step 2 of 3",
+    title: "Your project",
+    description: "Tell us what you want to build or improve.",
+  },
+  {
+    id: "review",
+    eyebrow: "Step 3 of 3",
+    title: "Review and send",
+    description: "Confirm your details before sending them to Mirai Studios.",
+  },
+] as const;
 
 export const MAIN_CTA = {
   title: "Let's Collaborate",

@@ -15,6 +15,7 @@ const LOGO_DIMENSIONS: Record<string, string> = {
   Cero: "h-[24px] w-[109px]",
   salesforce: "h-[60px] w-[86px]",
   "Epidemic Sound": "h-[19px] w-[160px]",
+  thyssenkrupp: "h-[28px] w-[150px]",
   LaunchDarkly: "h-[25px] w-[160px]",
   "Tim Hortons": "h-[32px] w-[160px]",
   Flipboard: "h-[32px] w-[159px]",
@@ -57,28 +58,12 @@ export function CompanyLogos() {
   );
 
   return (
-    <Container className="py-12 lg:py-16">
-      <Reveal className="hidden w-full lg:block">
-        <div className="grid w-full grid-cols-4 place-items-center gap-y-20">
-          {all.map((logo) => (
-            <Logo key={logo.name} name={logo.name} file={logo.file} blend={logo.blend} />
-          ))}
-        </div>
-      </Reveal>
-
-      <Reveal className="lg:hidden">
+    <Container className="py-10 lg:py-12">
+      <Reveal>
         <div className="mask-fade-x overflow-hidden">
-          <div
-            className="flex w-max animate-marquee items-center gap-12"
-            style={{ "--marquee-duration": "32s" } as CSSProperties}
-          >
+          <div className="flex w-max animate-marquee items-center gap-12 lg:gap-16" style={{ "--marquee-duration": "38s" } as CSSProperties}>
             {[...all, ...all].map((logo, index) => (
-              <Logo
-                key={`${logo.name}-${index}`}
-                name={logo.name}
-                file={logo.file}
-                blend={logo.blend}
-              />
+              <Logo key={`${logo.name}-${index}`} name={logo.name} file={logo.file} blend={logo.blend} />
             ))}
           </div>
         </div>
