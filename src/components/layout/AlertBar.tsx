@@ -19,7 +19,9 @@ export function AlertBar() {
         <span aria-hidden className="hidden h-3.5 w-px bg-white/25 sm:block" />
         <a
           href={ANNOUNCEMENT.href}
-          className="group hidden items-center gap-1 font-medium text-[#ff6a2c] transition-colors hover:text-[#ff8a4c] sm:inline-flex"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group inline-flex shrink-0 items-center gap-1 font-medium text-[#ff6a2c] transition-colors hover:text-[#ff8a4c]"
         >
           {ANNOUNCEMENT.cta}
           <ChevronRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />

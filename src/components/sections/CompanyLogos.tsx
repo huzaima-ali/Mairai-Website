@@ -58,7 +58,7 @@ export function CompanyLogos() {
   );
 
   return (
-    <Container className="py-10 lg:py-12">
+    <Container className="py-6 lg:py-8">
       <Reveal>
         <div className="mask-fade-x overflow-hidden">
           <div className="flex w-max animate-marquee items-center gap-12 lg:gap-16" style={{ "--marquee-duration": "38s" } as CSSProperties}>

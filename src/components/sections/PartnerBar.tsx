@@ -8,7 +8,7 @@ import { LogoImg } from "@/components/ui/LogoImg";
 
 export function PartnerBar() {
   return (
-    <Container className="py-8">
+    <Container className="py-4 sm:py-5">
       <Reveal>
         <div className="flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-center">
           <div className="flex items-center gap-4">

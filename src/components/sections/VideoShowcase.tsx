@@ -43,9 +43,9 @@ export function VideoShowcase() {
   }
 
   return (
-    <Container className="py-10 lg:py-12">
+    <Container className="py-8 lg:py-10">
       <SectionHeader eyebrow={VIDEO_SECTION.eyebrow} title={VIDEO_SECTION.title} body={VIDEO_SECTION.body} />
-      <Reveal className="mt-8 lg:mt-10">
+      <Reveal className="mt-6 lg:mt-8">
         <div className="mx-auto max-w-5xl rounded-[24px] border border-black/[0.08] bg-[#f5f3f1] p-2 shadow-card sm:p-3">
           <div className="relative aspect-video overflow-hidden rounded-[18px] bg-ink">
             <iframe

@@ -10,7 +10,7 @@ export const SITE = {
 export const ANNOUNCEMENT = {
   text: "Cero is 15% OFF - Limited Time Offer",
   cta: "Learn More",
-  href: "#work",
+  href: "https://usecero.com",
 } as const;
 
 export const NAV_LINKS = [
@@ -22,6 +22,8 @@ export const NAV_LINKS = [
 
 export const HERO = {
   headline: "Building AI Products That Drive Business Growth",
+  /** Explicit line breaks for the display headline. */
+  headlineLines: ["Building AI", "Products That Drive", "Business Growth"] as const,
   body:
     "We help businesses design, build, and scale AI products, internal platforms, and intelligent automation. From strategy and product design to engineering and deployment, we deliver end-to-end solutions that create measurable business impact.",
   cta: "Book a Call",
@@ -75,119 +77,102 @@ export const SERVICES_INTRO = {
   eyebrow: "Services",
   title: "What We Do",
   body:
-    "For over half a decade, we've been engineering the digital bridges that connect people, brands, and experiences.",
+    "From AI products and enterprise platforms to digital twins and immersive systems, we turn ambitious ideas into technology that ships, scales and creates measurable value.",
 } as const;
+
+export interface ServiceMedia {
+  src: string;
+  alt: string;
+}
 
 export interface Service {
   id: string;
-  index: string;
+  number: string;
   title: string;
   description: string;
-  toolsLabel: string | null;
-  tools: string[];
+  capabilities: string[];
+  media: ServiceMedia;
+  href: string;
 }
 
 export const SERVICES: Service[] = [
   {
-    id: "ai-native",
-    index: "01",
-    title: "AI-Native Products & Agents",
+    id: "ai-products",
+    number: "01",
+    title: "AI Products & Agents",
     description:
-      "We build intelligent AI products and autonomous agents that automate workflows, assist teams, and scale business operations.",
-    toolsLabel: null,
-    tools: [
-      "AI Product Development (MVP -> scale)",
-      "AI Software Development",
-      "AI Automation",
-      "Predictive AI",
-      "AI Agents & Copilots",
-      "Industry AI Solutions",
-      "Generative AI solutions",
-    ],
+      "We design and build intelligent products that automate complex workflows, augment teams and create entirely new digital experiences.",
+    capabilities: ["AI Products", "AI Agents & Copilots", "Intelligent Automation", "Predictive & Generative AI"],
+    media: {
+      src: "/case-studies/cero/image-01.png",
+      alt: "Cero AI product interface built by Mirai Studios",
+    },
+    href: "#work",
   },
   {
-    id: "platforms",
-    index: "02",
-    title: "Web, Mobile & SaaS Platform Builds",
+    id: "digital-products",
+    number: "02",
+    title: "Digital Products & Platforms",
     description:
-      "We build scalable web, mobile, and SaaS platforms for startups, enterprises, marketplaces, dashboards, and customer-facing digital products.",
-    toolsLabel: "Used tools for Web, Mobile & SaaS Platform Builds:",
-    tools: [
-      "SaaS Product Development",
-      "Enterprise Software Dev.",
-      "AI-Powered Applications",
-      "Web Application Development",
-      "Cloud & Backend Engineering",
-      "Product Maintenance & Scaling",
-    ],
+      "We turn ambitious product ideas into scalable web, mobile, SaaS and enterprise platforms from strategy through deployment.",
+    capabilities: ["SaaS Platforms", "Web Applications", "Mobile Products", "Enterprise Platforms"],
+    media: {
+      src: "/case-studies/storypage-ai/image-01.png",
+      alt: "StoryPage digital product platform interface",
+    },
+    href: "#work",
   },
   {
-    id: "3d",
-    index: "03",
-    title: "Real-time 3D Worlds & Digital Twins",
+    id: "digital-twins",
+    number: "03",
+    title: "Digital Twins & Real-Time 3D",
     description:
-      "We create interactive 3D environments, simulations, and digital twins for visualization, training, planning, and real-time operational insight.",
-    toolsLabel: "Used tools for Real-time 3D Worlds & Digital Twins:",
-    tools: [
-      "Digital Twin Solutions",
-      "Real-Time 3D Applications",
-      "Interactive Masterplans",
-      "Virt. Showroom & Sales Galleries",
-      "Infrastructure Twins",
-      "Building & Facility Twins",
-      "Web-Based 3D Experiences",
-      "Live Data & IoT Visualization",
-    ],
+      "We transform physical spaces, assets and environments into interactive digital experiences built for visualization, simulation and engagement.",
+    capabilities: ["Digital Twins", "Real-Time 3D", "Interactive Visualization", "Simulation"],
+    media: {
+      src: "/case-studies/thyssenkrupp/image-01.png",
+      alt: "thyssenkrupp interactive digital twin experience",
+    },
+    href: "#work",
   },
   {
-    id: "brand",
-    index: "04",
-    title: "UI/UX & Brand Identity Systems",
+    id: "product-design",
+    number: "04",
+    title: "Product Design & Brand Systems",
     description:
-      "We design intuitive digital experiences and cohesive brand systems that help products look polished, feel usable, and communicate clearly.",
-    toolsLabel: "Used tools for UI/UX & Brand Identity Systems:",
-    tools: [
-      "Product Design",
-      "Mobile App Design",
-      "Enterprise Dashboard Design",
-      "UX Research & Testing",
-      "SaaS & Web Platform Design",
-      "Brand Identity Systems",
-      "Interactive Prototyping",
-      "Product Discovery",
-    ],
+      "We create clear, intuitive product experiences and visual systems that make complex technology easier to understand and use.",
+    capabilities: ["Product Strategy", "UX/UI Design", "Design Systems", "Brand Identity"],
+    media: {
+      src: "/case-studies/enorta/image-02.png",
+      alt: "Enorta product design and interface system",
+    },
+    href: "#work",
   },
   {
-    id: "ar-vr",
-    index: "05",
-    title: "Immersive XR Systems",
+    id: "spatial",
+    number: "05",
+    title: "Spatial & Immersive Experiences",
     description:
-      "We create immersive AR, VR, and mixed-reality experiences for training, simulation, product visualization, & interactive environments.",
-    toolsLabel: "Used tools for Immersive AR/VR Systems:",
-    tools: [
-      "Immersive training & simulation",
-      "Metaverse & Virtual World",
-      "Gamified Engagements",
-      "XR application Dev.",
-    ],
+      "We build spatial experiences that extend digital products beyond traditional screens into AR, VR, XR and interactive environments.",
+    capabilities: ["AR", "VR", "XR", "Interactive Experiences"],
+    media: {
+      src: "/case-studies/thyssenkrupp/image-03.png",
+      alt: "Immersive spatial visualization from Mirai Studios",
+    },
+    href: "#work",
   },
   {
-    id: "cloud",
-    index: "06",
-    title: "Cloud, Cybersecurity & API Systems",
+    id: "enterprise",
+    number: "06",
+    title: "Enterprise Engineering",
     description:
-      "We architect secure cloud infrastructure, backend systems, integrations, and APIs for reliable, scalable, and protected digital operations.",
-    toolsLabel: "Used tools for Cloud, Cybersecurity & API Systems:",
-    tools: [
-      "Cloud Architecture",
-      "Cloud Migration",
-      "DevOps & CI/CD",
-      "Containerization & Kubernetes",
-      "Infrastructure as Code",
-      "Backend Infrastructure",
-      "Monitoring & Observability",
-      "Managed Cloud Infrastructure",
-    ],
+      "We engineer the infrastructure, integrations and systems required to make ambitious digital products reliable, secure and scalable.",
+    capabilities: ["Cloud Architecture", "API Systems", "Enterprise Integrations", "Cybersecurity"],
+    media: {
+      src: "/case-studies/lillyai/image-01.png",
+      alt: "LillyAI enterprise clinical intelligence platform",
+    },
+    href: "#work",
   },
 ];
 

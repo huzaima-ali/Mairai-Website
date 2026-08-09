@@ -50,13 +50,13 @@ function ProjectRow({ project }: { project: CaseStudy }) {
         </m.h3>
         <m.p
           variants={fadeUp}
-          className="mt-5 text-pretty text-base leading-relaxed text-black/70 sm:text-lg"
+          className="mt-5 line-clamp-1 text-pretty text-base leading-relaxed text-black/70 sm:line-clamp-none sm:text-lg"
         >
           {project.summary}
         </m.p>
         <m.ul
           variants={fadeUp}
-          className="mt-5 flex list-disc flex-col gap-2.5 pl-6"
+          className="mt-5 hidden list-disc flex-col gap-2.5 pl-6 sm:flex"
         >
           {project.projectInfo.map((info) => (
             <li key={info.label} className="text-base leading-relaxed text-black/70 sm:text-lg">
@@ -66,7 +66,7 @@ function ProjectRow({ project }: { project: CaseStudy }) {
         </m.ul>
         <m.p
           variants={fadeUp}
-          className="mt-5 text-pretty text-base leading-relaxed text-black/70 sm:text-lg"
+          className="mt-5 hidden text-pretty text-base leading-relaxed text-black/70 sm:block sm:text-lg"
         >
           {project.sections[0]?.body.at(-1)}
         </m.p>
@@ -84,7 +84,7 @@ export function Projects() {
   const featuredProjects = getFeaturedCaseStudies();
 
   return (
-    <Section className="py-12 lg:py-16">
+    <Section className="py-8 sm:py-10 lg:py-12">
       <Container>
         <div className="flex flex-col gap-14 lg:gap-20">
           {featuredProjects.map((project) => (
