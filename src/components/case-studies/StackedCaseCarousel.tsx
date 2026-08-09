@@ -84,7 +84,7 @@ export function StackedCaseCarousel({
   return (
     <div
       ref={stageRef}
-      className={cn("relative mx-auto w-full max-w-6xl select-none", className)}
+      className={cn("relative mx-auto w-full max-w-6xl select-none overflow-hidden", className)}
       onPointerDown={(e) => onPointerDown(e.clientX)}
       onPointerMove={(e) => onPointerMove(e.clientX)}
       onPointerUp={(e) => onPointerUp(e.clientX)}
