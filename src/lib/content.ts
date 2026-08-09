@@ -15,7 +15,7 @@ export const ANNOUNCEMENT = {
 
 export const NAV_LINKS = [
   { label: "Our Services", href: "#services" },
-  { label: "Portfolio", href: "#work" },
+  { label: "Work", href: "#work" },
   { label: "Testimonials", href: "#testimonials" },
   { label: "Work With Us", href: "#engagement" },
 ] as const;

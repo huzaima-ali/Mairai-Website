@@ -25,7 +25,7 @@ export function Navbar() {
       >
         <nav className="page-container flex h-[72px] items-center justify-between">
           <div className="flex items-center gap-6">
-            <a href="#top" aria-label="Mirai Studios home" className="transition-transform duration-300 hover:scale-[1.01]">
+            <a href="/" aria-label="Mirai Studios home" className="transition-transform duration-300 hover:scale-[1.01]">
               <Logo />
             </a>
             <span aria-hidden className="hidden h-6 w-px bg-border lg:block" />

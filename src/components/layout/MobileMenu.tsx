@@ -47,7 +47,9 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
             className="absolute right-0 top-0 flex h-full w-[min(86vw,22rem)] flex-col border-l border-border bg-background p-6 shadow-2xl"
           >
             <div className="flex items-center justify-between">
-              <Logo />
+              <a href="/" aria-label="Mirai Studios home" onClick={onClose}>
+                <Logo />
+              </a>
               <button
                 type="button"
                 onClick={onClose}
