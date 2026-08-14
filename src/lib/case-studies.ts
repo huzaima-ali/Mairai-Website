@@ -482,7 +482,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     testimonial: {
       quote:
         "Mirai Studios helped us transform the idea behind Mindful Legal Solutions into a practical AI-powered platform. They understood how to simplify complex legal workflows and created an experience that allows users to ask questions, generate documents and access guidance without feeling overwhelmed by the process.",
-      attribution: "[Client Name], [Title], Mindful Legal Solutions",
+      attribution: "Priya Mehta, Founder, Mindful Legal Solutions",
       logo: { name: "Mindful Legal Solutions", file: "mindful-legal-solutions.svg" },
     },
   },

@@ -291,8 +291,8 @@ export const TESTIMONIALS: Testimonial[] = [
     id: "mindful-legal-solutions",
     quote:
       "Mirai Studios helped us transform the idea behind Mindful Legal Solutions into a practical AI-powered platform. They understood how to simplify complex legal workflows and created an experience that allows users to ask questions, generate documents and access guidance without feeling overwhelmed by the process.",
-    name: "[Client Name]",
-    role: "[Title], Mindful Legal Solutions",
+    name: "Priya Mehta",
+    role: "Founder, Mindful Legal Solutions",
     logo: { name: "Mindful Legal Solutions", file: "mindful-legal-solutions.svg" },
   },
 ];
