@@ -14,7 +14,7 @@ function randomGlyph() {
 }
 
 /**
- * Simple split-flap style caption — each character scrambles then settles.
+ * Simple split-flap style caption - each character scrambles then settles.
  * Plain text (no mechanical tiles), bottom-right of the voxel panel.
  */
 export function FlapCaption({ text, className }: FlapCaptionProps) {

@@ -210,7 +210,7 @@ function ServicePanel({
 }) {
   return (
     <div className="flex flex-col">
-      {/* Image slot — voxels sit free, no border / card chrome */}
+      {/* Image slot - voxels sit free, no border / card chrome */}
       <div className="relative aspect-[16/9] w-full">{voxel}</div>
 
       <AnimatePresence mode="wait" initial={false}>

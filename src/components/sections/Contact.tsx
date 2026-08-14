@@ -153,7 +153,7 @@ export function Contact() {
                   </span>
                   <h3 className="mt-5 text-2xl font-medium text-foreground">Message sent</h3>
                   <p className="mt-2 max-w-sm text-muted-foreground">
-                    Thanks for reaching out — we&apos;ll be in touch to schedule your strategy session within 48 hours.
+                    Thanks for reaching out. We&apos;ll be in touch to schedule your strategy session within 48 hours.
                   </p>
                   <button
                     type="button"

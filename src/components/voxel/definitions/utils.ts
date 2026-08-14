@@ -20,11 +20,11 @@ export function pushVoxel(
 
 export const SPACING = SHARED_SPACING;
 
-/** Max half-extent after fit — keeps all sculptures comparable in frame. */
+/** Max half-extent after fit - keeps all sculptures comparable in frame. */
 const FIT_EXTENT = 1.2;
 
 /**
- * Compact Mirai mark — hexagonal badge silhouette in red voxels.
+ * Compact Mirai mark - hexagonal badge silhouette in red voxels.
  * Drawn on an XY plane at the given origin (grid units).
  */
 export function stampMiraiLogo(

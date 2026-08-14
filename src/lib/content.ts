@@ -4,11 +4,11 @@ export const SITE = {
   url: "https://miraistudios.com",
   description:
     "From AI products and internal business platforms to immersive digital twins and interactive experiences, our portfolio showcases solutions that transform how businesses operate and engage.",
-  email: "hello@miraistudios.com",
+  email: "hello@miraistudios.co",
 } as const;
 
 export const ANNOUNCEMENT = {
-  text: "Cero is 15% OFF - Limited Time Offer",
+  text: "Cero is Free for a Limited Time",
   cta: "Learn More",
   href: "https://usecero.com",
 } as const;

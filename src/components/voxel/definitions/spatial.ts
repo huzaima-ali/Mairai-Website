@@ -2,7 +2,7 @@ import type { VoxelDefinition, VoxelPoint } from "../types";
 import { finalizeDefinition, hash3, pushVoxel, SPACING } from "./utils";
 
 /**
- * VR headset — three-quarter angle showing front lenses + side/back strap.
+ * VR headset - three-quarter angle showing front lenses + side/back strap.
  */
 export function createSpatialDefinition(maxVoxels = 720): VoxelDefinition {
   const voxels: VoxelPoint[] = [];
@@ -58,7 +58,7 @@ export function createSpatialDefinition(maxVoxels = 720): VoxelDefinition {
     }
   }
 
-  // Rear strap bridge — keep dense enough to read from the three-quarter
+  // Rear strap bridge - keep dense enough to read from the three-quarter
   for (let x = -6; x <= 6; x += 1) {
     put(x, 0, 9, 0);
     put(x, 1, 9, 0);

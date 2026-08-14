@@ -1,7 +1,7 @@
 import { ChevronRight, Flame } from "lucide-react";
 import { ANNOUNCEMENT } from "@/lib/content";
 
-/** Top announcement bar — dark, centered, with an ember accent. */
+/** Top announcement bar - dark, centered, with an ember accent. */
 export function AlertBar() {
   return (
     <div className="relative h-11 overflow-hidden bg-ink text-white">

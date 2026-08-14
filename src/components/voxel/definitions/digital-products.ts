@@ -58,7 +58,7 @@ export function createDigitalProductsDefinition(maxVoxels = 720): VoxelDefinitio
   stampMiraiLogo(voxels, lx - 4, 5, sz(5), 2);
   fillBox(voxels, lx - 7, -4, 0, lx + 6, -3, 1, 0);
 
-  // Phone — exactly 1 voxel thick, spaced to the right
+  // Phone - exactly 1 voxel thick, spaced to the right
   const px = 11;
   const pz = 5;
   for (let y = -5; y <= 5; y += 1) {

@@ -22,7 +22,7 @@ export function createAiProductsDefinition(maxVoxels = 720): VoxelDefinition {
   fillBox(voxels, -2, -2, 3, 2, 2, 4, 2);
   fillBox(voxels, -1, -1, 4, 1, 1, 5, 2);
 
-  // Surface circuit traces (red) — clear paths to edges
+  // Surface circuit traces (red) - clear paths to edges
   const traces: Array<[number, number, number, number, number, number]> = [
     [0, 2, 4, 0, 5, 2],
     [0, -2, 4, 0, -5, 2],
@@ -55,7 +55,7 @@ export function createAiProductsDefinition(maxVoxels = 720): VoxelDefinition {
     pushVoxel(voxels, x * SPACING, y * SPACING, 2 * SPACING, 2);
   }
 
-  // Pin grid around package — gap between body and pins for readability
+  // Pin grid around package - gap between body and pins for readability
   for (let i = -5; i <= 5; i += 2) {
     fillBox(voxels, i, 8, -1, i, 9, 1, 0);
     fillBox(voxels, i, -9, -1, i, -8, 1, 0);

@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 
 /**
- * Mirai Studios mark — Figma logo icon + wordmark.
+ * Mirai Studios mark - Figma logo icon + wordmark.
  */
 export function Logo({ className, dark = false }: { className?: string; dark?: boolean }) {
   return (

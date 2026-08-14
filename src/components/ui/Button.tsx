@@ -12,7 +12,7 @@ const base =
   "pill focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-60";
 
 const variants: Record<Variant, string> = {
-  // Black pill — the primary button across the design (#010101).
+  // Black pill - the primary button across the design (#010101).
   primary: "bg-ink text-white hover:shadow-pill",
   // Outlined pill on light backgrounds.
   outline: "border border-border bg-background text-foreground hover:border-foreground/40",

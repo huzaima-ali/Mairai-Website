@@ -14,7 +14,7 @@ const sans = Inter({ subsets: ["latin"], display: "swap", variable: "--font-sans
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: `${SITE.name} — ${SITE.tagline}`,
+    default: `${SITE.name} | ${SITE.tagline.replace(/\n/g, " ")}`,
     template: `%s · ${SITE.name}`,
   },
   description: SITE.description,
@@ -32,12 +32,12 @@ export const metadata: Metadata = {
     type: "website",
     url: SITE.url,
     siteName: SITE.name,
-    title: `${SITE.name} — ${SITE.tagline}`,
+    title: `${SITE.name} | ${SITE.tagline.replace(/\n/g, " ")}`,
     description: SITE.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE.name} — ${SITE.tagline}`,
+    title: `${SITE.name} | ${SITE.tagline.replace(/\n/g, " ")}`,
     description: SITE.description,
   },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large" } },

@@ -101,7 +101,7 @@ export default function VoxelPrototypePage() {
             <aside className="rounded-[24px] border border-black/[0.08] bg-white/70 p-5">
               <h2 className="text-sm font-medium text-foreground">Debug controls</h2>
               <p className="mt-1 text-xs text-muted-foreground">
-                Development only — hidden in production builds.
+                Development only. Hidden in production builds.
               </p>
               <div className="mt-5 flex flex-col gap-4">
                 {(

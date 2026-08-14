@@ -15,7 +15,10 @@ import { StackedCaseCarousel } from "@/components/case-studies/StackedCaseCarous
 const AUTO_ADVANCE_MS = 2000;
 
 export function OurWork() {
-  const workStudies = useMemo(() => CASE_STUDIES.filter((study) => study.slug !== "cero"), []);
+  const workStudies = useMemo(
+    () => CASE_STUDIES.filter((study) => study.slug !== "cero" && study.slug !== "mira-pulse"),
+    [],
+  );
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
 

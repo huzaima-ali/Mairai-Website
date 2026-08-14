@@ -68,7 +68,35 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
             </p>
           </div>
 
-          {study.heroImage ? (
+          {study.embedDemo && study.demoUrl ? (
+            <div className="mt-9 overflow-hidden rounded-[24px] border border-black/[0.08] bg-[#0a0a0a] shadow-card sm:mt-12">
+              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 px-4 py-3 sm:px-5">
+                <div>
+                  <p className="text-sm font-medium text-white">Interactive demo</p>
+                  <p className="text-xs text-white/55">{study.demoUrl.replace(/^https?:\/\//, "")}</p>
+                </div>
+                <a
+                  href={study.demoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-white px-3.5 py-2 text-xs font-medium text-ink transition-opacity hover:opacity-90 sm:text-sm"
+                >
+                  {study.demoLabel ?? "Open demo"}
+                  <ArrowUpRight className="h-3.5 w-3.5" />
+                </a>
+              </div>
+              <div className="relative aspect-[16/9] min-h-[280px] bg-[#0a0a0a] sm:min-h-[420px]">
+                <iframe
+                  src={study.demoUrl}
+                  title={`${study.title} live demo`}
+                  className="absolute inset-0 size-full"
+                  loading="lazy"
+                  allow="fullscreen"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              </div>
+            </div>
+          ) : study.heroImage ? (
             <CaseStudyPreviewVisual
               image={study.heroImage}
               images={previewImages}
@@ -102,6 +130,17 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
                   className="pill mt-6 w-fit bg-ink text-white transition-all duration-300 hover:shadow-pill"
                 >
                   Visit website
+                  <ArrowUpRight className="h-4 w-4" />
+                </a>
+              ) : null}
+              {study.demoUrl && study.demoUrl !== study.websiteUrl ? (
+                <a
+                  href={study.demoUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="pill mt-3 w-fit border border-border bg-background text-foreground transition-all duration-300 hover:border-foreground/40"
+                >
+                  {study.demoLabel ?? "Try demo"}
                   <ArrowUpRight className="h-4 w-4" />
                 </a>
               ) : null}

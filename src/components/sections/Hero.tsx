@@ -10,7 +10,7 @@ import { AsciiVoxelArt } from "@/components/hero/AsciiVoxelArt";
 export function Hero() {
   return (
     <section id="top" className="relative overflow-hidden pb-16 pt-14 sm:pb-20 sm:pt-16 lg:pb-24 lg:pt-20">
-      {/* Interactive Mirai-mark ASCII / voxel field — right side on desktop */}
+      {/* Interactive Mirai-mark ASCII / voxel field - right side on desktop */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-y-0 right-0 w-full max-lg:opacity-40 lg:left-[48%] lg:w-auto lg:opacity-100">
           <div className="pointer-events-auto h-full w-full">

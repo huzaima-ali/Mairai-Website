@@ -64,8 +64,8 @@ export const MIRAI_ASCII_CONFIG: AsciiVoxelConfig = {
   pfx: {
     vignette: 22,
     scanLines: 12,
-    chromatic: 0, // disabled — expensive full-frame copies
-    bloom: 0, // disabled — CSS blur filter was a major lag source
+    chromatic: 0, // disabled - expensive full-frame copies
+    bloom: 0, // disabled - CSS blur filter was a major lag source
     filmGrain: 10,
     glitch: 6,
   },
@@ -144,7 +144,7 @@ export function AsciiVoxelArt({ src, className, config: configOverrides }: Ascii
 
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
-      // Cap DPR hard — hero effect does not need retina fill-rate.
+      // Cap DPR hard - hero effect does not need retina fill-rate.
       dpr = Math.min(window.devicePixelRatio || 1, isNarrow() ? 1 : 1.25);
       w = Math.max(1, Math.floor(rect.width));
       h = Math.max(1, Math.floor(rect.height));
@@ -182,7 +182,7 @@ export function AsciiVoxelArt({ src, className, config: configOverrides }: Ascii
         for (let col = 0; col < cols; col += 1) {
           const sx = Math.min(sampleW - 1, Math.floor(((col + 0.5) / cols) * sampleW));
           const sy = Math.min(sampleH - 1, Math.floor(((row + 0.5) / rows) * sampleH));
-          // 2x2 average — cheaper than full cell scan
+          // 2x2 average - cheaper than full cell scan
           let rSum = 0;
           let gSum = 0;
           let bSum = 0;
@@ -311,7 +311,7 @@ export function AsciiVoxelArt({ src, className, config: configOverrides }: Ascii
         drawVoxel(c.x, c.y + lift, cell, r, g, b, depth, alpha);
       }
 
-      // Light post only — no full-canvas blur / chromatic copies
+      // Light post only - no full-canvas blur / chromatic copies
       if (cfg.pfx.scanLines > 0) {
         const drift = motionOn ? (t * speed * 24) % 4 : 0;
         ctx.globalAlpha = (cfg.pfx.scanLines / 100) * 0.16;

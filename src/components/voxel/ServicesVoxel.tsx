@@ -67,7 +67,7 @@ export function ServicesVoxel({
       fallback={fallback}
       hoverNudge={hoverNudge}
       className={className}
-      ariaLabel={`${meta.objectName} — interactive 3D illustration for ${meta.label}`}
+      ariaLabel={`${meta.objectName}, interactive 3D illustration for ${meta.label}`}
     />
   );
 }

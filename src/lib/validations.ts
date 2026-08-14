@@ -35,7 +35,7 @@ export const contactSchema = z.object({
   }),
   message: z
     .string()
-    .min(20, "Tell us a little more — at least 20 characters.")
+    .min(20, "Tell us a little more, at least 20 characters.")
     .max(1200, "Please keep it under 1200 characters."),
   website: z.string().max(0, "Please leave this field blank.").optional(),
   startedAt: z.coerce.number().optional(),

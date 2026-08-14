@@ -33,7 +33,7 @@ export function createEnterpriseDefinition(maxVoxels = 720): VoxelDefinition {
   fillBox(voxels, 0, 5, -1, 7, 5, 1, 0);
   fillBox(voxels, -8, -7, 3, 8, -7, 4, 0);
 
-  // Status light rows (red) — active modules
+  // Status light rows (red) - active modules
   for (const ox of [-7, 0, 7]) {
     for (let m = 0; m < 6; m += 1) {
       const y = -5 + m * 2;

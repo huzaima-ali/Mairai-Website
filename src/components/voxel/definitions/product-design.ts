@@ -9,7 +9,7 @@ export function createProductDesignDefinition(maxVoxels = 720): VoxelDefinition 
   const voxels: VoxelPoint[] = [];
   const screenZ = (x: number) => -1 - Math.floor((x + 8) * 0.08);
 
-  // Monitor chassis — solid bezel + backplate, open canvas for UI
+  // Monitor chassis - solid bezel + backplate, open canvas for UI
   for (let y = -5; y <= 6; y += 1) {
     for (let x = -8; x <= 8; x += 1) {
       const z = screenZ(x);
@@ -28,7 +28,7 @@ export function createProductDesignDefinition(maxVoxels = 720): VoxelDefinition 
     }
   }
 
-  // Chin, neck, base — restore physical mass
+  // Chin, neck, base - restore physical mass
   fillBox(voxels, -3, -5, -2, 3, -5, 1, 0);
   fillBox(voxels, -1, -8, -1, 1, -6, 2, 0);
   fillBox(voxels, -5, -9, -2, 5, -8, 3, 0);
@@ -71,7 +71,7 @@ export function createProductDesignDefinition(maxVoxels = 720): VoxelDefinition 
     }
   }
 
-  // Red design activity layer — selected component + system accents
+  // Red design activity layer - selected component + system accents
   for (let x = -2; x <= 4; x += 1) {
     for (let y = -1; y <= 4; y += 1) {
       pushVoxel(voxels, x * SPACING, y * SPACING, (screenZ(x) + 1) * SPACING, 2);

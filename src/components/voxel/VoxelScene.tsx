@@ -31,7 +31,7 @@ function readIsMobile() {
 }
 
 function useIsMobile() {
-  // Client-only scene (dynamic import) — initialize correctly to avoid desktop
+  // Client-only scene (dynamic import) - initialize correctly to avoid desktop
   // quality/shadows flashing on phones before the effect runs.
   const [isMobile, setIsMobile] = useState(readIsMobile);
 

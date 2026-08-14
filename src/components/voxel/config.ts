@@ -11,7 +11,7 @@ export const VOXEL_COLORS = {
   accentSoft: "#8f1a2d",
 } as const;
 
-/** Shared sculpture geometry language — all six services use these. */
+/** Shared sculpture geometry language - all six services use these. */
 export const SHARED_VOXEL_SIZE = 0.13;
 export const SHARED_SPACING = 0.15;
 export const SHARED_CAMERA_DISTANCE = 5.1;
@@ -50,7 +50,7 @@ export const QUALITY_PROFILES: Record<VoxelQuality, QualityProfile> = {
     enableParallax: true,
   },
   mobile: {
-    // Same voxel budget as desktop — shape fidelity must match across breakpoints.
+    // Same voxel budget as desktop - shape fidelity must match across breakpoints.
     // Performance comes from DPR / lights / interaction, not dropping blocks.
     dpr: [1, 1.15],
     maxVoxels: 720,

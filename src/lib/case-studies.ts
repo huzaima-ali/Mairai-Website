@@ -25,6 +25,11 @@ export interface CaseStudy {
   cardImage: CaseStudyImage;
   heroImage?: CaseStudyImage;
   websiteUrl?: string;
+  /** External product / demo link shown on cards and case study pages. */
+  demoUrl?: string;
+  demoLabel?: string;
+  /** When true, case study hero embeds demoUrl in an interactive iframe. */
+  embedDemo?: boolean;
   videoUrl?: string;
   projectInfo: CaseStudyInfoItem[];
   sections: CaseStudySection[];
@@ -116,6 +121,9 @@ export const CASE_STUDIES: CaseStudy[] = [
       alt: "Cero LinkedIn content creation assistant interface",
     },
     websiteUrl: "https://usecero.com",
+    demoUrl:
+      "https://chromewebstore.google.com/detail/moeocagahkkomhnekdhlfjbmomkjoddj?utm_source=item-share-cb",
+    demoLabel: "Get Chrome extension",
     videoUrl: "https://www.youtube.com/embed/rj6pgHdvsBM?si=3BUvl3A0f73RK1J8",
     projectInfo: [
       { label: "Website", value: "usecero.com" },
@@ -159,6 +167,92 @@ export const CASE_STUDIES: CaseStudy[] = [
       attribution: "Ali Ahmed, Head of Product at Cero",
       logo: { name: "Cero", file: "cero-testimonial.svg" },
     },
+    cta: "Start a project like this",
+    featured: true,
+  },
+  {
+    slug: "mira-pulse",
+    eyebrow: "Digital Twin Products",
+    title: "MiraPulse hospital operations digital twin",
+    cardTitle: "MiraPulse: Hospital Operations Digital Twin",
+    summary:
+      "Making hospital operations visible, coordinated and actionable through a spatial digital twin.",
+    cardImage: {
+      src: "/case-studies/mira-pulse/image-01.png",
+      alt: "MiraPulse campus command view of Mirai Smart Hospital",
+    },
+    heroImage: {
+      src: "/case-studies/mira-pulse/image-01.png",
+      alt: "MiraPulse campus command view of Mirai Smart Hospital",
+    },
+    websiteUrl: "https://mirapulse.miraistudios.co",
+    demoUrl: "https://mirapulse.miraistudios.co",
+    demoLabel: "Try live demo",
+    embedDemo: true,
+    projectInfo: [
+      { label: "Demo", value: "mirapulse.miraistudios.co" },
+      { label: "Category", value: "Hospital operations digital twin" },
+      { label: "Format", value: "Interactive concept demo" },
+      {
+        label: "Services",
+        value: "Product strategy, UX/UI, real-time 3D interaction design, and full-stack engineering",
+      },
+    ],
+    sections: [
+      {
+        heading: "Overview",
+        body: [
+          "MiraPulse is a Mirai Studios concept demo exploring how a hospital operations digital twin can combine a live 3D facility view with operational coordination and decision support.",
+          "The experience brings departments, beds, equipment, staff, alerts, incoming patients, tasks and analytics into one connected environment. A command-centre interface provides hospital-wide visibility, while synchronized companion workflows support operational action from a tablet or mobile device.",
+          "Users can inspect the hospital, locate resources, monitor capacity, respond to incoming ambulance events and run a guided emergency capacity-surge simulation. During the scenario, MiraPulse exposes readiness gaps, recommends actions, assigns accountable tasks and reflects operational changes directly inside the 3D environment.",
+          "Designed for hospital leadership and operational teams, the concept demonstrates how a digital twin can move beyond passive visualization to support active coordination, resource readiness and explainable operational decisions.",
+        ],
+      },
+      {
+        heading: "Key capabilities",
+        body: [
+          "Interactive 3D hospital campus with operational perspectives, live operational health, capacity and attention indicators, bed, room, staff and equipment coordination workflows, locate-in-3D status overlays and spatial resource visibility, incoming patient and ambulance-readiness workflows, guided emergency capacity-surge simulation, task assignment with dependencies and execution tracking, synchronized command-centre and companion experience, and rule-based alerts, recommendations and operational analytics.",
+        ],
+      },
+      {
+        heading: "Outcome",
+        body: [
+          "Through product strategy, UX/UI, real-time 3D interaction design and full-stack engineering, Mirai Studios created MiraPulse as a working demonstration of how hospitals could visualize pressure, coordinate resources and translate operational decisions into visible action.",
+        ],
+      },
+    ],
+    gallery: [
+      {
+        src: "/case-studies/mira-pulse/image-02.png",
+        alt: "Staff operations",
+        caption: "Operational teams can inspect attendance, availability, workload and current assignments by department.",
+      },
+      {
+        src: "/case-studies/mira-pulse/image-03.png",
+        alt: "Equipment tracking",
+        caption: "Tracked equipment can be searched, located in 3D and prepared for assignment or transfer.",
+      },
+      {
+        src: "/case-studies/mira-pulse/image-04.png",
+        alt: "Patient-flow perspective",
+        caption: "Purpose-built perspectives help operations teams focus on the hospital layer relevant to the decision at hand.",
+      },
+      {
+        src: "/case-studies/mira-pulse/image-05.png",
+        alt: "Guided readiness response",
+        caption: "A synchronized surge scenario exposes readiness gaps and guides teams through the next operational action.",
+      },
+      {
+        src: "/case-studies/mira-pulse/image-06.png",
+        alt: "Coordinated task execution",
+        caption: "Recommendations become accountable tasks with owners, dependencies, progress and visible spatial outcomes.",
+      },
+      {
+        src: "/case-studies/mira-pulse/image-07.png",
+        alt: "Operational analytics",
+        caption: "Deterministic analytics translate live capacity, equipment and alert data into explainable operational insights.",
+      },
+    ],
     cta: "Start a project like this",
     featured: true,
   },
