@@ -18,19 +18,20 @@ function Stars() {
   return (
     <div className="flex items-center gap-[2px]" aria-label="5 out of 5 stars">
       {Array.from({ length: 5 }).map((_, i) => (
-        <Star
-          key={i}
-          className="size-4 fill-black text-black sm:size-5"
-          strokeWidth={0}
-        />
+        <Star key={i} className="size-4 fill-black text-black sm:size-5" strokeWidth={0} />
       ))}
     </div>
   );
 }
 
-function QuoteCard({ t }: { t: Testimonial }) {
+function QuoteCard({ t, className }: { t: Testimonial; className?: string }) {
   return (
-    <figure className="flex h-full w-full flex-col justify-between overflow-hidden rounded-[22px] border border-black/[0.08] bg-[#f5f3f1] p-6 sm:p-7">
+    <figure
+      className={cn(
+        "flex h-full w-full flex-col justify-between overflow-hidden rounded-[22px] border border-black/[0.08] bg-[#f5f3f1] p-6 shadow-[0_18px_50px_-28px_rgba(0,0,0,0.35)] sm:p-7",
+        className,
+      )}
+    >
       <div className="flex min-h-0 flex-col gap-5">
         <Stars />
         <blockquote className="overflow-hidden text-pretty text-lg leading-7 tracking-[-0.01em] text-black sm:text-2xl sm:leading-8">
@@ -50,12 +51,13 @@ function QuoteCard({ t }: { t: Testimonial }) {
 }
 
 function BrandMark({ t }: { t: Testimonial }) {
-  const logoSize = {
-    cero: "h-7 w-7",
-    enorta: "h-7 w-7",
-    lillyai: "h-7 w-[80px]",
-    thyssenkrupp: "h-7 max-w-32",
-  }[t.id] ?? "h-7 max-w-32";
+  const logoSize =
+    {
+      cero: "h-7 w-7",
+      enorta: "h-7 w-7",
+      lillyai: "h-7 w-[80px]",
+      thyssenkrupp: "h-7 max-w-32",
+    }[t.id] ?? "h-7 max-w-32";
 
   return (
     <span className="flex h-8 w-36 shrink-0 items-center justify-start sm:justify-end">
@@ -93,6 +95,8 @@ export function Testimonials() {
   }, [paused, testimonials.length]);
 
   const current = testimonials[active];
+  const behindOne = testimonials[(active + 1) % testimonials.length];
+  const behindTwo = testimonials[(active + 2) % testimonials.length];
 
   return (
     <Section id="testimonials">
@@ -115,21 +119,37 @@ export function Testimonials() {
           className="mx-auto mt-8 max-w-3xl lg:mt-10"
         >
           <div
-            className="relative h-[430px] sm:h-[360px] lg:h-[340px]"
+            className="relative h-[470px] sm:h-[400px] lg:h-[380px]"
             onPointerEnter={() => setPaused(true)}
             onPointerLeave={() => setPaused(false)}
             onFocus={() => setPaused(true)}
             onBlur={() => setPaused(false)}
           >
+            {/* Stacked deck cards behind the active quote */}
+            {behindTwo && testimonials.length > 2 ? (
+              <div
+                aria-hidden
+                className="absolute inset-x-5 bottom-2 top-8 rounded-[22px] border border-black/[0.06] bg-[#ebe8e4] shadow-soft sm:inset-x-8"
+                style={{ transform: "translateY(18px) scale(0.94) rotate(-1.5deg)" }}
+              />
+            ) : null}
+            {behindOne && testimonials.length > 1 ? (
+              <div
+                aria-hidden
+                className="absolute inset-x-3 bottom-1 top-4 rounded-[22px] border border-black/[0.07] bg-[#f0eeeb] shadow-soft sm:inset-x-5"
+                style={{ transform: "translateY(10px) scale(0.97) rotate(1.25deg)" }}
+              />
+            ) : null}
+
             <AnimatePresence initial={false}>
               {current ? (
                 <m.div
                   key={current.id}
-                  initial={{ opacity: 0, y: 18 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -18 }}
+                  initial={{ opacity: 0, y: 22, rotate: -0.6, scale: 0.985 }}
+                  animate={{ opacity: 1, y: 0, rotate: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -16, rotate: 0.8, scale: 0.98 }}
                   transition={{ duration: 0.55, ease: EASE_OUT_EXPO }}
-                  className="absolute inset-0"
+                  className="absolute inset-0 z-10"
                 >
                   <QuoteCard t={current} />
                 </m.div>

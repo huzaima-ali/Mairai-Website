@@ -67,11 +67,12 @@ function ProductFeatureCarousel({ products }: { products: CaseStudy[] }) {
 
   return (
     <div
-      className="grid items-center gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.35fr)] lg:gap-10 xl:gap-14"
+      className="grid items-stretch gap-5 sm:gap-6 lg:grid-cols-[auto_minmax(0,1fr)] lg:items-center lg:gap-8 xl:gap-10"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <div className="flex w-full max-w-md flex-col justify-center gap-3">
+      {/* Mobile: horizontal chip row · Desktop: compact vertical list */}
+      <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1 [scrollbar-width:none] lg:mx-0 lg:flex-col lg:overflow-visible lg:pb-0 [&::-webkit-scrollbar]:hidden">
         {products.map((product, index) => {
           const isActive = index === currentIndex;
           const Icon = PRODUCT_ICONS[product.slug] ?? Sparkles;
@@ -83,7 +84,7 @@ function ProductFeatureCarousel({ products }: { products: CaseStudy[] }) {
               onClick={() => goTo(index)}
               aria-pressed={isActive}
               className={cn(
-                "relative flex w-fit items-center gap-3 rounded-full border px-5 py-3.5 text-left transition-colors duration-300 sm:gap-4 sm:px-7 sm:py-4",
+                "relative flex shrink-0 items-center gap-2.5 rounded-full border px-4 py-3 text-left transition-colors duration-300 sm:gap-3 sm:px-5 sm:py-3.5",
                 isActive
                   ? "border-white bg-white text-accent shadow-soft"
                   : "border-white/20 bg-transparent text-white/65 hover:border-white/40 hover:text-white",
@@ -93,13 +94,15 @@ function ProductFeatureCarousel({ products }: { products: CaseStudy[] }) {
                 className={cn("h-4 w-4 shrink-0", isActive ? "text-accent" : "text-white/45")}
                 aria-hidden
               />
-              <span className="text-sm font-medium tracking-snug sm:text-base">{productLabel(product)}</span>
+              <span className="whitespace-nowrap text-sm font-medium tracking-snug sm:text-base">
+                {productLabel(product)}
+              </span>
             </button>
           );
         })}
       </div>
 
-      <div className="relative mx-auto aspect-[16/11] w-full max-w-3xl sm:aspect-[16/10]">
+      <div className="relative mx-auto aspect-[4/5] w-full max-w-none sm:aspect-[16/11] lg:aspect-[16/10] lg:max-w-none">
         {products.map((product, index) => {
           const status = getCardStatus(index);
           const isActive = status === "active";
@@ -111,15 +114,15 @@ function ProductFeatureCarousel({ products }: { products: CaseStudy[] }) {
               key={product.slug}
               initial={false}
               animate={{
-                x: isActive ? 0 : isPrev ? -72 : isNext ? 72 : 0,
-                scale: isActive ? 1 : isPrev || isNext ? 0.88 : 0.72,
-                opacity: isActive ? 1 : isPrev || isNext ? 0.45 : 0,
-                rotate: isPrev ? -2.5 : isNext ? 2.5 : 0,
+                x: isActive ? 0 : isPrev ? -40 : isNext ? 40 : 0,
+                scale: isActive ? 1 : isPrev || isNext ? 0.92 : 0.82,
+                opacity: isActive ? 1 : isPrev || isNext ? 0.35 : 0,
+                rotate: isPrev ? -1.5 : isNext ? 1.5 : 0,
                 zIndex: isActive ? 20 : isPrev || isNext ? 10 : 0,
                 pointerEvents: isActive ? "auto" : "none",
               }}
               transition={{ type: "spring", stiffness: 260, damping: 25, mass: 0.8 }}
-              className="absolute inset-0 overflow-hidden rounded-[1.75rem] border-[6px] border-[#121212] bg-[#121212] shadow-card sm:rounded-[2.25rem] sm:border-8"
+              className="absolute inset-0 overflow-hidden rounded-[1.5rem] border-[5px] border-[#0a0a0a] bg-[#121212] shadow-card sm:rounded-[2rem] sm:border-[6px] lg:rounded-[2.25rem] lg:border-8"
             >
               <CaseStudyVisual
                 image={product.cardImage}
@@ -130,14 +133,13 @@ function ProductFeatureCarousel({ products }: { products: CaseStudy[] }) {
                 )}
               />
 
-              {/* Readability scrims - top for CTAs, bottom for copy */}
               <div
                 aria-hidden
                 className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/70 via-black/15 to-transparent"
               />
               <div
                 aria-hidden
-                className="pointer-events-none absolute inset-x-0 bottom-0 h-[58%] bg-gradient-to-t from-black via-black/80 to-transparent"
+                className="pointer-events-none absolute inset-x-0 bottom-0 h-[62%] bg-gradient-to-t from-black via-black/85 to-transparent"
               />
               <div
                 aria-hidden
@@ -150,15 +152,15 @@ function ProductFeatureCarousel({ products }: { products: CaseStudy[] }) {
                     initial={{ opacity: 0, y: 18 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
-                    className="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col justify-end p-6 pt-24 sm:p-8 sm:pt-28"
+                    className="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col justify-end p-4 pt-20 sm:p-7 sm:pt-24 lg:p-8 lg:pt-28"
                   >
-                    <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-white/70">
+                    <p className="text-[10px] font-medium uppercase tracking-[0.16em] text-white/70 sm:text-[11px]">
                       {String(index + 1).padStart(2, "0")} · {product.eyebrow}
                     </p>
-                    <h3 className="mt-2 max-w-xl text-balance text-xl font-medium leading-snug tracking-snug text-white drop-shadow-sm sm:text-2xl">
+                    <h3 className="mt-1.5 max-w-xl text-balance text-lg font-medium leading-snug tracking-snug text-white drop-shadow-sm sm:mt-2 sm:text-xl lg:text-2xl">
                       {product.cardTitle}
                     </h3>
-                    <p className="mt-2 max-w-lg text-pretty text-sm leading-relaxed text-white/90 sm:text-base">
+                    <p className="mt-1.5 line-clamp-3 max-w-lg text-pretty text-sm leading-relaxed text-white/90 sm:mt-2 sm:line-clamp-none sm:text-base">
                       {product.summary}
                     </p>
                   </m.div>
@@ -166,21 +168,21 @@ function ProductFeatureCarousel({ products }: { products: CaseStudy[] }) {
               </AnimatePresence>
 
               {isActive ? (
-                <div className="pointer-events-auto absolute left-4 right-4 top-4 flex flex-wrap items-center justify-between gap-2 sm:left-6 sm:right-6 sm:top-6">
-                  <span className="inline-flex items-center gap-2 rounded-full bg-black/45 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-md">
+                <div className="pointer-events-auto absolute left-3 right-3 top-3 flex flex-wrap items-center justify-between gap-2 sm:left-5 sm:right-5 sm:top-5 lg:left-6 lg:right-6 lg:top-6">
+                  <span className="inline-flex items-center gap-2 rounded-full bg-black/45 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur-md sm:px-3 sm:py-1.5 sm:text-xs">
                     <span className="relative flex h-2 w-2">
                       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
                       <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
                     </span>
                     Live product
                   </span>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2">
                     {product.demoUrl ? (
                       <a
                         href={product.demoUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 rounded-full bg-white px-3.5 py-2 text-xs font-medium text-ink shadow-soft transition-opacity hover:opacity-90 sm:text-sm"
+                        className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-[11px] font-medium text-ink shadow-soft transition-opacity hover:opacity-90 sm:px-3.5 sm:py-2 sm:text-sm"
                         onClick={(event) => event.stopPropagation()}
                       >
                         {product.demoLabel ?? "Try demo"}
@@ -189,7 +191,7 @@ function ProductFeatureCarousel({ products }: { products: CaseStudy[] }) {
                     ) : null}
                     <a
                       href={getCaseStudyUrl(product.slug)}
-                      className="inline-flex items-center gap-1.5 rounded-full border border-white/25 bg-black/45 px-3.5 py-2 text-xs font-medium text-white backdrop-blur-md transition-colors hover:bg-black/60 sm:text-sm"
+                      className="inline-flex items-center gap-1.5 rounded-full border border-white/25 bg-black/45 px-3 py-1.5 text-[11px] font-medium text-white backdrop-blur-md transition-colors hover:bg-black/60 sm:px-3.5 sm:py-2 sm:text-sm"
                     >
                       Case study
                       <ArrowUpRight className="h-3.5 w-3.5" />
@@ -215,7 +217,7 @@ export function Projects() {
   return (
     <Section className="py-8 sm:py-10 lg:py-12">
       <Container>
-        <div className="mb-8 max-w-2xl lg:mb-10">
+        <div className="mb-6 max-w-2xl sm:mb-8 lg:mb-10">
           <p className="eyebrow">Our products</p>
           <h2 className="display mt-3 text-[clamp(2rem,3.5vw,3.25rem)] leading-[1.05]">
             Products we build and ship
@@ -225,7 +227,7 @@ export function Projects() {
           </p>
         </div>
 
-        <div className="overflow-hidden rounded-[28px] bg-ink px-5 py-8 sm:px-8 sm:py-10 lg:rounded-[36px] lg:px-10 lg:py-12">
+        <div className="overflow-hidden rounded-[24px] bg-ink px-4 py-6 sm:rounded-[28px] sm:px-6 sm:py-8 lg:rounded-[36px] lg:px-8 lg:py-10">
           <ProductFeatureCarousel products={featuredProjects} />
         </div>
       </Container>

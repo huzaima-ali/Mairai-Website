@@ -12,18 +12,30 @@ export function Hero() {
     <section id="top" className="relative overflow-hidden pb-16 pt-14 sm:pb-20 sm:pt-16 lg:pb-24 lg:pt-20">
       {/* Interactive Mirai-mark ASCII / voxel field - right side on desktop */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-y-0 right-0 w-full max-lg:opacity-40 lg:left-[48%] lg:w-auto lg:opacity-100">
+        <div
+          className="absolute inset-y-0 right-0 w-full max-lg:opacity-40 lg:left-[42%] lg:w-auto lg:opacity-100"
+          style={{
+            WebkitMaskImage:
+              "linear-gradient(90deg, transparent 0%, transparent 6%, rgba(0,0,0,0.35) 22%, rgba(0,0,0,0.75) 38%, #000 58%)",
+            maskImage:
+              "linear-gradient(90deg, transparent 0%, transparent 6%, rgba(0,0,0,0.35) 22%, rgba(0,0,0,0.75) 38%, #000 58%)",
+          }}
+        >
           <div className="pointer-events-auto h-full w-full">
             <AsciiVoxelArt src="/images/mirai-mark-ascii.png" className="h-full w-full" />
           </div>
         </div>
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background from-35% via-background/95 via-55% to-background/20 lg:to-transparent"
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(90deg, hsl(var(--background)) 0%, hsl(var(--background)) 34%, hsl(var(--background) / 0.88) 48%, hsl(var(--background) / 0.45) 62%, hsl(var(--background) / 0.12) 78%, transparent 100%)",
+          }}
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-background to-transparent"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-background via-background/85 to-transparent"
         />
       </div>
 

@@ -43,8 +43,8 @@ export interface AsciiVoxelConfig {
 export const MIRAI_ASCII_CONFIG: AsciiVoxelConfig = {
   renderMode: "voxel",
   bgMode: "solid",
-  bgColor: "#f5f3f1",
-  bgOpacity: 96,
+  bgColor: "#ffffff",
+  bgOpacity: 100,
   cellSize: 18,
   coverage: 100,
   invert: false,

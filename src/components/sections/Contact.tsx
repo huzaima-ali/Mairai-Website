@@ -393,13 +393,13 @@ export function Contact() {
             </AnimatePresence>
           </div>
 
-          <div className="relative hidden h-[520px] overflow-hidden rounded-2xl bg-[#f5f3f1] p-4 lg:block lg:h-[680px]">
+          <div className="relative hidden h-[520px] overflow-hidden rounded-2xl bg-[#f5f3f1] lg:block lg:h-[680px]">
             <Image
               src="/images/contact-us.png"
               alt="Mirai Studios contact illustration"
               fill
               sizes="50vw"
-              className="object-contain"
+              className="object-cover"
             />
           </div>
         </div>

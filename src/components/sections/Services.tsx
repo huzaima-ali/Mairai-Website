@@ -21,8 +21,8 @@ function isSculptureId(id: string): id is ServiceSculptureId {
   return SERVICES.some((service) => service.id === id);
 }
 
-function formatIndex(number: string, total: number) {
-  return `${number} / ${String(total).padStart(2, "0")}`;
+function formatIndex(number: string) {
+  return number;
 }
 
 function CapabilityChips({ capabilities, className }: { capabilities: string[]; className?: string }) {
@@ -93,7 +93,6 @@ function ServiceSelector({
   labelledBy: string;
 }) {
   const listRef = useRef<HTMLDivElement>(null);
-  const total = services.length;
 
   const focusTab = (index: number) => {
     const buttons = listRef.current?.querySelectorAll<HTMLButtonElement>('[role="tab"]');
@@ -182,7 +181,7 @@ function ServiceSelector({
                 selected ? "text-foreground/70" : "text-foreground/35",
               )}
             >
-              {formatIndex(service.number, total)}
+              {formatIndex(service.number)}
             </span>
             <span
               className={cn(
@@ -240,8 +239,6 @@ function MobileServiceAccordion({
   onSelect: (id: string) => void;
   voxel: ReactNode;
 }) {
-  const total = services.length;
-
   return (
     <ul className="border-t border-black/[0.08]">
       {services.map((service) => {
@@ -261,7 +258,7 @@ function MobileServiceAccordion({
                 className="flex min-h-14 w-full items-center gap-3 py-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               >
                 <span className="shrink-0 font-mono text-[11px] tracking-[0.08em] text-foreground/40">
-                  {formatIndex(service.number, total)}
+                  {formatIndex(service.number)}
                 </span>
                 <span
                   className={cn(

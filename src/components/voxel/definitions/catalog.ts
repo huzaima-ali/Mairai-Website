@@ -30,7 +30,7 @@ export const SERVICE_SCULPTURES: ServiceSculptureMeta[] = [
   {
     id: "digital-twins",
     label: "Digital Twins & Real-Time 3D",
-    objectName: "Digital Twin Tower",
+    objectName: "Ops Tower",
     create: createDigitalTwinsDefinition,
   },
   {
