@@ -257,6 +257,87 @@ export const CASE_STUDIES: CaseStudy[] = [
     featured: true,
   },
   {
+    slug: "esteria",
+    eyebrow: "Interactive Real Estate",
+    title: "Esteria interactive real estate demo",
+    cardTitle: "Esteria: Interactive Real Estate Demo",
+    summary:
+      "An immersive web experience that lets buyers explore a development from masterplan to apartment walkthrough.",
+    cardImage: {
+      src: "/case-studies/esteria/image-01.png",
+      alt: "Esteria interactive masterplan view of the development",
+    },
+    heroImage: {
+      src: "/case-studies/esteria/image-01.png",
+      alt: "Esteria interactive masterplan view of the development",
+    },
+    websiteUrl: "https://esteria.miraistudios.co",
+    demoUrl: "https://esteria.miraistudios.co",
+    demoLabel: "Try live demo",
+    embedDemo: true,
+    projectInfo: [
+      { label: "Demo", value: "esteria.miraistudios.co" },
+      { label: "Category", value: "Interactive real estate visualization" },
+      { label: "Format", value: "Browser-based sales experience" },
+      {
+        label: "Services",
+        value: "Product strategy, UX/UI, Three.js interaction design, and full-stack engineering",
+      },
+    ],
+    sections: [
+      {
+        heading: "Overview",
+        body: [
+          "Esteria is an interactive real estate visualization experience designed to help potential buyers explore a property in a more immersive and intuitive way than a traditional brochure or static website.",
+          "The experience begins with a masterplan view where users can identify and select the featured building. From there, they move into a detailed building perspective where individual floors can be explored. Selecting a floor reveals the apartments available on that level, allowing users to highlight a unit and view key property information such as apartment type, area, rooms, and location.",
+          "Users can then enter an interactive apartment walkthrough. The walkthrough allows users to explore key spaces such as the lounge, kitchen, balcony, master bedroom, and bathroom through draggable panoramic views with interactive room-to-room navigation points.",
+          "The experience is designed as a lightweight web-based sales tool using Three.js and modern frontend technologies, making it accessible directly through a browser without requiring users to install an application.",
+        ],
+      },
+      {
+        heading: "Key capabilities",
+        body: [
+          "Interactive masterplan and building selection, floor-by-floor property exploration, interactive apartment selection, apartment information and specifications, immersive panoramic apartment walkthrough, room-to-room interactive navigation, responsive landscape experience across desktop, tablet, and mobile, background audio and premium visual presentation, and web-based deployment for easy client access.",
+        ],
+      },
+      {
+        heading: "Outcome",
+        body: [
+          "The goal of the Esteria demo is to demonstrate how real estate developers can transform traditional property presentations into interactive digital sales experiences, allowing customers to understand, explore, and engage with a development before physically visiting the property.",
+        ],
+      },
+    ],
+    gallery: [
+      {
+        src: "/case-studies/esteria/image-02.png",
+        alt: "Apartment floors exploration",
+        caption: "Users move from the building view into floor-by-floor exploration of available levels.",
+      },
+      {
+        src: "/case-studies/esteria/image-03.png",
+        alt: "Apartment selection on a floor",
+        caption: "Selecting a floor reveals the apartments available on that level.",
+      },
+      {
+        src: "/case-studies/esteria/image-04.png",
+        alt: "Selected apartment details",
+        caption: "Highlighted units surface key property information such as type, area, rooms, and location.",
+      },
+      {
+        src: "/case-studies/esteria/image-05.png",
+        alt: "Interior panoramic walkthrough",
+        caption: "Draggable panoramic views support room-to-room navigation through lounge, kitchen, balcony, and bedrooms.",
+      },
+      {
+        src: "/case-studies/esteria/image-06.png",
+        alt: "Esteria loading experience",
+        caption: "A premium loading presentation sets the tone for the interactive sales experience.",
+      },
+    ],
+    cta: "Start a project like this",
+    featured: true,
+  },
+  {
     slug: "enorta",
     eyebrow: "AI Platform",
     title: "Enorta: Storytelling Reimagined",

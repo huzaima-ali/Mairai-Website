@@ -20,6 +20,7 @@ const AUTO_ADVANCE_MS = 4000;
 function productShortName(product: CaseStudy) {
   if (product.slug === "cero") return "Cero";
   if (product.slug === "mira-pulse") return "MiraPulse";
+  if (product.slug === "esteria") return "Esteria";
   return product.cardTitle;
 }
 
@@ -207,7 +208,7 @@ export function Projects() {
           initial="hidden"
           whileInView="show"
           viewport={viewportOnce}
-          className="hidden gap-5 md:grid md:grid-cols-2 lg:gap-6"
+          className="hidden gap-5 md:grid md:grid-cols-2 lg:grid-cols-3 lg:gap-6"
         >
           {featuredProjects.map((product, index) => (
             <m.div key={product.slug} variants={fadeUp}>

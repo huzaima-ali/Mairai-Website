@@ -16,7 +16,11 @@ const AUTO_ADVANCE_MS = 2000;
 
 export function OurWork() {
   const workStudies = useMemo(
-    () => CASE_STUDIES.filter((study) => study.slug !== "cero" && study.slug !== "mira-pulse"),
+    () =>
+      CASE_STUDIES.filter(
+        (study) =>
+          study.slug !== "cero" && study.slug !== "mira-pulse" && study.slug !== "esteria",
+      ),
     [],
   );
   const [active, setActive] = useState(0);
