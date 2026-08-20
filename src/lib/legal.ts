@@ -1,9 +1,10 @@
 import { SITE } from "@/lib/content";
 
-/** Public company details for footer and legal pages. EIN must never appear here. */
+/** Public company details for footer and legal pages. EIN and street address must never appear here. */
 export const COMPANY = {
   legalName: "Mirai Studios LLC",
-  addressLine: "30 N Gould St, Ste N, Sheridan, WY 82801, United States",
+  /** Jurisdiction only — no street address anywhere on the site. */
+  jurisdictionLine: "Wyoming LLC",
   /** Official email already used across the site (`SITE.email`). */
   email: SITE.email,
 } as const;
@@ -155,7 +156,7 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
       {
         heading: "18. Contact",
         paragraphs: [
-          `Questions about these Terms & Conditions may be sent to ${COMPANY.email} or addressed to Mirai Studios LLC, 30 N Gould St, Ste N, Sheridan, WY 82801, United States.`,
+          `Questions about these Terms & Conditions may be sent to ${COMPANY.email} or addressed to ${COMPANY.legalName}, ${COMPANY.jurisdictionLine}.`,
         ],
       },
     ],
@@ -237,7 +238,7 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
       {
         heading: "11. Contact",
         paragraphs: [
-          `Mirai Studios LLC, 30 N Gould St, Ste N, Sheridan, WY 82801, United States. Email: ${COMPANY.email}.`,
+          `${COMPANY.legalName}, ${COMPANY.jurisdictionLine}. Email: ${COMPANY.email}.`,
         ],
       },
     ],
@@ -380,7 +381,7 @@ export const LEGAL_DOCUMENTS: LegalDocument[] = [
       {
         heading: "17. Contact Us",
         paragraphs: [
-          `For privacy questions or requests, contact: Mirai Studios LLC, 30 N Gould St, Ste N, Sheridan, WY 82801, United States. Email: ${COMPANY.email}.`,
+          `For privacy questions or requests, contact: ${COMPANY.legalName}, ${COMPANY.jurisdictionLine}. Email: ${COMPANY.email}.`,
         ],
       },
     ],

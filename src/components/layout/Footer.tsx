@@ -26,7 +26,9 @@ export function Footer() {
           <div className="flex flex-col gap-6">
             <div>
               <p className="text-sm font-medium text-foreground">{COMPANY.legalName}</p>
-              <p className="mt-2 max-w-sm text-sm leading-relaxed text-foreground/60">{COMPANY.addressLine}</p>
+              <p className="mt-2 max-w-sm text-sm leading-relaxed text-foreground/60">
+                {COMPANY.jurisdictionLine}
+              </p>
               <a
                 href={`mailto:${COMPANY.email}`}
                 className="mt-3 inline-block text-sm text-foreground transition-opacity hover:opacity-60"
