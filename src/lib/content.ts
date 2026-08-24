@@ -21,11 +21,11 @@ export type NavLink = {
 };
 
 export const NAV_LINKS: NavLink[] = [
-  { label: "Our Services", href: "#services" },
-  { label: "Our Products", href: "#products", dropdown: "products" },
-  { label: "Work", href: "#work" },
-  { label: "Testimonials", href: "#testimonials" },
-  { label: "Work With Us", href: "#engagement" },
+  { label: "Our Services", href: "/#services" },
+  { label: "Our Products", href: "/#products", dropdown: "products" },
+  { label: "Work", href: "/#work" },
+  { label: "Testimonials", href: "/#testimonials" },
+  { label: "Work With Us", href: "/#engagement" },
 ];
 
 export const HERO = {

@@ -141,7 +141,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
             </m.ul>
 
             <div className="mt-auto flex flex-col gap-3 pt-8">
-              <Button href="#contact" className="w-full" onClick={onClose}>
+              <Button href="/#contact" className="w-full" onClick={onClose}>
                 Contact Us
               </Button>
               <a

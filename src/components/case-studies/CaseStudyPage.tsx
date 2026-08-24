@@ -38,9 +38,14 @@ interface CaseStudyPageProps {
 
 export function CaseStudyPage({ study }: CaseStudyPageProps) {
   const related = CASE_STUDIES.filter((item) => item.slug !== study.slug).slice(0, 2);
-  const previewImages = [study.heroImage, ...study.gallery].filter((image): image is CaseStudyImage => Boolean(image));
-  const galleryOffset = study.heroImage ? 1 : 0;
   const videoEmbedUrl = getYouTubeEmbedUrl(study.videoUrl);
+  const videoAsHero = Boolean(videoEmbedUrl) && !(study.embedDemo && study.demoUrl);
+  const galleryImages =
+    videoAsHero && study.heroImage ? [study.heroImage, ...study.gallery] : study.gallery;
+  const previewImages = (
+    videoAsHero ? galleryImages : [study.heroImage, ...study.gallery]
+  ).filter((image): image is CaseStudyImage => Boolean(image));
+  const galleryOffset = videoAsHero ? 0 : study.heroImage ? 1 : 0;
 
   return (
     <>
@@ -93,6 +98,19 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
                   loading="lazy"
                   allow="fullscreen"
                   referrerPolicy="no-referrer-when-downgrade"
+                />
+              </div>
+            </div>
+          ) : videoAsHero && videoEmbedUrl ? (
+            <div className="mt-9 overflow-hidden rounded-[24px] border border-black/[0.08] bg-[#f5f3f1] p-2 shadow-card sm:mt-12 sm:p-3">
+              <div className="relative aspect-video min-h-[240px] overflow-hidden rounded-[18px] bg-ink sm:min-h-[320px]">
+                <iframe
+                  src={videoEmbedUrl}
+                  title={`${study.title} product walkthrough`}
+                  className="absolute inset-0 size-full"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  loading="eager"
                 />
               </div>
             </div>
@@ -158,7 +176,7 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
                 </section>
               ))}
 
-              {videoEmbedUrl ? (
+              {!videoAsHero && videoEmbedUrl ? (
                 <section>
                   <h2 className="display text-[clamp(1.75rem,2.5vw,2.75rem)] leading-tight">Product walkthrough</h2>
                   <div className="mt-4 rounded-[24px] border border-black/[0.08] bg-[#f5f3f1] p-2 shadow-card sm:p-3">
@@ -176,9 +194,9 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
                 </section>
               ) : null}
 
-              {study.gallery.length > 0 ? (
+              {galleryImages.length > 0 ? (
                 <div className="grid gap-4 sm:grid-cols-2">
-                  {study.gallery.map((image, index) => (
+                  {galleryImages.map((image, index) => (
                     <figure key={image.src} className="flex flex-col gap-3">
                       <CaseStudyPreviewVisual
                         image={image}

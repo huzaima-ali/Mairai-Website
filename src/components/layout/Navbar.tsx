@@ -45,7 +45,7 @@ function ProductsDropdown() {
       onMouseLeave={() => setOpen(false)}
     >
       <a
-        href="#products"
+        href="/#products"
         aria-expanded={open}
         aria-haspopup="menu"
         aria-controls={menuId}
@@ -93,7 +93,7 @@ function ProductsDropdown() {
           ))}
           <div className="mt-1 border-t border-border px-3.5 py-2.5">
             <a
-              href="#products"
+              href="/#products"
               role="menuitem"
               onClick={() => setOpen(false)}
               className="text-sm text-foreground/70 transition-colors hover:text-foreground"
@@ -147,7 +147,7 @@ export function Navbar() {
           </div>
 
           <div className="flex items-center gap-2">
-            <Button href="#contact" className="hidden h-11 px-6 text-sm sm:inline-flex">
+            <Button href="/#contact" className="hidden h-11 px-6 text-sm sm:inline-flex">
               Contact Us
             </Button>
             <button
