@@ -6,6 +6,7 @@ import { ArrowUpRight, ExternalLink } from "lucide-react";
 import {
   getCaseStudyUrl,
   getFeaturedCaseStudies,
+  getFeaturedProductShortName,
   type CaseStudy,
 } from "@/lib/case-studies";
 import { cn } from "@/lib/utils";
@@ -18,9 +19,9 @@ import { CaseStudyVisual } from "@/components/case-studies/CaseStudyVisual";
 const AUTO_ADVANCE_MS = 4000;
 
 function productShortName(product: CaseStudy) {
-  if (product.slug === "cero") return "Cero";
-  if (product.slug === "mira-pulse") return "MiraPulse";
-  if (product.slug === "esteria") return "Esteria";
+  if (product.slug === "cero" || product.slug === "mira-pulse" || product.slug === "esteria") {
+    return getFeaturedProductShortName(product.slug);
+  }
   return product.cardTitle;
 }
 
@@ -189,7 +190,7 @@ export function Projects() {
   const featuredProjects = getFeaturedCaseStudies();
 
   return (
-    <Section className="py-8 sm:py-10 lg:py-12">
+    <Section id="products" className="py-8 sm:py-10 lg:py-12">
       <Container>
         <div className="mb-8 max-w-2xl">
           <p className="eyebrow">Our products</p>

@@ -577,6 +577,23 @@ export function getFeaturedCaseStudies() {
   return CASE_STUDIES.filter((study) => study.featured);
 }
 
+export function getFeaturedProductShortName(slug: string) {
+  if (slug === "cero") return "Cero";
+  if (slug === "mira-pulse") return "MiraPulse";
+  if (slug === "esteria") return "Esteria";
+  return slug;
+}
+
+/** Nav dropdown entries for featured products (type + case study link). */
+export function getProductNavItems() {
+  return getFeaturedCaseStudies().map((study) => ({
+    slug: study.slug,
+    type: study.eyebrow,
+    name: getFeaturedProductShortName(study.slug),
+    href: getCaseStudyUrl(study.slug),
+  }));
+}
+
 export function getCaseStudyUrl(slug: string) {
   return `/work/${slug}`;
 }

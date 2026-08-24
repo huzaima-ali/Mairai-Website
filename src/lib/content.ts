@@ -13,12 +13,20 @@ export const ANNOUNCEMENT = {
   href: "https://usecero.com",
 } as const;
 
-export const NAV_LINKS = [
+export type NavLink = {
+  label: string;
+  href: string;
+  /** Renders a products mega-dropdown instead of a plain link. */
+  dropdown?: "products";
+};
+
+export const NAV_LINKS: NavLink[] = [
   { label: "Our Services", href: "#services" },
+  { label: "Our Products", href: "#products", dropdown: "products" },
   { label: "Work", href: "#work" },
   { label: "Testimonials", href: "#testimonials" },
   { label: "Work With Us", href: "#engagement" },
-] as const;
+];
 
 export const HERO = {
   headline: "Building AI Products That Drive Business Growth",
