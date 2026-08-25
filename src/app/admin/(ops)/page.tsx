@@ -6,7 +6,13 @@ import { formatAdminDate } from "@/lib/cms/utils";
 import { AdminStatusBadge } from "@/components/admin/AdminShell";
 
 export default async function AdminDashboardPage() {
-  const [articles, jobs] = await Promise.all([listArticlesAdmin(), listJobsAdmin()]);
+  let articles: Awaited<ReturnType<typeof listArticlesAdmin>> = [];
+  let jobs: Awaited<ReturnType<typeof listJobsAdmin>> = [];
+  try {
+    [articles, jobs] = await Promise.all([listArticlesAdmin(), listJobsAdmin()]);
+  } catch (error) {
+    console.error("[admin] dashboard data failed", error);
+  }
   const pages = getStaticRegistryPages();
 
   const publishedInsights = articles.filter((a) => a.status === "published").length;

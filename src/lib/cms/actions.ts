@@ -714,12 +714,18 @@ export async function signInAdminAction(email: string, password: string) {
   const supabase = createServerSupabaseClient();
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) throw new Error(error.message);
+  if (!data.user) throw new Error("Sign-in failed.");
 
-  const { data: profile } = await supabase
+  const { data: profile, error: profileError } = await supabase
     .from("profiles")
     .select("is_admin")
     .eq("id", data.user.id)
     .maybeSingle();
+
+  if (profileError) {
+    await supabase.auth.signOut();
+    throw new Error(profileError.message || "Could not verify admin access.");
+  }
 
   if (!profile || !(profile as { is_admin?: boolean }).is_admin) {
     await supabase.auth.signOut();

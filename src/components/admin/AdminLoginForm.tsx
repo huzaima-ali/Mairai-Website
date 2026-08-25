@@ -4,11 +4,17 @@ import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { signInAdminAction } from "@/lib/cms/actions";
 
-export function AdminLoginForm({ setupMissing }: { setupMissing?: boolean }) {
+export function AdminLoginForm({
+  setupMissing,
+  authError,
+}: {
+  setupMissing?: boolean;
+  authError?: string | null;
+}) {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(authError || null);
   const [pending, startTransition] = useTransition();
 
   return (
@@ -36,7 +42,9 @@ export function AdminLoginForm({ setupMissing }: { setupMissing?: boolean }) {
 
       {setupMissing ? (
         <div className="mt-4 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-900">
-          Supabase env vars are missing. Add them to <code>.env.local</code> before signing in.
+          Supabase env vars are missing or unreachable. Add{" "}
+          <code>NEXT_PUBLIC_SUPABASE_URL</code>, <code>NEXT_PUBLIC_SUPABASE_ANON_KEY</code>, and{" "}
+          <code>SUPABASE_SERVICE_ROLE_KEY</code> on the host, then redeploy.
         </div>
       ) : null}
 
