@@ -14,13 +14,15 @@ import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { FeaturedInsightCard } from "@/components/insights/FeaturedInsightCard";
 import { VIDEO_SECTION, SITE } from "@/lib/content";
-import { buildPageMetadata } from "@/lib/seo";
+import { resolvePageMetadata } from "@/lib/cms/seo-overrides";
 
-export const metadata: Metadata = buildPageMetadata({
-  title: "AI Development & Product Engineering Company",
-  description: SITE.description,
-  path: "/",
-});
+export async function generateMetadata(): Promise<Metadata> {
+  return resolvePageMetadata({
+    title: "AI Development & Product Engineering Company",
+    description: SITE.description,
+    path: "/",
+  });
+}
 
 export default function HomePage() {
   return (

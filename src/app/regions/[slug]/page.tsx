@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getAllRegionSlugs, getRegionPage } from "@/lib/regions";
-import { buildPageMetadata } from "@/lib/seo";
+import { resolvePageMetadata } from "@/lib/cms/seo-overrides";
 import { MarketingPageView } from "@/components/marketing/MarketingPageView";
 
 type RegionPageProps = {
@@ -12,10 +12,10 @@ export function generateStaticParams() {
   return getAllRegionSlugs().map((slug) => ({ slug }));
 }
 
-export function generateMetadata({ params }: RegionPageProps): Metadata {
+export async function generateMetadata({ params }: RegionPageProps): Promise<Metadata> {
   const page = getRegionPage(params.slug);
   if (!page) return {};
-  return buildPageMetadata({
+  return resolvePageMetadata({
     title: page.metaTitle.replace(" | Mirai Studios", ""),
     description: page.metaDescription,
     path: page.path,

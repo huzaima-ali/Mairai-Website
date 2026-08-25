@@ -1,20 +1,25 @@
 import type { Metadata } from "next";
 import { ArrowUpRight } from "lucide-react";
 import { SITE } from "@/lib/content";
-import { buildPageMetadata, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo";
+import { resolvePageMetadata } from "@/lib/cms/seo-overrides";
+import { listOpenJobs, jobPublicUrl } from "@/lib/cms/jobs";
+import { breadcrumbJsonLd, jsonLdScript } from "@/lib/seo";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { PageBackLink } from "@/components/ui/PageBackLink";
 
-export const metadata: Metadata = buildPageMetadata({
-  title: "Careers at Mirai Studios",
-  description:
-    "Explore careers at Mirai Studios. We hire product, design and engineering talent to build AI products, software platforms and digital twin experiences. No open roles right now.",
-  path: "/careers",
-});
+export async function generateMetadata(): Promise<Metadata> {
+  return resolvePageMetadata({
+    path: "/careers",
+    title: "Careers at Mirai Studios",
+    description:
+      "Explore careers at Mirai Studios. We hire product, design and engineering talent to build AI products, software platforms and digital twin experiences.",
+  });
+}
 
-export default function CareersPage() {
+export default async function CareersPage() {
+  const jobs = await listOpenJobs();
   const breadcrumbs = [
     { name: "Home", path: "/" },
     { name: "Careers", path: "/careers" },
@@ -51,14 +56,40 @@ export default function CareersPage() {
 
             <section className="mt-10">
               <h2 className="display text-[clamp(1.35rem,2.2vw,1.85rem)] leading-snug">Open roles</h2>
-              <div className="mt-5 rounded-2xl border border-border bg-surface px-5 py-6">
-                <p className="text-base font-medium text-foreground">No open positions right now</p>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground sm:text-base">
-                  We are not actively hiring at the moment. When roles open, they will be listed here. If you
-                  want to introduce yourself for future opportunities, email us with your background and the
-                  kind of work you care about.
-                </p>
-              </div>
+              {jobs.length === 0 ? (
+                <div className="mt-5 rounded-2xl border border-border bg-surface px-5 py-6">
+                  <p className="text-base font-medium text-foreground">No open positions right now</p>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground sm:text-base">
+                    We are not actively hiring at the moment. When roles open, they will be listed here. If you
+                    want to introduce yourself for future opportunities, email us with your background and the
+                    kind of work you care about.
+                  </p>
+                </div>
+              ) : (
+                <ul className="mt-5 flex flex-col gap-3">
+                  {jobs.map((job) => (
+                    <li key={job.id}>
+                      <a
+                        href={jobPublicUrl(job.slug)}
+                        className="group flex items-start justify-between gap-3 rounded-2xl border border-border bg-surface px-5 py-4 transition-colors hover:border-foreground/25"
+                      >
+                        <span>
+                          <span className="block text-lg font-medium text-foreground">{job.title}</span>
+                          <span className="mt-1 block text-sm text-muted-foreground">
+                            {[job.department, job.location, job.workplace_type, job.employment_type]
+                              .filter(Boolean)
+                              .join(" · ")}
+                          </span>
+                        </span>
+                        <span className="mt-1 inline-flex items-center gap-1 text-sm font-medium text-foreground">
+                          View role
+                          <ArrowUpRight className="h-4 w-4" />
+                        </span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </section>
 
             <section className="mt-10">

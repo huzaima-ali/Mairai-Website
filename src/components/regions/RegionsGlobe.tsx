@@ -20,14 +20,15 @@ type RegionHotspot = {
   focus: { lat: number; lon: number };
 };
 
-const RADIUS = 1.7;
+const RADIUS = 1.35;
 const IDLE_SPIN = 0.08;
 const LAND_COLOR = "#2a2a2a";
 const LAND_DIM = "#1a1a1a";
-/** Idle framing — full silhouette with light breathing room. */
-const IDLE_CAMERA_Z = 5.55;
-/** Region focus zooms about 12% closer — noticeable, not dramatic. */
+/** Idle framing — full silhouette at ~70–80% of the canvas with breathing room. */
+const IDLE_CAMERA_Z = 6.35;
+/** Region focus zooms about 12% closer — noticeable, not dramatic / never crops. */
 const FOCUS_CAMERA_Z = IDLE_CAMERA_Z * 0.88;
+const CAMERA_FOV = 34;
 
 export const REGION_HOTSPOTS: RegionHotspot[] = [
   {
@@ -268,12 +269,20 @@ function GlobeScene({
   points: LandPoint[];
 }) {
   const rootRef = useRef<THREE.Group>(null);
-  const { camera } = useThree();
+  const { camera, size } = useThree();
   const targetQuat = useRef(new THREE.Quaternion());
   const idleQuat = useRef(new THREE.Quaternion());
   const cameraZ = useRef(IDLE_CAMERA_Z);
   const spinAxis = useMemo(() => new THREE.Vector3(0, 1, 0), []);
   const spinStep = useMemo(() => new THREE.Quaternion(), []);
+
+  /** Keep framing stable when the canvas aspect changes (resize / breakpoints). */
+  useEffect(() => {
+    if (!(camera instanceof THREE.PerspectiveCamera)) return;
+    camera.fov = CAMERA_FOV;
+    camera.aspect = size.width / Math.max(size.height, 1);
+    camera.updateProjectionMatrix();
+  }, [camera, size.height, size.width]);
 
   useFrame((_, delta) => {
     const group = rootRef.current;
@@ -297,11 +306,11 @@ function GlobeScene({
 
     group.quaternion.slerp(targetQuat.current, 1 - Math.exp(-delta * 2.35));
     camera.position.z = cameraZ.current;
-    camera.lookAt(0, 0.12, 0);
+    camera.lookAt(0, 0.05, 0);
   });
 
   return (
-    <group position={[0, 0.18, 0]}>
+    <group position={[0, 0.05, 0]}>
       <mesh>
         <sphereGeometry args={[RADIUS * 0.985, 48, 48]} />
         <meshStandardMaterial color="#d9d5d0" transparent opacity={0.42} roughness={1} metalness={0} />
@@ -337,11 +346,12 @@ function TopologyEarth({
 
   return (
     <Canvas
-      camera={{ position: [0, 0.05, IDLE_CAMERA_Z], fov: 36, near: 0.1, far: 40 }}
+      camera={{ position: [0, 0.02, IDLE_CAMERA_Z], fov: CAMERA_FOV, near: 0.1, far: 40 }}
       dpr={[1, 1.75]}
       gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
       onPointerMissed={() => onSelect(null)}
-      style={{ background: "transparent" }}
+      style={{ background: "transparent", width: "100%", height: "100%" }}
+      resize={{ scroll: false, debounce: { scroll: 50, resize: 0 } }}
     >
       <ambientLight intensity={0.92} />
       <directionalLight position={[5, 4, 6]} intensity={1.15} />
@@ -381,8 +391,8 @@ export function RegionsGlobe({
 
   return (
     <div className={className}>
-      <div className="relative h-full min-h-[400px] w-full overflow-visible bg-transparent lg:min-h-[560px]">
-        <div className="absolute inset-0">
+      <div className="relative aspect-square w-full max-w-[560px] overflow-visible bg-transparent sm:max-w-none sm:aspect-auto sm:min-h-[420px] lg:min-h-[520px] mx-auto">
+        <div className="absolute inset-0 p-4 sm:p-6 lg:p-8">
           {mounted ? (
             <Suspense fallback={<GlobeFallback />}>
               <TopologyEarth focusId={focusId} onSelect={onFocusChange} />

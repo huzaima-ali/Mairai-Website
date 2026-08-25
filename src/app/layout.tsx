@@ -10,9 +10,7 @@ import {
 } from "@/lib/seo";
 import { MotionProvider } from "@/components/animations/MotionProvider";
 import { LenisProvider } from "@/components/animations/LenisProvider";
-import { AlertBar } from "@/components/layout/AlertBar";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
+import { SiteChrome } from "@/components/layout/SiteChrome";
 
 // Inter stands in for "Google Sans" (the Figma font, not freely distributable).
 const sans = Inter({ subsets: ["latin"], display: "swap", variable: "--font-sans" });
@@ -62,10 +60,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </a>
         <MotionProvider>
           <LenisProvider>
-            <AlertBar />
-            <Navbar />
-            <main>{children}</main>
-            <Footer />
+            <SiteChrome>{children}</SiteChrome>
           </LenisProvider>
         </MotionProvider>
       </body>

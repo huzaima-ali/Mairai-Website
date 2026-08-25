@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getAllServiceSlugs, getServicePage } from "@/lib/services";
-import { buildPageMetadata } from "@/lib/seo";
+import { resolvePageMetadata } from "@/lib/cms/seo-overrides";
 import { MarketingPageView } from "@/components/marketing/MarketingPageView";
 
 type ServicePageProps = {
@@ -12,10 +12,10 @@ export function generateStaticParams() {
   return getAllServiceSlugs().map((slug) => ({ slug }));
 }
 
-export function generateMetadata({ params }: ServicePageProps): Metadata {
+export async function generateMetadata({ params }: ServicePageProps): Promise<Metadata> {
   const page = getServicePage(params.slug);
   if (!page) return {};
-  return buildPageMetadata({
+  return resolvePageMetadata({
     title: page.metaTitle.replace(" | Mirai Studios", ""),
     description: page.metaDescription,
     path: page.path,

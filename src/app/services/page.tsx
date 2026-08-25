@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
 import { SERVICE_PAGES } from "@/lib/services";
-import { buildPageMetadata } from "@/lib/seo";
+import { resolvePageMetadata } from "@/lib/cms/seo-overrides";
 import { HubIndexPage } from "@/components/marketing/HubIndexPage";
 
-export const metadata: Metadata = buildPageMetadata({
-  title: "AI Product Development & Technology Services",
-  description:
-    "Explore Mirai Studios services spanning AI product development, AI agents, automation, custom software, digital twins, product design and enterprise engineering.",
-  path: "/services",
-});
+export async function generateMetadata(): Promise<Metadata> {
+  return resolvePageMetadata({
+    title: "AI Product Development & Technology Services",
+    description:
+      "Explore Mirai Studios services spanning AI product development, AI agents, automation, custom software, digital twins, product design and enterprise engineering.",
+    path: "/services",
+  });
+}
 
 export default function ServicesIndexPage() {
   return (

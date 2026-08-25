@@ -23,8 +23,16 @@ type BuildMetadataInput = {
   path: string;
   /** When false, omit from indexing. Defaults to true. */
   index?: boolean;
+  follow?: boolean;
   ogImage?: string;
   type?: "website" | "article";
+  canonicalUrl?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  twitterTitle?: string;
+  twitterDescription?: string;
+  twitterImage?: string;
+  twitterCard?: "summary" | "summary_large_image";
 };
 
 /**
@@ -35,12 +43,26 @@ export function buildPageMetadata({
   description,
   path,
   index = true,
+  follow = true,
   ogImage,
   type = "website",
+  canonicalUrl,
+  ogTitle,
+  ogDescription,
+  twitterTitle,
+  twitterDescription,
+  twitterImage,
+  twitterCard = "summary_large_image",
 }: BuildMetadataInput): Metadata {
-  const url = absoluteUrl(path);
+  const url = canonicalUrl || absoluteUrl(path);
   const image = ogImage ? absoluteUrl(ogImage) : absoluteUrl("/opengraph-image");
   const displayTitle = title.includes(SITE.name) ? title : `${title} | ${SITE.name}`;
+  const ogDisplayTitle = ogTitle
+    ? ogTitle.includes(SITE.name)
+      ? ogTitle
+      : `${ogTitle} | ${SITE.name}`
+    : displayTitle;
+  const twImage = twitterImage ? absoluteUrl(twitterImage) : image;
 
   return {
     title: {
@@ -48,22 +70,28 @@ export function buildPageMetadata({
     },
     description,
     alternates: { canonical: url },
-    robots: index
-      ? { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large" } }
-      : { index: false, follow: false },
+    robots: {
+      index,
+      follow,
+      googleBot: {
+        index,
+        follow,
+        "max-image-preview": "large",
+      },
+    },
     openGraph: {
       type,
       url,
       siteName: SITE.name,
-      title: displayTitle,
-      description,
-      images: [{ url: image, alt: displayTitle }],
+      title: ogDisplayTitle,
+      description: ogDescription || description,
+      images: [{ url: image, alt: ogDisplayTitle }],
     },
     twitter: {
-      card: "summary_large_image",
-      title: displayTitle,
-      description,
-      images: [image],
+      card: twitterCard,
+      title: twitterTitle || ogDisplayTitle,
+      description: twitterDescription || ogDescription || description,
+      images: [twImage],
     },
   };
 }

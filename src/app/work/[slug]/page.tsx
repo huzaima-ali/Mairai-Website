@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CASE_STUDIES, getCaseStudy, getCaseStudyUrl } from "@/lib/case-studies";
-import { buildPageMetadata } from "@/lib/seo";
+import { resolvePageMetadata } from "@/lib/cms/seo-overrides";
 import { CaseStudyPage } from "@/components/case-studies/CaseStudyPage";
 
 interface WorkPageProps {
@@ -14,14 +14,14 @@ export function generateStaticParams() {
   return CASE_STUDIES.map((study) => ({ slug: study.slug }));
 }
 
-export function generateMetadata({ params }: WorkPageProps): Metadata {
+export async function generateMetadata({ params }: WorkPageProps): Promise<Metadata> {
   const study = getCaseStudy(params.slug);
 
   if (!study) {
     return {};
   }
 
-  return buildPageMetadata({
+  return resolvePageMetadata({
     title: study.title,
     description: study.summary,
     path: getCaseStudyUrl(study.slug),

@@ -7,11 +7,12 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/dev/"],
+        disallow: ["/api/", "/dev/", "/admin/"],
       },
       {
         userAgent: "OAI-SearchBot",
         allow: "/",
+        disallow: ["/api/", "/dev/", "/admin/"],
       },
     ],
     sitemap: `${CANONICAL_ORIGIN}/sitemap.xml`,

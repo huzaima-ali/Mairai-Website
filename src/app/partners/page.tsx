@@ -1,16 +1,19 @@
 import type { Metadata } from "next";
 import { PARTNER_PAGE } from "@/lib/partners";
-import { buildPageMetadata, breadcrumbJsonLd, jsonLdScript } from "@/lib/seo";
+import { resolvePageMetadata } from "@/lib/cms/seo-overrides";
+import { breadcrumbJsonLd, jsonLdScript } from "@/lib/seo";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { PartnerForm } from "@/components/partners/PartnerForm";
 import { PageBackLink } from "@/components/ui/PageBackLink";
 
-export const metadata: Metadata = buildPageMetadata({
-  title: PARTNER_PAGE.metaTitle.replace(" | Mirai Studios", ""),
-  description: PARTNER_PAGE.metaDescription,
-  path: PARTNER_PAGE.path,
-});
+export async function generateMetadata(): Promise<Metadata> {
+  return resolvePageMetadata({
+    title: PARTNER_PAGE.metaTitle.replace(" | Mirai Studios", ""),
+    description: PARTNER_PAGE.metaDescription,
+    path: PARTNER_PAGE.path,
+  });
+}
 
 export default function PartnersPage() {
   const breadcrumbs = [
