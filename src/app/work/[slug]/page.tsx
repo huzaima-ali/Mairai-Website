@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { CASE_STUDIES, getCaseStudy, getCaseStudyAbsoluteUrl } from "@/lib/case-studies";
-import { SITE } from "@/lib/content";
+import { CASE_STUDIES, getCaseStudy, getCaseStudyUrl } from "@/lib/case-studies";
+import { buildPageMetadata } from "@/lib/seo";
 import { CaseStudyPage } from "@/components/case-studies/CaseStudyPage";
 
 interface WorkPageProps {
@@ -21,17 +21,13 @@ export function generateMetadata({ params }: WorkPageProps): Metadata {
     return {};
   }
 
-  return {
+  return buildPageMetadata({
     title: study.title,
     description: study.summary,
-    alternates: { canonical: getCaseStudyAbsoluteUrl(study.slug) },
-    openGraph: {
-      title: `${study.title} · ${SITE.name}`,
-      description: study.summary,
-      url: getCaseStudyAbsoluteUrl(study.slug),
-      images: study.heroImage ? [{ url: study.heroImage.src, alt: study.heroImage.alt }] : undefined,
-    },
-  };
+    path: getCaseStudyUrl(study.slug),
+    ogImage: study.heroImage?.src ?? study.cardImage.src,
+    type: "article",
+  });
 }
 
 export default function WorkPage({ params }: WorkPageProps) {

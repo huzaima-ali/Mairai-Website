@@ -70,7 +70,7 @@ function ServiceDetails({
         href={service.href}
         className="mt-6 inline-flex w-fit items-center gap-1.5 text-sm font-medium text-foreground transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
       >
-        Explore our work
+        Explore this service
         <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
       </a>
     </div>

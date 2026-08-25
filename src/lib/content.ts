@@ -1,9 +1,11 @@
 export const SITE = {
   name: "Mirai Studios",
   tagline: "Bringing\ntechnology to life",
-  url: "https://miraistudios.com",
+  url: "https://miraistudios.co",
   description:
-    "From AI products and internal business platforms to immersive digital twins and interactive experiences, our portfolio showcases solutions that transform how businesses operate and engage.",
+    "Mirai Studios designs and builds AI products, AI agents, enterprise software, intelligent automation and digital twins for businesses across the US, UK and MENA.",
+  positioning:
+    "Mirai Studios is an AI product development and technology engineering company that designs, builds and scales AI products, AI agents, enterprise platforms, intelligent automation, digital twins and immersive experiences for businesses across the United States, United Kingdom and Middle East.",
   email: "hello@miraistudios.co",
 } as const;
 
@@ -17,15 +19,24 @@ export type NavLink = {
   label: string;
   href: string;
   /** Renders a products mega-dropdown instead of a plain link. */
-  dropdown?: "products";
+  dropdown?: "products" | "work-with-us";
+  /** Place this item on the right side of the nav (desktop). */
+  align?: "end";
 };
+
+export const WORK_WITH_US_LINKS = [
+  { label: "Request a call", description: "Tell us about your project", href: "/#contact" },
+  { label: "Partner with us", description: "Agencies & delivery partners", href: "/partners" },
+] as const;
 
 export const NAV_LINKS: NavLink[] = [
   { label: "Our Services", href: "/#services" },
   { label: "Our Products", href: "/#products", dropdown: "products" },
-  { label: "Work", href: "/#work" },
+  { label: "Our Work", href: "/#work" },
+  { label: "Insights", href: "/insights" },
   { label: "Testimonials", href: "/#testimonials" },
-  { label: "Work With Us", href: "/#engagement" },
+  { label: "Work With Us", href: "/#contact", dropdown: "work-with-us" },
+  { label: "Careers", href: "/careers", align: "end" },
 ];
 
 export const HERO = {
@@ -115,7 +126,7 @@ export const SERVICES: Service[] = [
       src: "/case-studies/cero/image-01.png",
       alt: "Cero AI product interface built by Mirai Studios",
     },
-    href: "#work",
+    href: "/services/ai-product-development",
   },
   {
     id: "digital-products",
@@ -128,7 +139,7 @@ export const SERVICES: Service[] = [
       src: "/case-studies/storypage-ai/image-01.png",
       alt: "StoryPage digital product platform interface",
     },
-    href: "#work",
+    href: "/services/custom-software-development",
   },
   {
     id: "digital-twins",
@@ -141,7 +152,7 @@ export const SERVICES: Service[] = [
       src: "/case-studies/thyssenkrupp/image-01.png",
       alt: "thyssenkrupp interactive digital twin experience",
     },
-    href: "#work",
+    href: "/services/digital-twin-development",
   },
   {
     id: "product-design",
@@ -154,7 +165,7 @@ export const SERVICES: Service[] = [
       src: "/case-studies/enorta/image-02.png",
       alt: "Enorta product design and interface system",
     },
-    href: "#work",
+    href: "/services/product-design",
   },
   {
     id: "spatial",
@@ -167,7 +178,7 @@ export const SERVICES: Service[] = [
       src: "/case-studies/thyssenkrupp/image-03.png",
       alt: "Immersive spatial visualization from Mirai Studios",
     },
-    href: "#work",
+    href: "/services/immersive-experiences",
   },
   {
     id: "enterprise",
@@ -180,7 +191,7 @@ export const SERVICES: Service[] = [
       src: "/case-studies/lillyai/image-01.png",
       alt: "LillyAI enterprise clinical intelligence platform",
     },
-    href: "#work",
+    href: "/services/enterprise-engineering",
   },
 ];
 

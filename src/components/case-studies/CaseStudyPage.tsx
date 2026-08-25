@@ -1,5 +1,6 @@
 import { ArrowLeft, ArrowUpRight, Quote } from "lucide-react";
-import { CASE_STUDIES, type CaseStudy } from "@/lib/case-studies";
+import { CASE_STUDIES, getCaseStudyUrl, type CaseStudy } from "@/lib/case-studies";
+import { breadcrumbJsonLd, creativeWorkJsonLd, jsonLdScript } from "@/lib/seo";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
@@ -47,10 +48,40 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
   ).filter((image): image is CaseStudyImage => Boolean(image));
   const galleryOffset = videoAsHero ? 0 : study.heroImage ? 1 : 0;
 
+  const relatedLinks = [...(study.relatedServices ?? [])];
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLdScript([
+          breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Work", path: "/#work" },
+            { name: study.title, path: getCaseStudyUrl(study.slug) },
+          ]),
+          creativeWorkJsonLd({
+            name: study.title,
+            description: study.summary,
+            path: getCaseStudyUrl(study.slug),
+            image: study.heroImage?.src ?? study.cardImage.src,
+          }),
+        ])}
+      />
       <Section className="pb-8 pt-12 sm:pt-16 lg:pt-20">
         <Container>
+          <nav aria-label="Breadcrumb" className="mb-6 flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+            <a href="/" className="transition-colors hover:text-foreground">
+              Home
+            </a>
+            <span aria-hidden>/</span>
+            <a href="/#work" className="transition-colors hover:text-foreground">
+              Work
+            </a>
+            <span aria-hidden>/</span>
+            <span className="text-foreground">{study.cardTitle}</span>
+          </nav>
+
           <div className="mb-8 flex flex-wrap gap-3">
             <a href="/" className="pill border border-border bg-background text-foreground hover:border-foreground/40">
               <ArrowLeft className="h-4 w-4" />
@@ -133,6 +164,12 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
             <aside className="h-fit rounded-[24px] border border-black/[0.08] bg-[#f5f3f1] p-5 sm:p-7 lg:sticky lg:top-24">
               <h2 className="text-lg font-medium text-foreground">Project information</h2>
               <dl className="mt-5 flex flex-col gap-4">
+                {study.industryLabel ? (
+                  <div className="border-t border-black/[0.08] pt-4">
+                    <dt className="text-sm text-muted-foreground">Industry</dt>
+                    <dd className="mt-1 text-base leading-relaxed text-foreground">{study.industryLabel}</dd>
+                  </div>
+                ) : null}
                 {study.projectInfo.map((item) => (
                   <div key={item.label} className="border-t border-black/[0.08] pt-4">
                     <dt className="text-sm text-muted-foreground">{item.label}</dt>
@@ -140,6 +177,22 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
                   </div>
                 ))}
               </dl>
+              {relatedLinks.length > 0 ? (
+                <div className="mt-6 border-t border-black/[0.08] pt-5">
+                  <p className="text-sm text-muted-foreground">Related services</p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {relatedLinks.map((link) => (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        className="rounded-full border border-black/[0.08] bg-white px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:border-foreground/30"
+                      >
+                        {link.label}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
               {study.websiteUrl ? (
                 <a
                   href={study.websiteUrl}

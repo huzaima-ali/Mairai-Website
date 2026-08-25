@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
-import { contactSchema } from "@/lib/validations";
+import { partnerSchema } from "@/lib/validations";
 
 export const runtime = "nodejs";
 
@@ -16,32 +16,37 @@ function escapeHtml(value: string) {
 function formatHtml(data: {
   fullName: string;
   email: string;
-  countryCode: string;
-  phone: string;
-  requiredService: string;
-  budgetRange: string;
+  company: string;
+  website: string;
+  country: string;
+  partnershipType: string;
+  companyType: string;
+  projectSize?: string;
   message: string;
 }) {
   const rows: Array<{ label: string; value: string }> = [
-    { label: "Lead type", value: "client" },
+    { label: "Lead type", value: "partnership" },
     { label: "Name", value: data.fullName },
     { label: "Email", value: data.email },
-    { label: "Phone", value: `${data.countryCode} ${data.phone}` },
-    { label: "Required service", value: data.requiredService },
-    { label: "Budget", value: data.budgetRange },
-    { label: "Project details", value: data.message },
+    { label: "Company", value: data.company },
+    { label: "Website", value: data.website },
+    { label: "Country", value: data.country },
+    { label: "Partnership type", value: data.partnershipType },
+    { label: "Company type", value: data.companyType },
+    { label: "Project / client size", value: data.projectSize?.trim() || "Not provided" },
+    { label: "Partnership goals", value: data.message },
   ];
 
   return `
     <div style="font-family:Inter,Arial,sans-serif;color:#111;line-height:1.6">
-      <h1 style="font-size:24px;line-height:1.2;margin:0 0 16px">New Mirai Studios client inquiry</h1>
-      <p style="margin:0 0 24px;color:#555">Source: client contact form on miraistudios.co</p>
+      <h1 style="font-size:24px;line-height:1.2;margin:0 0 16px">New Mirai Studios partnership enquiry</h1>
+      <p style="margin:0 0 24px;color:#555">Source: partnership form on miraistudios.co</p>
       <table style="width:100%;border-collapse:collapse">
         ${rows
           .map(
             ({ label, value }) => `
               <tr>
-                <th style="width:160px;text-align:left;vertical-align:top;padding:12px;border-top:1px solid #eee;color:#666;font-weight:600">${escapeHtml(label)}</th>
+                <th style="width:180px;text-align:left;vertical-align:top;padding:12px;border-top:1px solid #eee;color:#666;font-weight:600">${escapeHtml(label)}</th>
                 <td style="padding:12px;border-top:1px solid #eee;white-space:pre-wrap">${escapeHtml(value)}</td>
               </tr>
             `,
@@ -54,7 +59,7 @@ function formatHtml(data: {
 
 export async function POST(request: Request) {
   const json = await request.json().catch(() => null);
-  const parsed = contactSchema.safeParse(json);
+  const parsed = partnerSchema.safeParse(json);
 
   if (!parsed.success) {
     return NextResponse.json({ error: "Please check the form and try again." }, { status: 400 });
@@ -62,7 +67,7 @@ export async function POST(request: Request) {
 
   const data = parsed.data;
 
-  if (data.website) {
+  if (data.honeypot) {
     return NextResponse.json({ error: "Please check the form and try again." }, { status: 400 });
   }
 
@@ -75,7 +80,7 @@ export async function POST(request: Request) {
   const from = process.env.CONTACT_FROM_EMAIL;
 
   if (!apiKey || !to || !from) {
-    return NextResponse.json({ error: "Contact email is not configured yet." }, { status: 500 });
+    return NextResponse.json({ error: "Partner email is not configured yet." }, { status: 500 });
   }
 
   const resend = new Resend(apiKey);
@@ -83,19 +88,22 @@ export async function POST(request: Request) {
     from,
     to,
     replyTo: data.email,
-    subject: `[Client] Inquiry from ${data.fullName}`,
+    subject: `[Partnership] Enquiry from ${data.company} (${data.fullName})`,
     html: formatHtml(data),
     text: [
-      "New Mirai Studios client inquiry",
-      "Lead type: client",
+      "New Mirai Studios partnership enquiry",
+      "Lead type: partnership",
       "",
       `Name: ${data.fullName}`,
       `Email: ${data.email}`,
-      `Phone: ${data.countryCode} ${data.phone}`,
-      `Required service: ${data.requiredService}`,
-      `Budget: ${data.budgetRange}`,
+      `Company: ${data.company}`,
+      `Website: ${data.website}`,
+      `Country: ${data.country}`,
+      `Partnership type: ${data.partnershipType}`,
+      `Company type: ${data.companyType}`,
+      `Project / client size: ${data.projectSize?.trim() || "Not provided"}`,
       "",
-      "Project details:",
+      "Partnership goals:",
       data.message,
     ].join("\n"),
   });
@@ -104,5 +112,5 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "We could not send your message yet. Please try again." }, { status: 502 });
   }
 
-  return NextResponse.json({ ok: true });
+  return NextResponse.json({ ok: true, leadType: "partnership" });
 }

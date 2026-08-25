@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, m } from "framer-motion";
 import { ChevronDown, X } from "lucide-react";
-import { NAV_LINKS, SITE } from "@/lib/content";
+import { NAV_LINKS, SITE, WORK_WITH_US_LINKS } from "@/lib/content";
 import { getProductNavItems } from "@/lib/case-studies";
 import { cn } from "@/lib/utils";
 import { drawer, overlay, staggerContainer, fadeUp } from "@/lib/motion";
@@ -15,13 +15,68 @@ interface MobileMenuProps {
   onClose: () => void;
 }
 
+function MobileExpandable({
+  label,
+  href,
+  open,
+  onToggle,
+  onClose,
+  children,
+}: {
+  label: string;
+  href: string;
+  open: boolean;
+  onToggle: () => void;
+  onClose: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <li className="rounded-2xl">
+      <div className="flex items-stretch">
+        <a
+          href={href}
+          onClick={onClose}
+          className="flex flex-1 items-center rounded-l-2xl px-4 py-3.5 text-lg text-foreground transition-colors hover:bg-surface"
+        >
+          {label}
+        </a>
+        <button
+          type="button"
+          aria-expanded={open}
+          aria-label={`Toggle ${label} list`}
+          onClick={onToggle}
+          className="grid w-12 place-items-center rounded-r-2xl text-foreground transition-colors hover:bg-surface"
+        >
+          <ChevronDown className={cn("h-5 w-5 transition-transform duration-200", open && "rotate-180")} />
+        </button>
+      </div>
+
+      <AnimatePresence initial={false}>
+        {open ? (
+          <m.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden"
+          >
+            <div className="pb-2 pl-2 pr-1 pt-1">{children}</div>
+          </m.div>
+        ) : null}
+      </AnimatePresence>
+    </li>
+  );
+}
+
 export function MobileMenu({ open, onClose }: MobileMenuProps) {
   const [productsOpen, setProductsOpen] = useState(false);
+  const [workWithUsOpen, setWorkWithUsOpen] = useState(false);
   const products = getProductNavItems();
 
   useEffect(() => {
     if (!open) {
       setProductsOpen(false);
+      setWorkWithUsOpen(false);
       return;
     }
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
@@ -36,7 +91,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
   return (
     <AnimatePresence>
       {open && (
-        <m.div className="fixed inset-0 z-[60] lg:hidden" role="dialog" aria-modal="true" aria-label="Site menu">
+        <m.div className="fixed inset-0 z-[60] xl:hidden" role="dialog" aria-modal="true" aria-label="Site menu">
           <m.button
             type="button"
             aria-label="Close menu"
@@ -68,65 +123,68 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
               </button>
             </div>
 
-            <m.ul variants={staggerContainer} initial="hidden" animate="show" className="mt-10 flex flex-col gap-1 overflow-y-auto">
-              {NAV_LINKS.map((link) =>
-                link.dropdown === "products" ? (
-                  <m.li key={link.href} variants={fadeUp} className="rounded-2xl">
-                    <div className="flex items-stretch">
-                      <a
+            <m.ul
+              variants={staggerContainer}
+              initial="hidden"
+              animate="show"
+              className="mt-10 flex flex-col gap-1 overflow-y-auto"
+            >
+              {NAV_LINKS.map((link) => {
+                if (link.dropdown === "products") {
+                  return (
+                    <m.li key={link.label} variants={fadeUp}>
+                      <MobileExpandable
+                        label={link.label}
                         href={link.href}
-                        onClick={onClose}
-                        className="flex flex-1 items-center rounded-l-2xl px-4 py-3.5 text-lg text-foreground transition-colors hover:bg-surface"
+                        open={productsOpen}
+                        onToggle={() => setProductsOpen((current) => !current)}
+                        onClose={onClose}
                       >
-                        {link.label}
-                      </a>
-                      <button
-                        type="button"
-                        aria-expanded={productsOpen}
-                        aria-label="Toggle product list"
-                        onClick={() => setProductsOpen((current) => !current)}
-                        className="grid w-12 place-items-center rounded-r-2xl text-foreground transition-colors hover:bg-surface"
-                      >
-                        <ChevronDown
-                          className={cn(
-                            "h-5 w-5 transition-transform duration-200",
-                            productsOpen && "rotate-180",
-                          )}
-                        />
-                      </button>
-                    </div>
+                        {products.map((product) => (
+                          <a
+                            key={product.slug}
+                            href={product.href}
+                            onClick={onClose}
+                            className="block rounded-xl px-4 py-3 transition-colors hover:bg-surface"
+                          >
+                            <span className="block text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
+                              {product.type}
+                            </span>
+                            <span className="mt-1 block text-base font-medium text-foreground">{product.name}</span>
+                          </a>
+                        ))}
+                      </MobileExpandable>
+                    </m.li>
+                  );
+                }
 
-                    <AnimatePresence initial={false}>
-                      {productsOpen ? (
-                        <m.ul
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-                          className="overflow-hidden"
-                        >
-                          <li className="pb-2 pl-2 pr-1 pt-1">
-                            {products.map((product) => (
-                              <a
-                                key={product.slug}
-                                href={product.href}
-                                onClick={onClose}
-                                className="block rounded-xl px-4 py-3 transition-colors hover:bg-surface"
-                              >
-                                <span className="block text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
-                                  {product.type}
-                                </span>
-                                <span className="mt-1 block text-base font-medium text-foreground">
-                                  {product.name}
-                                </span>
-                              </a>
-                            ))}
-                          </li>
-                        </m.ul>
-                      ) : null}
-                    </AnimatePresence>
-                  </m.li>
-                ) : (
+                if (link.dropdown === "work-with-us") {
+                  return (
+                    <m.li key={link.label} variants={fadeUp}>
+                      <MobileExpandable
+                        label={link.label}
+                        href={link.href}
+                        open={workWithUsOpen}
+                        onToggle={() => setWorkWithUsOpen((current) => !current)}
+                        onClose={onClose}
+                      >
+                        {WORK_WITH_US_LINKS.map((item) => (
+                          <a
+                            key={item.href}
+                            href={item.href}
+                            onClick={onClose}
+                            className="block rounded-xl px-4 py-3 transition-colors hover:bg-surface"
+                          >
+                            <span className="block text-base font-medium text-foreground">{item.label}</span>
+                            <span className="mt-1 block text-sm text-muted-foreground">{item.description}</span>
+                          </a>
+                        ))}
+                      </MobileExpandable>
+                    </m.li>
+                  );
+                }
+
+                return (
                   <m.li key={link.href} variants={fadeUp}>
                     <a
                       href={link.href}
@@ -136,8 +194,8 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
                       {link.label}
                     </a>
                   </m.li>
-                ),
-              )}
+                );
+              })}
             </m.ul>
 
             <div className="mt-auto flex flex-col gap-3 pt-8">

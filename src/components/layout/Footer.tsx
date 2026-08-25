@@ -1,11 +1,12 @@
 import { SITE } from "@/lib/content";
 import { COMPANY, LEGAL_NAV_LINKS } from "@/lib/legal";
+import { SOCIAL_PROFILES } from "@/lib/seo";
 import { Container } from "@/components/ui/Container";
 import { Logo } from "@/components/ui/Logo";
 
 const SOCIAL_LINKS = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/company/miraistudios1/" },
-  { label: "Instagram", href: "https://www.instagram.com/mirai_studios_?igsh=MXU2NnhiMXo4cGl2Nw==" },
+  { label: "LinkedIn", href: SOCIAL_PROFILES[0] },
+  { label: "Instagram", href: SOCIAL_PROFILES[1] },
 ] as const;
 
 export function Footer() {
@@ -14,7 +15,7 @@ export function Footer() {
   return (
     <footer className="relative overflow-hidden border-t border-border bg-surface">
       <div aria-hidden className="dot-grid absolute inset-0 text-foreground/[0.06]" />
-      <Container className="relative py-16 lg:py-20">
+      <Container className="relative pb-16 pt-12 lg:pb-20 lg:pt-14">
         <a href="/" aria-label="Mirai Studios home" className="inline-flex transition-opacity hover:opacity-80">
           <Logo />
         </a>
@@ -37,16 +38,19 @@ export function Footer() {
               </a>
             </div>
 
-            <nav aria-label="Legal" className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-x-6 sm:gap-y-2">
-              {LEGAL_NAV_LINKS.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className="text-sm text-foreground transition-opacity hover:opacity-60"
-                >
-                  {link.label}
-                </a>
-              ))}
+            <nav aria-label="Company" className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-x-6 sm:gap-y-2">
+              <a href="/partners" className="text-sm text-foreground transition-opacity hover:opacity-60">
+                Partner With Us
+              </a>
+              <a href="/services" className="text-sm text-foreground transition-opacity hover:opacity-60">
+                Services
+              </a>
+              <a href="/insights" className="text-sm text-foreground transition-opacity hover:opacity-60">
+                Insights
+              </a>
+              <a href="/careers" className="text-sm text-foreground transition-opacity hover:opacity-60">
+                Careers
+              </a>
             </nav>
           </div>
 
@@ -71,9 +75,25 @@ export function Footer() {
               </div>
             </nav>
 
-            <p className="text-sm leading-relaxed text-foreground lg:text-right">
-              <span className="text-foreground/[0.42]">©</span> {year} {COMPANY.legalName}. All rights reserved.
-            </p>
+            <div className="flex flex-col gap-3 lg:items-end">
+              <p className="text-sm leading-relaxed text-foreground lg:text-right">
+                <span className="text-foreground/[0.42]">©</span> {year} {COMPANY.legalName}. All rights reserved.
+              </p>
+              <nav
+                aria-label="Legal"
+                className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-x-5 sm:gap-y-2 lg:justify-end"
+              >
+                {LEGAL_NAV_LINKS.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    className="text-sm text-foreground/60 transition-opacity hover:opacity-100"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </nav>
+            </div>
           </div>
         </div>
       </Container>

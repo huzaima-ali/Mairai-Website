@@ -132,7 +132,7 @@ export function Contact() {
   };
 
   return (
-    <Section id="contact">
+    <Section id="contact" className="pb-6 pt-10 sm:pb-8 sm:pt-12 lg:pb-10 lg:pt-14">
       <Container>
         <div className="grid gap-10 lg:grid-cols-2 lg:items-start lg:gap-12">
           <div>

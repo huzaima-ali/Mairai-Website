@@ -1,4 +1,4 @@
-import { SITE } from "@/lib/content";
+import { absoluteUrl } from "@/lib/seo";
 
 export interface CaseStudyImage {
   src: string;
@@ -44,6 +44,9 @@ export interface CaseStudy {
   };
   cta?: string;
   featured?: boolean;
+  /** Structured SEO / AIO linking — only verified relationships. */
+  industryLabel?: string;
+  relatedServices?: Array<{ label: string; href: string }>;
 }
 
 export const CASE_STUDIES: CaseStudy[] = [
@@ -104,6 +107,13 @@ export const CASE_STUDIES: CaseStudy[] = [
       attribution: "Riyan Amjad Siddiqi, Director, ATR Enterprises",
       logo: { name: "lilly AI", file: "lilly-ai.svg" },
     },
+    industryLabel: "Healthcare AI",
+    relatedServices: [
+      { label: "AI Product Development", href: "/services/ai-product-development" },
+      { label: "AI Agent Development", href: "/services/ai-agent-development" },
+      { label: "Enterprise Engineering", href: "/services/enterprise-engineering" },
+    ],
+
   },
   {
     slug: "cero",
@@ -169,6 +179,12 @@ export const CASE_STUDIES: CaseStudy[] = [
     },
     cta: "Start a project like this",
     featured: true,
+    industryLabel: "AI-powered SaaS",
+    relatedServices: [
+      { label: "AI Product Development", href: "/services/ai-product-development" },
+      { label: "Product Design", href: "/services/product-design" },
+      { label: "AI Automation", href: "/services/ai-automation" },
+    ],
   },
   {
     slug: "mira-pulse",
@@ -255,6 +271,13 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
     cta: "Start a project like this",
     featured: true,
+    industryLabel: "Healthcare operations",
+    relatedServices: [
+      { label: "Digital Twin Development", href: "/services/digital-twin-development" },
+      { label: "Enterprise Engineering", href: "/services/enterprise-engineering" },
+      { label: "Product Design", href: "/services/product-design" },
+    ],
+
   },
   {
     slug: "esteria",
@@ -336,6 +359,13 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
     cta: "Start a project like this",
     featured: true,
+    industryLabel: "Real estate technology",
+    relatedServices: [
+      { label: "Digital Twin Development", href: "/services/digital-twin-development" },
+      { label: "Immersive Experiences", href: "/services/immersive-experiences" },
+      { label: "Product Design", href: "/services/product-design" },
+    ],
+
   },
   {
     slug: "enorta",
@@ -396,6 +426,11 @@ export const CASE_STUDIES: CaseStudy[] = [
       attribution: "Aneeq Duraiz, CEO, Enorta",
       logo: { name: "enorta", file: "enorta-testimonial.svg" },
     },
+    relatedServices: [
+      { label: "AI Product Development", href: "/services/ai-product-development" },
+      { label: "Custom Software Development", href: "/services/custom-software-development" },
+      { label: "Product Design", href: "/services/product-design" },
+    ],
   },
   {
     slug: "thyssenkrupp",
@@ -456,6 +491,13 @@ export const CASE_STUDIES: CaseStudy[] = [
       attribution: "Dezzeria Wright, Head of Marketing, thyssenkrupp",
       logo: { name: "thyssenkrupp", file: "thyssenkrupp.webp" },
     },
+    industryLabel: "Manufacturing",
+    relatedServices: [
+      { label: "Digital Twin Development", href: "/services/digital-twin-development" },
+      { label: "Immersive Experiences", href: "/services/immersive-experiences" },
+      { label: "Enterprise Engineering", href: "/services/enterprise-engineering" },
+    ],
+
   },
   {
     slug: "storypage-ai",
@@ -512,6 +554,11 @@ export const CASE_STUDIES: CaseStudy[] = [
       attribution: "Awab Rizwan, Product at StoryPage.ai",
       logo: { name: "StoryPage.ai", file: "storypage-ai.svg" },
     },
+    relatedServices: [
+      { label: "AI Product Development", href: "/services/ai-product-development" },
+      { label: "Custom Software Development", href: "/services/custom-software-development" },
+      { label: "Product Design", href: "/services/product-design" },
+    ],
   },
   {
     slug: "mindful-legal-solutions",
@@ -566,6 +613,13 @@ export const CASE_STUDIES: CaseStudy[] = [
       attribution: "Priya Mehta, Founder, Mindful Legal Solutions",
       logo: { name: "Mindful Legal Solutions", file: "mindful-legal-solutions.svg" },
     },
+    industryLabel: "Legal AI",
+    relatedServices: [
+      { label: "AI Product Development", href: "/services/ai-product-development" },
+      { label: "AI Agent Development", href: "/services/ai-agent-development" },
+      { label: "Custom Software Development", href: "/services/custom-software-development" },
+    ],
+
   },
 ];
 
@@ -599,5 +653,5 @@ export function getCaseStudyUrl(slug: string) {
 }
 
 export function getCaseStudyAbsoluteUrl(slug: string) {
-  return `${SITE.url}${getCaseStudyUrl(slug)}`;
+  return absoluteUrl(getCaseStudyUrl(slug));
 }

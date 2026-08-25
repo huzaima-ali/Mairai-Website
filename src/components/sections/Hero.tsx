@@ -68,7 +68,7 @@ export function Hero() {
             </m.p>
 
             <m.div custom={2} variants={heroReveal} className="mt-10 sm:mt-12">
-              <Button href="#contact">{HERO.cta}</Button>
+              <Button href="/#contact">{HERO.cta}</Button>
             </m.div>
           </div>
 
