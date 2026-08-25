@@ -180,7 +180,7 @@ values (
   'website-media',
   true,
   5242880,
-  array['image/jpeg', 'image/png', 'image/webp', 'image/avif']
+  array['image/jpeg', 'image/png', 'image/webp', 'image/avif', 'application/json', 'text/plain', 'application/octet-stream']
 )
 on conflict (id) do nothing;
 

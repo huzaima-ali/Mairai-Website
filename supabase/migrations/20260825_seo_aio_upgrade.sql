@@ -90,13 +90,16 @@ create policy "cms_pages_admin_all" on public.cms_pages
 -- ---------------------------------------------------------------------------
 -- articles expansions
 -- ---------------------------------------------------------------------------
-alter table public.articles
-  add column if not exists scheduled_at timestamptz,
-  add column if not exists canonical_override text,
-  add column if not exists related_services text[] not null default '{}',
-  add column if not exists related_industries text[] not null default '{}',
-  add column if not exists related_articles text[] not null default '{}',
-  add column if not exists related_case_studies text[] not null default '{}',
-  add column if not exists twitter_title text,
-  add column if not exists twitter_description text,
-  add column if not exists twitter_image_url text;
+-- Ensure ops JSON can be stored alongside images
+update storage.buckets
+set allowed_mime_types = array[
+  'image/jpeg',
+  'image/png',
+  'image/webp',
+  'image/avif',
+  'application/json',
+  'text/plain',
+  'application/octet-stream'
+]
+where id = 'website-media';
+

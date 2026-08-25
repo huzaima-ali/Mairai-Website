@@ -30,11 +30,18 @@ async function uploadJson(path: string, value: unknown) {
   }
   const supabase = createServiceSupabaseClient();
   const body = Buffer.from(JSON.stringify(value, null, 2), "utf8");
+  // Prefer text/plain — some buckets only allow image MIME types by default.
   const { error } = await supabase.storage.from("website-media").upload(path, body, {
-    contentType: "application/json",
+    contentType: "text/plain",
     upsert: true,
   });
-  if (error) throw new Error(error.message);
+  if (error) {
+    const retry = await supabase.storage.from("website-media").upload(path, body, {
+      contentType: "application/json",
+      upsert: true,
+    });
+    if (retry.error) throw new Error(retry.error.message);
+  }
 }
 
 export async function getSeoExtrasMap(): Promise<SeoExtrasMap> {

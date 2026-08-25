@@ -104,12 +104,15 @@ export async function upsertPageSeoAction(input: z.infer<typeof seoSchema>) {
 
   if (error) throw new Error(error.message);
 
-  // Extended SEO / AIO fields live in ops storage (works without DDL)
-  await upsertSeoExtras(parsed.route, {
-    ...parsed,
-    updated_by: session.user.id,
-    updated_at: new Date().toISOString(),
-  });
+  try {
+    await upsertSeoExtras(parsed.route, {
+      ...parsed,
+      updated_by: session.user.id,
+      updated_at: new Date().toISOString(),
+    });
+  } catch (extrasError) {
+    console.error("[cms] SEO extras save failed", extrasError);
+  }
 
   revalidatePath(parsed.route);
   revalidatePath("/admin/pages");
@@ -354,50 +357,57 @@ export async function saveArticleDraftAction(input: z.infer<typeof articleSchema
   const { session, supabase } = await adminClient();
   const content = sanitizeArticleHtml(parsed.content || "");
   const payload = articlePayload(parsed, content, session.user.id);
-
-  // Persist related/schedule/canonical in ops extras keyed by article route
   const articleRoute = `/insights/${parsed.slug}`;
-  await upsertSeoExtras(articleRoute, {
-    route: articleRoute,
-    page_name: parsed.title,
-    page_type: "insight-article",
-    related_services: parsed.related_services,
-    related_industries: parsed.related_industries,
-    related_case_studies: parsed.related_case_studies,
-    canonical_override: parsed.canonical_override,
-    page_summary: parsed.excerpt,
-    updated_by: session.user.id,
-    updated_at: new Date().toISOString(),
-  });
 
-  // Keep schedule intent on extras (status remains draft until publish)
-  if (parsed.scheduled_at) {
+  let data: { id: string; slug: string; [key: string]: unknown };
+  if (parsed.id) {
+    const result = await supabase.from("articles").update(payload).eq("id", parsed.id).select("*").single();
+    if (result.error) throw new Error(result.error.message);
+    data = result.data as { id: string; slug: string };
+  } else {
+    const result = await supabase
+      .from("articles")
+      .insert({
+        ...payload,
+        status: "draft",
+        created_by: session.user.id,
+      })
+      .select("*")
+      .single();
+    if (result.error) throw new Error(result.error.message);
+    data = result.data as { id: string; slug: string };
+  }
+
+  // Best-effort extras — never block the article draft on storage/MIME issues
+  try {
     await upsertSeoExtras(articleRoute, {
       route: articleRoute,
-      status: "draft",
-      updated_at: parsed.scheduled_at,
+      page_name: parsed.title,
+      page_type: "insight-article",
+      related_services: parsed.related_services,
+      related_industries: parsed.related_industries,
+      related_case_studies: parsed.related_case_studies,
+      canonical_override: parsed.canonical_override,
+      page_summary: parsed.excerpt,
+      updated_by: session.user.id,
+      updated_at: new Date().toISOString(),
+      ...(parsed.scheduled_at ? { status: "draft" as const } : {}),
     });
+  } catch (error) {
+    console.error("[cms] article extras save failed", error);
   }
 
-  if (parsed.id) {
-    const { data, error } = await supabase.from("articles").update(payload).eq("id", parsed.id).select("*").single();
-    if (error) throw new Error(error.message);
-    revalidatePath("/admin/insights");
-    return { ...data, scheduled_at: parsed.scheduled_at, related_services: parsed.related_services, related_industries: parsed.related_industries, related_articles: parsed.related_articles, related_case_studies: parsed.related_case_studies, canonical_override: parsed.canonical_override };
-  }
-
-  const { data, error } = await supabase
-    .from("articles")
-    .insert({
-      ...payload,
-      status: "draft",
-      created_by: session.user.id,
-    })
-    .select("*")
-    .single();
-  if (error) throw new Error(error.message);
   revalidatePath("/admin/insights");
-  return { ...data, scheduled_at: parsed.scheduled_at, related_services: parsed.related_services, related_industries: parsed.related_industries, related_articles: parsed.related_articles, related_case_studies: parsed.related_case_studies, canonical_override: parsed.canonical_override };
+  if (data.id) revalidatePath(`/admin/insights/${data.id}`);
+  return {
+    ...data,
+    scheduled_at: parsed.scheduled_at,
+    related_services: parsed.related_services,
+    related_industries: parsed.related_industries,
+    related_articles: parsed.related_articles,
+    related_case_studies: parsed.related_case_studies,
+    canonical_override: parsed.canonical_override,
+  };
 }
 
 export async function publishArticleAction(id: string) {
