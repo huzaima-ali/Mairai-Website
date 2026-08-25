@@ -281,8 +281,7 @@ export function ArticleEditor({ article }: { article?: ArticleRow | null }) {
                       onClick={() => {
                         if (!window.confirm("Save changes and republish this article?")) return;
                         run("Republish", async () => {
-                          await saveArticleDraftAction(payload(article.id));
-                          await publishArticleAction(article.id);
+                          await publishArticleAction({ ...payload(article.id), id: article.id });
                           setMessage("Republished.");
                           router.refresh();
                         });
@@ -314,8 +313,7 @@ export function ArticleEditor({ article }: { article?: ArticleRow | null }) {
                     onClick={() => {
                       if (!window.confirm("Publish this article to the public site?")) return;
                       run("Publish", async () => {
-                        await saveArticleDraftAction(payload(article.id));
-                        await publishArticleAction(article.id);
+                        await publishArticleAction({ ...payload(article.id), id: article.id });
                         setMessage("Published.");
                         router.refresh();
                       });

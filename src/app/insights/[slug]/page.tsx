@@ -11,14 +11,11 @@ import { sanitizeArticleHtml } from "@/lib/cms/sanitize";
 import { breadcrumbJsonLd, jsonLdScript } from "@/lib/seo";
 import { InsightArticleView } from "@/components/insights/InsightArticleView";
 
+export const dynamic = "force-dynamic";
+
 type InsightPageProps = {
   params: { slug: string };
 };
-
-export async function generateStaticParams() {
-  const articles = await listPublishedArticles();
-  return articles.map((article) => ({ slug: article.slug }));
-}
 
 export async function generateMetadata({ params }: InsightPageProps): Promise<Metadata> {
   const article = await getPublishedArticleBySlug(params.slug);

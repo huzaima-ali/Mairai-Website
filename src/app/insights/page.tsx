@@ -8,6 +8,8 @@ import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { PageBackLink } from "@/components/ui/PageBackLink";
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata(): Promise<Metadata> {
   return resolvePageMetadata({
     path: "/insights",

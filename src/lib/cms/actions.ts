@@ -38,9 +38,15 @@ async function adminClient() {
 
 function revalidateInsights(slug?: string) {
   revalidatePath("/insights");
+  revalidatePath("/insights", "layout");
   revalidatePath("/sitemap.xml");
-  if (slug) revalidatePath(articlePublicUrl(slug));
+  if (slug) {
+    const path = articlePublicUrl(slug);
+    revalidatePath(path);
+    revalidatePath(path, "page");
+  }
   revalidatePath("/");
+  revalidatePath("/", "layout");
 }
 
 function revalidateCareers(slug?: string) {
@@ -367,11 +373,22 @@ export async function saveArticleDraftAction(input: z.infer<typeof articleSchema
   const payload = articlePayload(parsed, content, session.user.id);
   const articleRoute = `/insights/${parsed.slug}`;
 
-  let data: { id: string; slug: string; [key: string]: unknown };
+  let previousSlug: string | null = null;
+  let wasPublished = false;
+
+  let data: { id: string; slug: string; status?: string; [key: string]: unknown };
   if (parsed.id) {
+    const { data: existing } = await supabase
+      .from("articles")
+      .select("slug, status")
+      .eq("id", parsed.id)
+      .maybeSingle();
+    previousSlug = existing?.slug || null;
+    wasPublished = existing?.status === "published";
+
     const result = await supabase.from("articles").update(payload).eq("id", parsed.id).select("*").single();
     if (result.error) throw new Error(result.error.message);
-    data = result.data as { id: string; slug: string };
+    data = result.data as { id: string; slug: string; status?: string };
   } else {
     const result = await supabase
       .from("articles")
@@ -383,7 +400,7 @@ export async function saveArticleDraftAction(input: z.infer<typeof articleSchema
       .select("*")
       .single();
     if (result.error) throw new Error(result.error.message);
-    data = result.data as { id: string; slug: string };
+    data = result.data as { id: string; slug: string; status?: string };
   }
 
   // Best-effort extras — never block the article draft on storage/MIME issues
@@ -407,6 +424,12 @@ export async function saveArticleDraftAction(input: z.infer<typeof articleSchema
 
   revalidatePath("/admin/insights");
   if (data.id) revalidatePath(`/admin/insights/${data.id}`);
+  // If the live article was edited via "save draft", refresh public pages too
+  if (wasPublished || data.status === "published") {
+    revalidateInsights(data.slug);
+    if (previousSlug && previousSlug !== data.slug) revalidateInsights(previousSlug);
+  }
+
   return {
     ...data,
     scheduled_at: parsed.scheduled_at,
@@ -418,8 +441,64 @@ export async function saveArticleDraftAction(input: z.infer<typeof articleSchema
   };
 }
 
-export async function publishArticleAction(id: string) {
+export async function publishArticleAction(
+  idOrInput: string | (z.infer<typeof articleSchema> & { id: string }),
+) {
   const { session, supabase } = await adminClient();
+
+  // Full payload path: save content + publish atomically (fixes republish not updating)
+  if (typeof idOrInput !== "string") {
+    const parsed = articleSchema.parse({
+      ...idOrInput,
+      slug: slugify(idOrInput.slug || idOrInput.title),
+    });
+    if (!parsed.id) throw new Error("Article id is required to publish");
+
+    const { data: existing } = await supabase.from("articles").select("*").eq("id", parsed.id).single();
+    if (!existing) throw new Error("Article not found");
+
+    const content = sanitizeArticleHtml(parsed.content || "");
+    const publishedAt = existing.published_at || new Date().toISOString();
+    const result = await supabase
+      .from("articles")
+      .update({
+        ...articlePayload(parsed, content, session.user.id),
+        status: "published",
+        published_at: publishedAt,
+      })
+      .eq("id", parsed.id)
+      .select("*")
+      .single();
+    if (result.error) throw new Error(result.error.message);
+
+    try {
+      await upsertSeoExtras(`/insights/${parsed.slug}`, {
+        route: `/insights/${parsed.slug}`,
+        page_name: parsed.title,
+        page_type: "insight-article",
+        related_services: parsed.related_services,
+        related_industries: parsed.related_industries,
+        related_case_studies: parsed.related_case_studies,
+        canonical_override: parsed.canonical_override,
+        page_summary: parsed.excerpt,
+        status: "published",
+        updated_by: session.user.id,
+        updated_at: new Date().toISOString(),
+      });
+    } catch (error) {
+      console.error("[cms] article extras publish failed", error);
+    }
+
+    if (existing.slug && existing.slug !== result.data.slug) {
+      revalidateInsights(existing.slug);
+    }
+    revalidateInsights(result.data.slug);
+    revalidatePath("/admin/insights");
+    revalidatePath(`/admin/insights/${parsed.id}`);
+    return result.data;
+  }
+
+  const id = idOrInput;
   const { data: existing } = await supabase.from("articles").select("*").eq("id", id).single();
   if (!existing) throw new Error("Article not found");
 
