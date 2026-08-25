@@ -23,8 +23,10 @@ export default async function InsightsIndexPage() {
   return (
     <Section className="pb-16 pt-10 sm:pb-20 sm:pt-14 lg:pb-24 lg:pt-16">
       <Container>
-        <div className="max-w-3xl">
-          <PageBackLink />
+        <div className="mx-auto max-w-3xl text-center">
+          <div className="flex justify-center">
+            <PageBackLink />
+          </div>
           <p className="eyebrow mb-4">Insights</p>
           <h1 className="display text-[clamp(2rem,4vw,3.5rem)] leading-[1.05]">
             Insights on AI products and technology delivery
@@ -36,9 +38,9 @@ export default async function InsightsIndexPage() {
         </div>
 
         {articles.length === 0 ? (
-          <p className="mt-10 text-muted-foreground">No published insights yet.</p>
+          <p className="mt-10 text-center text-muted-foreground">No published insights yet.</p>
         ) : (
-          <ul className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <ul className="mx-auto mt-10 grid max-w-5xl gap-4 md:grid-cols-2 lg:grid-cols-3">
             {articles.map((article) => (
               <li key={article.id || article.slug}>
                 <a

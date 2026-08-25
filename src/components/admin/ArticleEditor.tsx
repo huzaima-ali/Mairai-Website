@@ -68,6 +68,17 @@ export function ArticleEditor({ article }: { article?: ArticleRow | null }) {
     };
   }
 
+  function run(label: string, fn: () => Promise<void>) {
+    setMessage(null);
+    startTransition(async () => {
+      try {
+        await fn();
+      } catch (err) {
+        setMessage(err instanceof Error ? err.message : `${label} failed`);
+      }
+    });
+  }
+
   return (
     <div className="space-y-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -75,21 +86,19 @@ export function ArticleEditor({ article }: { article?: ArticleRow | null }) {
           <h1 className="text-2xl font-medium">{article ? "Edit article" : "New article"}</h1>
           {article ? <div className="mt-2"><AdminStatusBadge status={article.status} /></div> : null}
         </div>
-        <div className="flex flex-wrap gap-2">
-          {article ? (
-            <Link
-              href={`/admin/preview/insights/${article.slug}`}
-              className="rounded-full border border-black/10 px-4 py-2 text-sm"
-              target="_blank"
-            >
-              Preview
-            </Link>
-          ) : null}
-        </div>
+        {article ? (
+          <Link
+            href={`/admin/preview/insights/${article.slug}`}
+            className="rounded-full border border-black/10 px-4 py-2 text-sm"
+            target="_blank"
+          >
+            Preview
+          </Link>
+        ) : null}
       </div>
 
-      <div className="grid gap-5 lg:grid-cols-[1.2fr_0.8fr]">
-        <div className="space-y-4 rounded-2xl border border-black/8 bg-white p-5">
+      <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1.25fr)_minmax(280px,0.75fr)]">
+        <div className="min-w-0 space-y-4 rounded-2xl border border-black/8 bg-white p-5">
           <label className="block text-xs font-medium uppercase tracking-[0.12em] text-muted-foreground">
             Title
             <input
@@ -135,7 +144,7 @@ export function ArticleEditor({ article }: { article?: ArticleRow | null }) {
           </div>
         </div>
 
-        <div className="space-y-4 rounded-2xl border border-black/8 bg-white p-5">
+        <aside className="space-y-4 rounded-2xl border border-black/8 bg-white p-5 lg:sticky lg:top-6 lg:max-h-[calc(100vh-3rem)] lg:overflow-y-auto">
           <label className="block text-xs font-medium uppercase tracking-[0.12em] text-muted-foreground">
             Category
             <input
@@ -168,6 +177,10 @@ export function ArticleEditor({ article }: { article?: ArticleRow | null }) {
               className="mt-1.5 w-full rounded-xl border border-black/10 px-3 py-2.5 text-sm"
             />
           </label>
+          {featuredImageUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={featuredImageUrl} alt="" className="h-28 w-full rounded-xl object-cover" />
+          ) : null}
           <label className="block text-xs font-medium uppercase tracking-[0.12em] text-muted-foreground">
             Featured image alt
             <input
@@ -184,9 +197,6 @@ export function ArticleEditor({ article }: { article?: ArticleRow | null }) {
               onChange={(e) => setScheduledAt(e.target.value)}
               className="mt-1.5 w-full rounded-xl border border-black/10 px-3 py-2.5 text-sm"
             />
-            <span className="mt-1 block text-[11px] normal-case tracking-normal text-muted-foreground">
-              Stored as intent — use Publish when ready (no cron worker in V1).
-            </span>
           </label>
           <label className="block text-xs font-medium uppercase tracking-[0.12em] text-muted-foreground">
             Canonical override
@@ -241,95 +251,97 @@ export function ArticleEditor({ article }: { article?: ArticleRow | null }) {
             <input type="checkbox" checked={noindex} onChange={(e) => setNoindex(e.target.checked)} />
             noindex
           </label>
-        </div>
-      </div>
 
-      {message ? <p className="text-sm">{message}</p> : null}
+          {message ? <p className="text-sm text-muted-foreground">{message}</p> : null}
 
-      <div className="flex flex-wrap gap-2">
-        <button
-          type="button"
-          disabled={pending}
-          className="rounded-full border border-black/10 bg-white px-5 py-2.5 text-sm font-medium disabled:opacity-60"
-          onClick={() => {
-            setMessage(null);
-            startTransition(async () => {
-              try {
-                const saved = await saveArticleDraftAction(payload(article?.id));
-                setMessage("Draft saved.");
-                if (!article) router.replace(`/admin/insights/${saved.id}`);
-                router.refresh();
-              } catch (err) {
-                setMessage(err instanceof Error ? err.message : "Save failed");
+          <div className="sticky bottom-0 -mx-5 mt-2 space-y-2 border-t border-black/8 bg-white px-5 py-4">
+            <button
+              type="button"
+              disabled={pending}
+              className="w-full rounded-full border border-black/10 bg-white px-5 py-2.5 text-sm font-medium disabled:opacity-60"
+              onClick={() =>
+                run("Save", async () => {
+                  const saved = await saveArticleDraftAction(payload(article?.id));
+                  setMessage("Draft saved.");
+                  if (!article) router.replace(`/admin/insights/${saved.id}`);
+                  router.refresh();
+                })
               }
-            });
-          }}
-        >
-          Save draft
-        </button>
-        {article ? (
-          <>
-            <button
-              type="button"
-              disabled={pending}
-              className="rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-white disabled:opacity-60"
-              onClick={() => {
-                if (!window.confirm("Publish this article to the public site?")) return;
-                startTransition(async () => {
-                  try {
-                    await saveArticleDraftAction(payload(article.id));
-                    await publishArticleAction(article.id);
-                    setMessage("Published.");
-                    router.refresh();
-                  } catch (err) {
-                    setMessage(err instanceof Error ? err.message : "Publish failed");
-                  }
-                });
-              }}
             >
-              Publish
+              Save draft
             </button>
-            {article.status === "published" ? (
-              <button
-                type="button"
-                disabled={pending}
-                className="rounded-full border border-black/10 px-5 py-2.5 text-sm"
-                onClick={() => {
-                  if (!window.confirm("Unpublish this article?")) return;
-                  startTransition(async () => {
-                    try {
-                      await unpublishArticleAction(article.id);
-                      setMessage("Unpublished.");
-                      router.refresh();
-                    } catch (err) {
-                      setMessage(err instanceof Error ? err.message : "Unpublish failed");
-                    }
-                  });
-                }}
-              >
-                Unpublish
-              </button>
+            {article ? (
+              <>
+                {article.status === "published" ? (
+                  <>
+                    <button
+                      type="button"
+                      disabled={pending}
+                      className="w-full rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-white disabled:opacity-60"
+                      onClick={() => {
+                        if (!window.confirm("Save changes and republish this article?")) return;
+                        run("Republish", async () => {
+                          await saveArticleDraftAction(payload(article.id));
+                          await publishArticleAction(article.id);
+                          setMessage("Republished.");
+                          router.refresh();
+                        });
+                      }}
+                    >
+                      Republish
+                    </button>
+                    <button
+                      type="button"
+                      disabled={pending}
+                      className="w-full rounded-full border border-black/10 px-5 py-2.5 text-sm disabled:opacity-60"
+                      onClick={() => {
+                        if (!window.confirm("Unpublish this article?")) return;
+                        run("Unpublish", async () => {
+                          await unpublishArticleAction(article.id);
+                          setMessage("Unpublished.");
+                          router.refresh();
+                        });
+                      }}
+                    >
+                      Unpublish
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    type="button"
+                    disabled={pending}
+                    className="w-full rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-white disabled:opacity-60"
+                    onClick={() => {
+                      if (!window.confirm("Publish this article to the public site?")) return;
+                      run("Publish", async () => {
+                        await saveArticleDraftAction(payload(article.id));
+                        await publishArticleAction(article.id);
+                        setMessage("Published.");
+                        router.refresh();
+                      });
+                    }}
+                  >
+                    Publish
+                  </button>
+                )}
+                <button
+                  type="button"
+                  disabled={pending}
+                  className="w-full rounded-full border border-rose-200 px-5 py-2.5 text-sm text-rose-700 disabled:opacity-60"
+                  onClick={() => {
+                    if (!window.confirm("Soft-delete this article?")) return;
+                    run("Delete", async () => {
+                      await softDeleteArticleAction(article.id);
+                      router.replace("/admin/insights");
+                    });
+                  }}
+                >
+                  Delete
+                </button>
+              </>
             ) : null}
-            <button
-              type="button"
-              disabled={pending}
-              className="rounded-full border border-rose-200 px-5 py-2.5 text-sm text-rose-700"
-              onClick={() => {
-                if (!window.confirm("Soft-delete this article?")) return;
-                startTransition(async () => {
-                  try {
-                    await softDeleteArticleAction(article.id);
-                    router.replace("/admin/insights");
-                  } catch (err) {
-                    setMessage(err instanceof Error ? err.message : "Delete failed");
-                  }
-                });
-              }}
-            >
-              Delete
-            </button>
-          </>
-        ) : null}
+          </div>
+        </aside>
       </div>
     </div>
   );

@@ -8,7 +8,15 @@ import { slugify, ALLOWED_MEDIA_MIME, MAX_MEDIA_BYTES } from "@/lib/cms/utils";
 import { createServerSupabaseClient, isSupabaseConfigured } from "@/lib/supabase/server";
 import { articlePublicUrl } from "@/lib/cms/articles";
 import { jobPublicUrl } from "@/lib/cms/jobs";
-import { upsertSeoExtras, saveCmsPage, softDeleteCmsPage, listCmsPages, getCmsPageByRoute } from "@/lib/cms/ops-store";
+import {
+  upsertSeoExtras,
+  saveCmsPage,
+  softDeleteCmsPage,
+  listCmsPages,
+  getCmsPageByRoute,
+  setHomepageFeaturedArticleId,
+  getHomepageFeaturedArticleId,
+} from "@/lib/cms/ops-store";
 import { regionalRouteFor } from "@/lib/cms/seo-helpers";
 import { REGION_VARIANT_OPTIONS, type CmsPageRow } from "@/lib/cms/types";
 import { randomUUID } from "crypto";
@@ -446,6 +454,10 @@ export async function unpublishArticleAction(id: string) {
     .select("*")
     .single();
   if (error) throw new Error(error.message);
+  const featuredId = await getHomepageFeaturedArticleId();
+  if (featuredId === id) {
+    await setHomepageFeaturedArticleId(null);
+  }
   revalidateInsights(data.slug);
   revalidatePath("/admin/insights");
   return data;
@@ -465,9 +477,34 @@ export async function softDeleteArticleAction(id: string) {
     .select("*")
     .single();
   if (error) throw new Error(error.message);
+  const featuredId = await getHomepageFeaturedArticleId();
+  if (featuredId === id) {
+    await setHomepageFeaturedArticleId(null);
+  }
   revalidateInsights(data.slug);
   revalidatePath("/admin/insights");
   return data;
+}
+
+export async function setHomepageFeaturedArticleAction(articleId: string | null) {
+  await adminClient();
+  if (articleId) {
+    const { supabase } = await adminClient();
+    const { data, error } = await supabase
+      .from("articles")
+      .select("id, status")
+      .eq("id", articleId)
+      .is("deleted_at", null)
+      .maybeSingle();
+    if (error || !data) throw new Error("Article not found");
+    if (data.status !== "published") {
+      throw new Error("Only published articles can be featured on the homepage");
+    }
+  }
+  await setHomepageFeaturedArticleId(articleId);
+  revalidatePath("/");
+  revalidatePath("/admin/insights");
+  return articleId;
 }
 
 const jobSchema = z.object({

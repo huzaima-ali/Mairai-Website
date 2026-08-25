@@ -10,6 +10,7 @@ import {
   type InsightArticle,
   getInsightUrl as staticInsightUrl,
 } from "@/lib/insights";
+import { getHomepageFeaturedArticleId } from "@/lib/cms/ops-store";
 
 export function articlePublicUrl(slug: string) {
   return `/insights/${slug}`;
@@ -122,6 +123,16 @@ export async function listArticlesAdmin(): Promise<ArticleRow[]> {
     .order("updated_at", { ascending: false });
   if (error || !data) return [];
   return data as ArticleRow[];
+}
+
+export async function getHomepageFeaturedArticle(): Promise<ArticleRow | null> {
+  const featuredId = await getHomepageFeaturedArticleId();
+  const published = await listPublishedArticles();
+  if (featuredId) {
+    const match = published.find((a) => a.id === featuredId);
+    if (match) return match;
+  }
+  return published[0] || null;
 }
 
 export { staticInsightUrl };

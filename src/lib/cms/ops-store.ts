@@ -8,6 +8,12 @@ import type { CmsPageRow, PageSeoRow } from "@/lib/cms/types";
 
 const SEO_EXTRAS_PATH = "ops/seo-overrides.json";
 const CMS_PAGES_PATH = "ops/cms-pages.json";
+const HOMEPAGE_FEATURED_PATH = "ops/homepage-featured.json";
+
+type HomepageFeaturedState = {
+  articleId: string | null;
+  updated_at?: string;
+};
 
 type SeoExtrasMap = Record<string, Partial<PageSeoRow>>;
 
@@ -110,6 +116,19 @@ export async function softDeleteCmsPage(id: string, userId: string) {
   };
   await uploadJson(CMS_PAGES_PATH, pages);
   return pages[idx] as CmsPageRow;
+}
+
+export async function getHomepageFeaturedArticleId(): Promise<string | null> {
+  const state = await downloadJson<HomepageFeaturedState>(HOMEPAGE_FEATURED_PATH, { articleId: null });
+  return state.articleId || null;
+}
+
+export async function setHomepageFeaturedArticleId(articleId: string | null) {
+  await uploadJson(HOMEPAGE_FEATURED_PATH, {
+    articleId,
+    updated_at: new Date().toISOString(),
+  } satisfies HomepageFeaturedState);
+  return articleId;
 }
 
 /** Admin-session write path for extras when service role unavailable on mutation edge — prefer service. */
