@@ -160,10 +160,45 @@ export function breadcrumbJsonLd(items: Array<{ name: string; path: string }>) {
   };
 }
 
+export function webpageJsonLd(input: {
+  name: string;
+  description: string;
+  path: string;
+  areaServed?: string | null;
+}) {
+  const page: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: input.name,
+    description: input.description,
+    url: absoluteUrl(input.path),
+    isPartOf: {
+      "@type": "WebSite",
+      name: SITE.name,
+      url: CANONICAL_ORIGIN,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Mirai Studios LLC",
+      url: CANONICAL_ORIGIN,
+    },
+  };
+  if (input.areaServed) {
+    page.about = {
+      "@type": "Organization",
+      name: "Mirai Studios LLC",
+      areaServed: input.areaServed,
+    };
+    page.spatialCoverage = input.areaServed;
+  }
+  return page;
+}
+
 export function serviceJsonLd(input: {
   name: string;
   description: string;
   path: string;
+  areaServed?: string | string[] | null;
 }) {
   return {
     "@context": "https://schema.org",
@@ -176,7 +211,7 @@ export function serviceJsonLd(input: {
       name: "Mirai Studios LLC",
       url: CANONICAL_ORIGIN,
     },
-    areaServed: ["United States", "United Kingdom", "Middle East"],
+    areaServed: input.areaServed || ["United States", "United Kingdom", "Middle East"],
   };
 }
 

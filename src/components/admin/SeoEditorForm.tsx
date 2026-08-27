@@ -9,6 +9,7 @@ import type { RegistryPage } from "@/lib/cms/route-registry";
 import type { CmsPageRow, PageSeoRow } from "@/lib/cms/types";
 import { REGION_VARIANT_OPTIONS } from "@/lib/cms/types";
 import { buildSeoWarnings, inferActiveSchemas } from "@/lib/cms/seo-helpers";
+import { canCreateRegionalVariant } from "@/lib/cms/page-routes";
 import { SERVICE_PAGES } from "@/lib/services";
 import { CASE_STUDIES } from "@/lib/case-studies";
 
@@ -104,8 +105,11 @@ export function SeoEditorForm({
     baseBodySample: page.defaultDescription,
   });
 
-  const isRegionalEligible =
-    page.route.startsWith("/services/") && !page.route.split("/").includes("us") && !override?.region_code;
+  const isRegionalEligible = canCreateRegionalVariant(
+    page.route,
+    override?.region_code || cmsPage?.region_code,
+    page.pageType,
+  );
 
   return (
     <div className="space-y-6">
@@ -341,6 +345,7 @@ export function SeoEditorForm({
                         baseRoute: page.route,
                         regionCode,
                         customPrefix: customPrefix || undefined,
+                        sourcePageId: cmsPage?.id,
                       });
                       router.push(`/admin/pages/variant/${created.id}`);
                     } catch (err) {

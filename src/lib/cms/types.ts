@@ -3,6 +3,7 @@ export type JobStatus = "draft" | "published" | "closed" | "unpublished";
 export type ApplicationType = "email" | "url" | "both";
 export type CmsPageStatus = "draft" | "published" | "unpublished";
 export type RegionCode = "us" | "uk" | "mena" | "custom" | "global";
+export type CmsManagedPageType = "service-detail" | "industry" | "region-detail" | "landing";
 
 export type PageSeoRow = {
   id: string;
@@ -46,15 +47,21 @@ export type PageSeoRow = {
 export type CmsPageRow = {
   id: string;
   route: string;
+  slug: string;
   base_route: string;
   region_code: string;
   region_label: string;
   page_name: string;
   page_type: string;
   status: CmsPageStatus;
+  source_page_id: string | null;
+  source_route: string | null;
+  source_page_name: string | null;
   h1: string;
   intro: string;
   body_html: string;
+  cta_heading: string | null;
+  cta_copy: string | null;
   cta_label: string | null;
   cta_href: string | null;
   regional_proof: string;
@@ -65,6 +72,15 @@ export type CmsPageRow = {
   industry: string | null;
   region_served: string | null;
   page_summary: string | null;
+  seo_title: string | null;
+  meta_description: string | null;
+  og_title: string | null;
+  og_description: string | null;
+  og_image_url: string | null;
+  canonical_override: string | null;
+  noindex: boolean;
+  include_in_sitemap: boolean;
+  published_at: string | null;
   created_at: string;
   updated_at: string;
   created_by: string | null;
@@ -165,4 +181,11 @@ export const REGION_VARIANT_OPTIONS = [
   { code: "uk" as const, label: "United Kingdom", prefix: "/uk", areaServed: "United Kingdom" },
   { code: "mena" as const, label: "Middle East / MENA", prefix: "/mena", areaServed: "Middle East" },
   { code: "custom" as const, label: "Custom Region", prefix: "", areaServed: "" },
+];
+
+export const CMS_PAGE_TYPE_OPTIONS = [
+  { value: "service-detail" as const, label: "Service", prefix: "/services", registryType: "service-detail" },
+  { value: "industry" as const, label: "Industry", prefix: "/industries", registryType: "industry" },
+  { value: "region-detail" as const, label: "Region", prefix: "/regions", registryType: "region-detail" },
+  { value: "landing" as const, label: "Generic Landing Page", prefix: "/landing", registryType: "landing" },
 ];

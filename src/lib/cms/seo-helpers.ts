@@ -23,6 +23,9 @@ export function inferActiveSchemas(input: {
   if (type === "service" || type === "service-detail") {
     schemas.push({ type: "Service", source: "page", note: "Service schema from page fields / areaServed" });
   }
+  if (type === "industry" || type === "landing" || type === "region" || type === "region-detail") {
+    schemas.push({ type: "WebPage", source: "page", note: "WebPage schema for industry, region and landing pages" });
+  }
   if (type === "insight-article") {
     schemas.push({ type: "Article", source: "page", note: "Article JSON-LD on insight pages" });
   }
@@ -96,7 +99,13 @@ export function buildSeoWarnings(input: {
   return warnings;
 }
 
-function similarity(a: string, b: string) {
+export function contentSimilarity(a: string, b: string) {
+  const na = a.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim().toLowerCase();
+  const nb = b.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim().toLowerCase();
+  return similarity(na, nb);
+}
+
+export function similarity(a: string, b: string) {
   const ta = new Set(a.split(" ").filter((w) => w.length > 3));
   const tb = new Set(b.split(" ").filter((w) => w.length > 3));
   if (!ta.size || !tb.size) return 0;

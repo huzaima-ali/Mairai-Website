@@ -1,4 +1,4 @@
-import type { ArticleRow, JobRow } from "@/lib/cms/types";
+import type { ArticleRow, CmsPageRow, JobRow } from "@/lib/cms/types";
 import { absoluteUrl } from "@/lib/seo";
 import { articlePublicUrl } from "@/lib/cms/articles";
 import { jobPublicUrl } from "@/lib/cms/jobs";
@@ -68,4 +68,34 @@ export function jobPostingJsonLd(job: JobRow) {
   }
 
   return posting;
+}
+
+export function cmsPageJsonLd(page: CmsPageRow) {
+  const url = absoluteUrl(page.route);
+  const description = page.meta_description || page.page_summary || page.intro;
+  const isService = page.page_type === "service" || page.page_type === "service-detail";
+  const base: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": isService ? "Service" : "WebPage",
+    name: page.h1 || page.page_name,
+    description,
+    url,
+    publisher: {
+      "@type": "Organization",
+      name: "Mirai Studios LLC",
+      url: absoluteUrl("/"),
+    },
+  };
+  if (isService) {
+    base.provider = base.publisher;
+    base.areaServed = page.region_served || page.region_label || ["United States", "United Kingdom", "Middle East"];
+  } else if (page.region_served || (page.region_code && page.region_code !== "global")) {
+    base.spatialCoverage = page.region_served || page.region_label;
+    base.about = {
+      "@type": "Organization",
+      name: "Mirai Studios LLC",
+      areaServed: page.region_served || page.region_label,
+    };
+  }
+  return base;
 }

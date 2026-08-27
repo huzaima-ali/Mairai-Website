@@ -89,13 +89,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   );
 
   const cmsEntries = await Promise.all(
-    cmsPages.map((page) =>
-      entry(page.route, {
-        changeFrequency: "monthly",
-        priority: 0.75,
-        lastModified: new Date(page.updated_at || now),
-      }),
-    ),
+    cmsPages
+      .filter((page) => page.include_in_sitemap !== false && !page.noindex)
+      .map((page) =>
+        entry(page.route, {
+          changeFrequency: "monthly",
+          priority: 0.75,
+          lastModified: new Date(page.updated_at || now),
+        }),
+      ),
   );
 
   return [...staticPaths, ...articleEntries, ...jobEntries, ...cmsEntries].filter(

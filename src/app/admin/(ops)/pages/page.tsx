@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { PagesSeoTable } from "@/components/admin/PagesSeoTable";
 import { listPublishedArticles, articlePublicUrl } from "@/lib/cms/articles";
 import { listOpenJobs, jobPublicUrl } from "@/lib/cms/jobs";
@@ -34,23 +35,32 @@ export default async function AdminPagesPage() {
     ...cmsPages.map((page) => ({
       route: page.route,
       pageName: page.page_name,
-      pageType: (page.page_type as RegistryPage["pageType"]) || "service-detail",
-      defaultTitle: page.h1 || page.page_name,
-      defaultDescription: page.page_summary || page.intro,
-      indexable: page.status === "published",
+      pageType: (page.page_type as RegistryPage["pageType"]) || "landing",
+      defaultTitle: page.seo_title || page.h1 || page.page_name,
+      defaultDescription: page.meta_description || page.page_summary || page.intro,
+      defaultOgImage: page.og_image_url || undefined,
+      indexable: page.status === "published" && !page.noindex,
     })),
   ];
 
-  const pages = [...getStaticRegistryPages(), ...dynamicPages];
+  const byRoute = new Map<string, RegistryPage>();
+  for (const page of [...getStaticRegistryPages(), ...dynamicPages]) {
+    byRoute.set(page.route, page);
+  }
+  const pages = Array.from(byRoute.values());
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-medium tracking-tight">Pages & SEO</h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Code defaults plus admin overrides. Create regional variants from service pages — drafts stay noindex until
-          reviewed.
-        </p>
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <h1 className="text-3xl font-medium tracking-tight">Pages & SEO</h1>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Create, duplicate and publish landing pages without a code deploy. Drafts stay noindex until reviewed.
+          </p>
+        </div>
+        <Link href="/admin/pages/new" className="rounded-full bg-ink px-4 py-2 text-sm font-medium text-white">
+          Create New Page
+        </Link>
       </div>
       <PagesSeoTable pages={pages} overrides={overrides} cmsPages={cmsPages} />
     </div>

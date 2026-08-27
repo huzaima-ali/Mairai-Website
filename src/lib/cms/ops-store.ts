@@ -5,6 +5,7 @@ import {
   isSupabaseConfigured,
 } from "@/lib/supabase/server";
 import type { CmsPageRow, PageSeoRow } from "@/lib/cms/types";
+import { withCmsPageDefaults } from "@/lib/cms/page-routes";
 
 const SEO_EXTRAS_PATH = "ops/seo-overrides.json";
 const CMS_PAGES_PATH = "ops/cms-pages.json";
@@ -72,13 +73,21 @@ export async function upsertSeoExtras(route: string, extras: Partial<PageSeoRow>
 }
 
 export async function listCmsPages(): Promise<CmsPageRow[]> {
-  const pages = await downloadJson<CmsPageRow[]>(CMS_PAGES_PATH, []);
-  return pages.filter((p) => !p.deleted_at);
+  const pages = await downloadJson<Array<Partial<CmsPageRow> & Pick<CmsPageRow, "id" | "route" | "page_name">>>(
+    CMS_PAGES_PATH,
+    [],
+  );
+  return pages.filter((p) => !p.deleted_at).map((page) => withCmsPageDefaults(page));
 }
 
 export async function getCmsPageByRoute(route: string): Promise<CmsPageRow | null> {
   const pages = await listCmsPages();
   return pages.find((p) => p.route === route) || null;
+}
+
+export async function getCmsPageById(id: string): Promise<CmsPageRow | null> {
+  const pages = await listCmsPages();
+  return pages.find((p) => p.id === id) || null;
 }
 
 export async function getPublishedCmsPageByRoute(route: string): Promise<CmsPageRow | null> {
@@ -93,12 +102,16 @@ export async function listPublishedCmsPages(): Promise<CmsPageRow[]> {
 }
 
 export async function saveCmsPage(page: CmsPageRow) {
-  const pages = await downloadJson<CmsPageRow[]>(CMS_PAGES_PATH, []);
-  const idx = pages.findIndex((p) => p.id === page.id);
-  if (idx >= 0) pages[idx] = page;
-  else pages.push(page);
+  const pages = await downloadJson<Array<Partial<CmsPageRow> & Pick<CmsPageRow, "id" | "route" | "page_name">>>(
+    CMS_PAGES_PATH,
+    [],
+  );
+  const normalized = withCmsPageDefaults(page);
+  const idx = pages.findIndex((p) => p.id === normalized.id);
+  if (idx >= 0) pages[idx] = normalized;
+  else pages.push(normalized);
   await uploadJson(CMS_PAGES_PATH, pages);
-  return page;
+  return normalized;
 }
 
 export async function softDeleteCmsPage(id: string, userId: string) {

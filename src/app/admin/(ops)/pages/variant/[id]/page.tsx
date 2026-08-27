@@ -1,12 +1,16 @@
 import { notFound } from "next/navigation";
-import { RegionalVariantEditor } from "@/components/admin/RegionalVariantEditor";
-import { listCmsPages } from "@/lib/cms/ops-store";
+import { CmsPageEditor } from "@/components/admin/CmsPageEditor";
+import { getCmsPageById, listCmsPages } from "@/lib/cms/ops-store";
 
 type Props = { params: { id: string } };
 
-export default async function AdminVariantPage({ params }: Props) {
-  const pages = await listCmsPages();
-  const page = pages.find((p) => p.id === params.id);
+export default async function AdminCmsPageEditorPage({ params }: Props) {
+  const page = await getCmsPageById(params.id);
   if (!page) notFound();
-  return <RegionalVariantEditor page={page} />;
+  const pages = await listCmsPages();
+  const source =
+    (page.source_page_id ? pages.find((item) => item.id === page.source_page_id) : null) ||
+    (page.source_route ? pages.find((item) => item.route === page.source_route) : null) ||
+    null;
+  return <CmsPageEditor page={page} sourcePage={source} />;
 }

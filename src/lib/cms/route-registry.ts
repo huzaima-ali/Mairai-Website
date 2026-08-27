@@ -8,6 +8,8 @@ export type PageType =
   | "home"
   | "service"
   | "service-detail"
+  | "industry"
+  | "landing"
   | "region"
   | "region-detail"
   | "partners"
