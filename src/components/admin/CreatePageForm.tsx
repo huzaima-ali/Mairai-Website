@@ -6,6 +6,8 @@ import { createCmsPageAction } from "@/lib/cms/actions";
 import { CMS_PAGE_TYPE_OPTIONS, REGION_VARIANT_OPTIONS } from "@/lib/cms/types";
 import { RichTextEditor } from "@/components/admin/RichTextEditor";
 import { slugify } from "@/lib/cms/utils";
+import { AdminBackLink } from "@/components/admin/AdminBackLink";
+import { AdminButton } from "@/components/admin/AdminButton";
 
 export function CreatePageForm() {
   const router = useRouter();
@@ -45,6 +47,7 @@ export function CreatePageForm() {
 
   return (
     <div className="space-y-5">
+      <AdminBackLink href="/admin/pages" label="Back to Pages" />
       <div>
         <h1 className="text-2xl font-medium">Create New Page</h1>
         <p className="mt-2 text-sm text-muted-foreground">
@@ -199,10 +202,13 @@ export function CreatePageForm() {
 
       {message ? <p className="text-sm text-rose-700">{message}</p> : null}
 
-      <button
+      <AdminButton
         type="button"
+        variant="primary"
         disabled={pending || !pageName.trim()}
-        className="rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-white disabled:opacity-60"
+        loading={pending}
+        loadingLabel="Creating…"
+        title={!pageName.trim() ? "Enter a page name to create a draft" : undefined}
         onClick={() => {
           setMessage(null);
           startTransition(async () => {
@@ -238,8 +244,8 @@ export function CreatePageForm() {
           });
         }}
       >
-        {pending ? "Creating…" : "Create draft"}
-      </button>
+        Create draft
+      </AdminButton>
     </div>
   );
 }

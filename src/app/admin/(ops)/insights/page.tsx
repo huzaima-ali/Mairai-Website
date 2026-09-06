@@ -1,7 +1,11 @@
-import Link from "next/link";
 import { listArticlesAdmin } from "@/lib/cms/articles";
 import { getHomepageFeaturedArticleId } from "@/lib/cms/ops-store";
 import { InsightsArticlesTable } from "@/components/admin/InsightsArticlesTable";
+import Link from "next/link";
+
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
+export const revalidate = 0;
 
 export default async function AdminInsightsIndexPage() {
   const [articles, homepageFeaturedId] = await Promise.all([
@@ -18,7 +22,10 @@ export default async function AdminInsightsIndexPage() {
             Create, publish, unpublish, and choose the homepage featured article.
           </p>
         </div>
-        <Link href="/admin/insights/new" className="rounded-full bg-ink px-4 py-2 text-sm font-medium text-white">
+        <Link
+          href="/admin/insights/new"
+          className="inline-flex min-h-11 items-center justify-center rounded-full bg-ink px-4 py-2 text-sm font-medium text-white transition-all duration-200 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring active:scale-[0.98]"
+        >
           New Article
         </Link>
       </div>

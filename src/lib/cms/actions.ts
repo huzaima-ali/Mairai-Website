@@ -21,6 +21,7 @@ import {
 import { regionalRouteFor } from "@/lib/cms/seo-helpers";
 import { CMS_PAGE_TYPE_OPTIONS, REGION_VARIANT_OPTIONS, type CmsPageRow } from "@/lib/cms/types";
 import { randomUUID } from "crypto";
+import { jobDraftSchema } from "@/lib/cms/job-fields";
 import { getRegistryPage } from "@/lib/cms/route-registry";
 import {
   assertRouteAvailable,
@@ -837,48 +838,25 @@ export async function softDeleteArticleAction(id: string) {
 }
 
 export async function setHomepageFeaturedArticleAction(articleId: string | null) {
-  await adminClient();
-  if (articleId) {
-    const { supabase } = await adminClient();
-    const { data, error } = await supabase
-      .from("articles")
-      .select("id, status")
-      .eq("id", articleId)
-      .is("deleted_at", null)
-      .maybeSingle();
-    if (error || !data) throw new Error("Article not found");
-    if (data.status !== "published") {
-      throw new Error("Only published articles can be featured on the homepage");
-    }
-  }
-  await setHomepageFeaturedArticleId(articleId);
-  revalidatePath("/");
+  const { supabase } = await adminClient();
+  const { exclusiveHomepageFeatured } = await import("@/lib/cms/homepage-featured");
+  const { data: articles } = await supabase
+    .from("articles")
+    .select("id, status")
+    .is("deleted_at", null);
+  const current = await getHomepageFeaturedArticleId();
+  const result = exclusiveHomepageFeatured(current, articleId, articles || []);
+  if (result.error) throw new Error(result.error);
+  await setHomepageFeaturedArticleId(result.featuredId);
+  revalidatePath("/", "layout");
+  revalidatePath("/admin/insights", "layout");
   revalidatePath("/admin/insights");
-  return articleId;
+  revalidatePath("/");
+  return result.featuredId;
 }
 
-const jobSchema = z.object({
-  id: z.string().uuid().optional(),
-  title: z.string().min(1),
-  slug: z.string().min(1),
-  department: z.string().optional().default(""),
-  location: z.string().optional().default(""),
-  workplace_type: z.string().optional().default(""),
-  employment_type: z.string().optional().default(""),
-  summary: z.string().optional().default(""),
-  description: z.string().optional().default(""),
-  requirements: z.string().optional().default(""),
-  nice_to_have: z.string().optional().default(""),
-  application_type: z.enum(["email", "url", "both"]).optional().default("email"),
-  application_url: z.string().optional().nullable(),
-  application_email: z.string().optional().nullable(),
-  valid_through: z.string().optional().nullable(),
-  seo_title: z.string().optional().nullable(),
-  meta_description: z.string().optional().nullable(),
-});
-
-export async function saveJobDraftAction(input: z.infer<typeof jobSchema>) {
-  const parsed = jobSchema.parse({
+export async function saveJobDraftAction(input: z.infer<typeof jobDraftSchema>) {
+  const parsed = jobDraftSchema.parse({
     ...input,
     slug: slugify(input.slug || input.title),
   });

@@ -9,6 +9,9 @@ import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { PageBackLink } from "@/components/ui/PageBackLink";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export async function generateMetadata(): Promise<Metadata> {
   return resolvePageMetadata({
     path: "/careers",
@@ -71,7 +74,7 @@ export default async function CareersPage() {
                     <li key={job.id}>
                       <a
                         href={jobPublicUrl(job.slug)}
-                        className="group flex items-start justify-between gap-3 rounded-2xl border border-border bg-surface px-5 py-4 transition-colors hover:border-foreground/25"
+                        className="group flex items-start justify-between gap-3 rounded-2xl border border-border bg-surface px-5 py-4 transition-all duration-200 hover:border-foreground/25 hover:bg-black/[0.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 active:scale-[0.99] motion-reduce:transition-none"
                       >
                         <span>
                           <span className="block text-lg font-medium text-foreground">{job.title}</span>

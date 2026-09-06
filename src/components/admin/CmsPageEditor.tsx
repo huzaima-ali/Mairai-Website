@@ -6,6 +6,9 @@ import { useRouter } from "next/navigation";
 import { deleteCmsPageAction, saveCmsPageAction } from "@/lib/cms/actions";
 import { RichTextEditor } from "@/components/admin/RichTextEditor";
 import { AdminStatusBadge } from "@/components/admin/AdminShell";
+import { AdminBackLink } from "@/components/admin/AdminBackLink";
+import { AdminButton } from "@/components/admin/AdminButton";
+import { AdminStickyPanel } from "@/components/admin/AdminStickyPanel";
 import type { CmsPageRow } from "@/lib/cms/types";
 import { buildSeoWarnings, contentSimilarity } from "@/lib/cms/seo-helpers";
 import { CANONICAL_ORIGIN } from "@/lib/seo";
@@ -113,6 +116,7 @@ export function CmsPageEditor({
 
   return (
     <div className="space-y-5">
+      <AdminBackLink href="/admin/pages" label="Back to Pages" />
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground">
@@ -179,8 +183,8 @@ export function CmsPageEditor({
         </ul>
       ) : null}
 
-      <div className="grid items-start gap-5 lg:grid-cols-[1.2fr_0.8fr]">
-        <div className="space-y-4 rounded-2xl border border-black/8 bg-white p-5">
+      <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1.25fr)_minmax(280px,0.75fr)]">
+        <div className="min-w-0 space-y-4 rounded-2xl border border-black/8 bg-white p-5">
           <label className="block text-xs font-medium uppercase tracking-[0.12em] text-muted-foreground">
             Page name
             <input value={pageName} onChange={(e) => setPageName(e.target.value)} className="mt-1.5 w-full rounded-xl border border-black/10 px-3 py-2.5 text-sm" />
@@ -215,7 +219,92 @@ export function CmsPageEditor({
           ) : null}
         </div>
 
-        <aside className="space-y-4 rounded-2xl border border-black/8 bg-white p-5 lg:sticky lg:top-6 lg:max-h-[calc(100vh-3rem)] lg:overflow-y-auto">
+        <AdminStickyPanel
+          actions={
+            <>
+              {message ? <p className="text-sm text-muted-foreground">{message}</p> : null}
+              <AdminButton
+                className="w-full"
+                disabled={pending}
+                onClick={() =>
+                  run("Save", async () => {
+                    await saveCmsPageAction(payload());
+                    setMessage(page.status === "published" ? "Saved." : "Draft saved (noindex until published).");
+                    router.refresh();
+                  })
+                }
+              >
+                Save draft
+              </AdminButton>
+              {page.status === "published" ? (
+                <>
+                  <AdminButton
+                    variant="primary"
+                    className="w-full"
+                    disabled={pending}
+                    onClick={() => {
+                      if (!window.confirm("Save and keep this page published?")) return;
+                      run("Publish", async () => {
+                        await saveCmsPageAction(payload("published"));
+                        setMessage("Published.");
+                        router.refresh();
+                      });
+                    }}
+                  >
+                    Republish
+                  </AdminButton>
+                  <AdminButton
+                    className="w-full"
+                    disabled={pending}
+                    onClick={() =>
+                      run("Unpublish", async () => {
+                        await saveCmsPageAction(payload("unpublished"));
+                        setMessage("Unpublished.");
+                        router.refresh();
+                      })
+                    }
+                  >
+                    Unpublish
+                  </AdminButton>
+                </>
+              ) : (
+                <AdminButton
+                  variant="primary"
+                  className="w-full"
+                  disabled={pending}
+                  onClick={() => {
+                    if (isRegional && !window.confirm("Publish this regional page? Confirm it has unique regional content.")) {
+                      return;
+                    }
+                    run("Publish", async () => {
+                      await saveCmsPageAction({ ...payload("published"), noindex: false, include_in_sitemap: true });
+                      setNoindex(false);
+                      setIncludeInSitemap(true);
+                      setMessage("Published.");
+                      router.refresh();
+                    });
+                  }}
+                >
+                  Publish
+                </AdminButton>
+              )}
+              <AdminButton
+                variant="danger"
+                className="w-full"
+                disabled={pending}
+                onClick={() => {
+                  if (!window.confirm("Soft-delete this page?")) return;
+                  run("Delete", async () => {
+                    await deleteCmsPageAction(page.id);
+                    router.replace("/admin/pages");
+                  });
+                }}
+              >
+                Delete
+              </AdminButton>
+            </>
+          }
+        >
           <label className="block text-xs font-medium uppercase tracking-[0.12em] text-muted-foreground">
             CTA heading
             <input value={ctaHeading} onChange={(e) => setCtaHeading(e.target.value)} className="mt-1.5 w-full rounded-xl border border-black/10 px-3 py-2.5 text-sm" />
@@ -288,93 +377,7 @@ export function CmsPageEditor({
             />
             Include in sitemap
           </label>
-
-          {message ? <p className="text-sm text-muted-foreground">{message}</p> : null}
-
-          <div className="sticky bottom-0 -mx-5 space-y-2 border-t border-black/8 bg-white px-5 py-4">
-            <button
-              type="button"
-              disabled={pending}
-              className="w-full rounded-full border border-black/10 bg-white px-5 py-2.5 text-sm font-medium disabled:opacity-60"
-              onClick={() =>
-                run("Save", async () => {
-                  await saveCmsPageAction(payload());
-                  setMessage(page.status === "published" ? "Saved." : "Draft saved (noindex until published).");
-                  router.refresh();
-                })
-              }
-            >
-              Save draft
-            </button>
-            {page.status === "published" ? (
-              <>
-                <button
-                  type="button"
-                  disabled={pending}
-                  className="w-full rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-white disabled:opacity-60"
-                  onClick={() => {
-                    if (!window.confirm("Save and keep this page published?")) return;
-                    run("Publish", async () => {
-                      await saveCmsPageAction(payload("published"));
-                      setMessage("Published.");
-                      router.refresh();
-                    });
-                  }}
-                >
-                  Republish
-                </button>
-                <button
-                  type="button"
-                  disabled={pending}
-                  className="w-full rounded-full border border-black/10 px-5 py-2.5 text-sm disabled:opacity-60"
-                  onClick={() =>
-                    run("Unpublish", async () => {
-                      await saveCmsPageAction(payload("unpublished"));
-                      setMessage("Unpublished.");
-                      router.refresh();
-                    })
-                  }
-                >
-                  Unpublish
-                </button>
-              </>
-            ) : (
-              <button
-                type="button"
-                disabled={pending}
-                className="w-full rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-white disabled:opacity-60"
-                onClick={() => {
-                  if (isRegional && !window.confirm("Publish this regional page? Confirm it has unique regional content.")) {
-                    return;
-                  }
-                  run("Publish", async () => {
-                    await saveCmsPageAction({ ...payload("published"), noindex: false, include_in_sitemap: true });
-                    setNoindex(false);
-                    setIncludeInSitemap(true);
-                    setMessage("Published.");
-                    router.refresh();
-                  });
-                }}
-              >
-                Publish
-              </button>
-            )}
-            <button
-              type="button"
-              disabled={pending}
-              className="w-full rounded-full border border-rose-200 px-5 py-2.5 text-sm text-rose-700 disabled:opacity-60"
-              onClick={() => {
-                if (!window.confirm("Soft-delete this page?")) return;
-                run("Delete", async () => {
-                  await deleteCmsPageAction(page.id);
-                  router.replace("/admin/pages");
-                });
-              }}
-            >
-              Delete
-            </button>
-          </div>
-        </aside>
+        </AdminStickyPanel>
       </div>
     </div>
   );

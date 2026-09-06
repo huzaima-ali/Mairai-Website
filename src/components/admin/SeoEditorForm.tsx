@@ -10,6 +10,7 @@ import type { CmsPageRow, PageSeoRow } from "@/lib/cms/types";
 import { REGION_VARIANT_OPTIONS } from "@/lib/cms/types";
 import { buildSeoWarnings, inferActiveSchemas } from "@/lib/cms/seo-helpers";
 import { canCreateRegionalVariant } from "@/lib/cms/page-routes";
+import { AdminBackLink } from "@/components/admin/AdminBackLink";
 import { SERVICE_PAGES } from "@/lib/services";
 import { CASE_STUDIES } from "@/lib/case-studies";
 
@@ -113,6 +114,7 @@ export function SeoEditorForm({
 
   return (
     <div className="space-y-6">
+      <AdminBackLink href="/admin/pages" label="Back to Pages" />
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground">Page</p>

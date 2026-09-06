@@ -1,18 +1,16 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getPublicJobBySlug, jobPublicUrl, listOpenJobs } from "@/lib/cms/jobs";
+import { getPublicJobBySlug, jobPublicUrl } from "@/lib/cms/jobs";
 import { resolvePageMetadata } from "@/lib/cms/seo-overrides";
 import { jobPostingJsonLd } from "@/lib/cms/schema";
 import { sanitizeArticleHtml } from "@/lib/cms/sanitize";
 import { breadcrumbJsonLd, jsonLdScript } from "@/lib/seo";
 import { JobDetailView } from "@/components/careers/JobDetailView";
 
-type Props = { params: { slug: string } };
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
-export async function generateStaticParams() {
-  const jobs = await listOpenJobs();
-  return jobs.map((job) => ({ slug: job.slug }));
-}
+type Props = { params: { slug: string } };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const job = await getPublicJobBySlug(params.slug);

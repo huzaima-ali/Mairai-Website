@@ -27,6 +27,23 @@ export async function listOpenJobs(): Promise<JobRow[]> {
   }
 }
 
+export async function getPublicJobById(id: string): Promise<JobRow | null> {
+  if (!isSupabaseConfigured() || !hasServiceRole()) return null;
+  try {
+    const supabase = createServiceSupabaseClient();
+    const { data, error } = await supabase
+      .from("jobs")
+      .select("*")
+      .eq("id", id)
+      .is("deleted_at", null)
+      .maybeSingle();
+    if (error || !data) return null;
+    return data as JobRow;
+  } catch {
+    return null;
+  }
+}
+
 export async function getPublicJobBySlug(slug: string): Promise<JobRow | null> {
   if (!isSupabaseConfigured() || !hasServiceRole()) return null;
   try {

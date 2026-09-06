@@ -6,6 +6,7 @@ import {
 } from "@/lib/supabase/server";
 import type { CmsPageRow, PageSeoRow } from "@/lib/cms/types";
 import { withCmsPageDefaults } from "@/lib/cms/page-routes";
+import { unstable_noStore as noStore } from "next/cache";
 
 const SEO_EXTRAS_PATH = "ops/seo-overrides.json";
 const CMS_PAGES_PATH = "ops/cms-pages.json";
@@ -22,6 +23,12 @@ async function downloadJson<T>(path: string, fallback: T): Promise<T> {
   if (!isSupabaseConfigured() || !hasServiceRole()) return fallback;
   try {
     const supabase = createServiceSupabaseClient();
+    const { data: publicData } = supabase.storage.from("website-media").getPublicUrl(path);
+    const bust = `${publicData.publicUrl}${publicData.publicUrl.includes("?") ? "&" : "?"}v=${Date.now()}`;
+    const response = await fetch(bust, { cache: "no-store" });
+    if (response.ok) {
+      return (await response.json()) as T;
+    }
     const { data, error } = await supabase.storage.from("website-media").download(path);
     if (error || !data) return fallback;
     const text = await data.text();
@@ -132,6 +139,7 @@ export async function softDeleteCmsPage(id: string, userId: string) {
 }
 
 export async function getHomepageFeaturedArticleId(): Promise<string | null> {
+  noStore();
   const state = await downloadJson<HomepageFeaturedState>(HOMEPAGE_FEATURED_PATH, { articleId: null });
   return state.articleId || null;
 }

@@ -13,7 +13,10 @@ export default async function AdminCareersIndexPage() {
           <h1 className="text-3xl font-medium tracking-tight">Careers</h1>
           <p className="mt-2 text-sm text-muted-foreground">Publish, close and unpublish roles.</p>
         </div>
-        <Link href="/admin/careers/new" className="rounded-full bg-ink px-4 py-2 text-sm font-medium text-white">
+        <Link
+          href="/admin/careers/new"
+          className="inline-flex min-h-11 items-center justify-center rounded-full bg-ink px-4 py-2 text-sm font-medium text-white transition-all duration-200 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring active:scale-[0.98]"
+        >
           New Job
         </Link>
       </div>
@@ -37,7 +40,7 @@ export default async function AdminCareersIndexPage() {
               </tr>
             ) : (
               jobs.map((job) => (
-                <tr key={job.id} className="border-b border-black/5">
+                <tr key={job.id} className="border-b border-black/5 transition-colors duration-200 hover:bg-black/[0.02]">
                   <td className="px-4 py-3">
                     <p className="font-medium">{job.title}</p>
                     <p className="text-xs text-muted-foreground">
@@ -49,7 +52,10 @@ export default async function AdminCareersIndexPage() {
                   </td>
                   <td className="px-4 py-3 text-xs text-muted-foreground">{formatAdminDate(job.updated_at)}</td>
                   <td className="px-4 py-3">
-                    <Link href={`/admin/careers/${job.id}`} className="text-accent hover:underline">
+                    <Link
+                      href={`/admin/careers/${job.id}`}
+                      className="rounded-full border border-black/10 px-3 py-1.5 text-xs font-medium transition-all duration-200 hover:bg-black/[0.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    >
                       Edit
                     </Link>
                   </td>
