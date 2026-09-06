@@ -154,12 +154,6 @@ export function JobApplicationForm({
             {...register("email")}
           />
         </Field>
-        <Field label="Job title">
-          <input className={cn(inputCls(false), "h-12 bg-black/[0.02]")} value={jobTitle} readOnly />
-        </Field>
-        <Field label="Job ID">
-          <input className={cn(inputCls(false), "h-12 bg-black/[0.02] font-mono text-sm")} value={jobId} readOnly />
-        </Field>
         <Field
           label="CV / resume"
           error={cvError || undefined}
