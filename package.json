@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "test": "node --experimental-strip-types --test src/lib/cms/admin-fixes.test.ts",
+    "test": "node --experimental-strip-types --test src/lib/cms/admin-fixes.test.ts src/lib/seo.test.ts",
     "assets": "node scripts/download-figma-assets.mjs"
   },
   "dependencies": {

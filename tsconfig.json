@@ -39,6 +39,7 @@
   ],
   "exclude": [
     "node_modules",
-    "src/lib/cms/admin-fixes.test.ts"
+    "src/lib/cms/admin-fixes.test.ts",
+    "src/lib/seo.test.ts"
   ]
 }

@@ -22,9 +22,16 @@ export type MarketingPage = {
   relatedCaseStudies: string[];
   relatedServices?: RelatedLink[];
   relatedRegions?: RelatedLink[];
+  faqs?: Array<{ question: string; answer: string }>;
   ctaLabel?: string;
   ctaHref?: string;
 };
+
+const REGION_LINKS: RelatedLink[] = [
+  { label: "United States", href: "/regions/united-states" },
+  { label: "United Kingdom", href: "/regions/united-kingdom" },
+  { label: "Middle East", href: "/regions/middle-east" },
+];
 
 export const SERVICE_PAGES: MarketingPage[] = [
   {
@@ -78,6 +85,13 @@ export const SERVICE_PAGES: MarketingPage[] = [
         ],
       },
       {
+        heading: "Super Intelligence as a planning theme, not a product we sell",
+        body: [
+          "Super Intelligence, sometimes shortened to SI, is used in industry discussion for systems that could one day exceed human performance across many tasks. That is not a service Mirai offers, and it is not the same as shipping applied AI products today.",
+          "What we do build is AI-native software: products, agents and automation with evaluation, permissions and human-supervised workflows. Those foundations remain useful as models become more capable.",
+        ],
+      },
+      {
         heading: "Technologies we commonly use",
         body: [
           "Modern web stacks, LLM APIs and orchestration patterns, retrieval systems where evidence matters, and cloud infrastructure suited to the product’s scale and security needs. We choose tools for the problem, not for novelty.",
@@ -89,6 +103,24 @@ export const SERVICE_PAGES: MarketingPage[] = [
       { label: "AI Agent Development", href: "/services/ai-agent-development" },
       { label: "Product Design", href: "/services/product-design" },
       { label: "AI Automation", href: "/services/ai-automation" },
+    ],
+    relatedRegions: REGION_LINKS,
+    faqs: [
+      {
+        question: "What is included in AI product development?",
+        answer:
+          "Discovery, product scoping, UX for AI-assisted work, model and tool integration, full-stack engineering, and evaluation loops so the product can be used in production rather than remaining a demo.",
+      },
+      {
+        question: "Does Mirai train proprietary Super Intelligence models?",
+        answer:
+          "No. We integrate proven model APIs and orchestration patterns into products. Super Intelligence and ASI are industry research topics. Mirai builds applied AI products with defined jobs, oversight and measurable workflows.",
+      },
+      {
+        question: "How do AI product engagements usually start?",
+        answer:
+          "We start with the workflow and the decision the product must support, then design the interface and architecture around that outcome. A narrow first release is preferred over an unbounded prototype.",
+      },
     ],
   },
   {
@@ -140,6 +172,13 @@ export const SERVICE_PAGES: MarketingPage[] = [
           "We define the job to be done, the tools the agent may use, and the points where a person must approve or intervene. That keeps the agent useful without pretending it can safely do everything unsupervised.",
         ],
       },
+      {
+        heading: "Agentic AI, AGI and Super Intelligence",
+        body: [
+          "Agentic AI here means software that can take bounded actions across tools and workflows. That is different from artificial general intelligence (AGI) or artificial superintelligence (ASI), which remain research goals rather than product categories.",
+          "Enterprise agents still need permissions, logging, evaluation and human-supervised autonomous workflows. Those controls matter more as models become more capable.",
+        ],
+      },
     ],
     relatedCaseStudies: ["lillyai", "mindful-legal-solutions", "cero"],
     relatedServices: [
@@ -147,7 +186,24 @@ export const SERVICE_PAGES: MarketingPage[] = [
       { label: "AI Automation", href: "/services/ai-automation" },
       { label: "Enterprise Engineering", href: "/services/enterprise-engineering" },
     ],
-
+    relatedRegions: REGION_LINKS,
+    faqs: [
+      {
+        question: "How is an AI agent different from a chatbot?",
+        answer:
+          "A chatbot mainly answers in conversation. An agent is designed around a job: it can call tools, update systems and route work, with review steps where a person must approve or intervene.",
+      },
+      {
+        question: "Can agents run without human oversight?",
+        answer:
+          "Some low-risk steps can run automatically. High-stakes actions should stay behind review, logging and clear permissions. Mirai designs those boundaries into the workflow rather than treating oversight as an afterthought.",
+      },
+      {
+        question: "Which systems can agents connect to?",
+        answer:
+          "Agents can integrate with APIs, document stores, CRMs, internal tools and custom platforms when those connections are in scope. The allowed tools are defined during design so the agent cannot act outside its job.",
+      },
+    ],
   },
   {
     slug: "ai-automation",
@@ -198,6 +254,19 @@ export const SERVICE_PAGES: MarketingPage[] = [
       { label: "AI Agent Development", href: "/services/ai-agent-development" },
       { label: "Custom Software Development", href: "/services/custom-software-development" },
       { label: "Enterprise Engineering", href: "/services/enterprise-engineering" },
+    ],
+    relatedRegions: REGION_LINKS,
+    faqs: [
+      {
+        question: "When is AI automation a better fit than a full AI product?",
+        answer:
+          "When the bottleneck is repetitive intake, classification, drafting or routing inside an existing process. A dedicated product is a better fit when users need a new interface and ongoing product surface, not only a faster back-office flow.",
+      },
+      {
+        question: "How do you keep automation from failing silently?",
+        answer:
+          "Exception queues, logging and human review on uncertain or high-impact cases. Automation should make failures visible and recoverable rather than hiding them inside a script.",
+      },
     ],
   },
   {
@@ -255,6 +324,19 @@ export const SERVICE_PAGES: MarketingPage[] = [
       { label: "AI Product Development", href: "/services/ai-product-development" },
       { label: "Product Design", href: "/services/product-design" },
       { label: "Enterprise Engineering", href: "/services/enterprise-engineering" },
+    ],
+    relatedRegions: REGION_LINKS,
+    faqs: [
+      {
+        question: "What kinds of custom software does Mirai build?",
+        answer:
+          "Web and SaaS applications, internal platforms, client portals, APIs and operator tooling. Work is scoped around a specific product goal rather than a generic staff-augmentation contract.",
+      },
+      {
+        question: "Can custom software include AI features later?",
+        answer:
+          "Yes. We often design the data, workflow and interface so AI-assisted features can be added without rewriting the core product. AI is included when it has a defined job, not as a default layer.",
+      },
     ],
   },
   {
@@ -319,7 +401,19 @@ export const SERVICE_PAGES: MarketingPage[] = [
       { label: "Enterprise Engineering", href: "/services/enterprise-engineering" },
       { label: "Product Design", href: "/services/product-design" },
     ],
-
+    relatedRegions: REGION_LINKS,
+    faqs: [
+      {
+        question: "When should a company invest in a digital twin?",
+        answer:
+          "When space, assets or physical operations are part of the decision. Sales walkthroughs, facility operations and manufacturing visualization are typical. A twin is a weak fit for purely transactional workflows with no spatial layer.",
+      },
+      {
+        question: "Do digital twins have to run in Unreal Engine?",
+        answer:
+          "No. Browser-based Three.js experiences are often enough when shareability matters. Unreal Engine can be right for higher-fidelity visualization. The engine follows audience, channel and fidelity, not novelty.",
+      },
+    ],
   },
   {
     slug: "product-design",
@@ -371,6 +465,19 @@ export const SERVICE_PAGES: MarketingPage[] = [
       { label: "Custom Software Development", href: "/services/custom-software-development" },
       { label: "Immersive Experiences", href: "/services/immersive-experiences" },
     ],
+    relatedRegions: REGION_LINKS,
+    faqs: [
+      {
+        question: "Why does AI product design need a different approach?",
+        answer:
+          "Model output is uncertain. Interfaces need to show what the system did, what a person should review, and what happens next. Generic UI patterns often hide that uncertainty.",
+      },
+      {
+        question: "Does product design include brand work?",
+        answer:
+          "When it supports the product. Mirai designs interface systems, visual identity support and component libraries that engineering can implement, rather than brand work disconnected from delivery.",
+      },
+    ],
   },
   {
     slug: "immersive-experiences",
@@ -421,7 +528,19 @@ export const SERVICE_PAGES: MarketingPage[] = [
       { label: "Digital Twin Development", href: "/services/digital-twin-development" },
       { label: "Product Design", href: "/services/product-design" },
     ],
-
+    relatedRegions: REGION_LINKS,
+    faqs: [
+      {
+        question: "Can immersive experiences run in a browser?",
+        answer:
+          "Many of the experiences Mirai builds are designed for the web so clients can share them without a heavy install. Higher-fidelity runtimes are used when the audience and hardware justify them.",
+      },
+      {
+        question: "What is the difference between an immersive experience and a digital twin?",
+        answer:
+          "An immersive experience is often for storytelling, sales or exploration. A digital twin is built around a spatial or operational model of a place or system. The two can overlap, but the job to be done is different.",
+      },
+    ],
   },
   {
     slug: "enterprise-engineering",
@@ -472,6 +591,19 @@ export const SERVICE_PAGES: MarketingPage[] = [
       { label: "AI Product Development", href: "/services/ai-product-development" },
       { label: "Custom Software Development", href: "/services/custom-software-development" },
       { label: "Digital Twin Development", href: "/services/digital-twin-development" },
+    ],
+    relatedRegions: REGION_LINKS,
+    faqs: [
+      {
+        question: "What does enterprise engineering cover at Mirai?",
+        answer:
+          "APIs, cloud architecture, integrations, authentication, roles, auditability and the reliability practices that keep AI products and platforms usable after launch.",
+      },
+      {
+        question: "Can Mirai work with an existing internal engineering team?",
+        answer:
+          "Yes. Scale-with-us engagements extend an internal team. Enterprise engineering work can also sit inside a fixed-scope product build when the systems layer is part of shipping the product.",
+      },
     ],
   },
 ];

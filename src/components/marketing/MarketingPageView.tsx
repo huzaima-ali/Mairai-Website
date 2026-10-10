@@ -1,7 +1,7 @@
 import { ArrowUpRight } from "lucide-react";
 import { CASE_STUDIES, getCaseStudyUrl } from "@/lib/case-studies";
 import type { MarketingPage } from "@/lib/services";
-import { breadcrumbJsonLd, jsonLdScript, serviceJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, faqPageJsonLd, jsonLdScript, serviceJsonLd, webpageJsonLd } from "@/lib/seo";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
@@ -27,7 +27,14 @@ export function MarketingPageView({
     { name: page.title, path: page.path },
   ];
 
-  const schemas: Array<Record<string, unknown>> = [breadcrumbJsonLd(breadcrumbs)];
+  const schemas: Array<Record<string, unknown>> = [
+    breadcrumbJsonLd(breadcrumbs),
+    webpageJsonLd({
+      name: page.h1,
+      description: page.metaDescription,
+      path: page.path,
+    }),
+  ];
   if (schemaType === "service") {
     schemas.push(
       serviceJsonLd({
@@ -36,6 +43,9 @@ export function MarketingPageView({
         path: page.path,
       }),
     );
+  }
+  if (page.faqs?.length) {
+    schemas.push(faqPageJsonLd(page.faqs));
   }
 
   return (
@@ -113,6 +123,22 @@ export function MarketingPageView({
                       </li>
                     ))}
                   </ul>
+                </section>
+              ) : null}
+
+              {page.faqs?.length ? (
+                <section>
+                  <h2 className="display text-[clamp(1.35rem,2.2vw,1.85rem)] leading-snug tracking-snug">
+                    Questions teams usually ask
+                  </h2>
+                  <dl className="mt-5 flex flex-col gap-4">
+                    {page.faqs.map((faq) => (
+                      <div key={faq.question} className="rounded-2xl border border-border bg-surface px-5 py-4">
+                        <dt className="text-base font-medium text-foreground sm:text-lg">{faq.question}</dt>
+                        <dd className="mt-2 text-sm leading-relaxed text-muted-foreground sm:text-base">{faq.answer}</dd>
+                      </div>
+                    ))}
+                  </dl>
                 </section>
               ) : null}
 

@@ -13,12 +13,13 @@ import { Divider } from "@/components/ui/Divider";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { FeaturedInsightCard } from "@/components/insights/FeaturedInsightCard";
-import { VIDEO_SECTION, SITE } from "@/lib/content";
+import { VIDEO_SECTION, SITE, HOME_FAQS } from "@/lib/content";
 import { resolvePageMetadata } from "@/lib/cms/seo-overrides";
+import { faqPageJsonLd, jsonLdScript, webpageJsonLd } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
   return resolvePageMetadata({
-    title: "AI Development & Product Engineering Company",
+    title: "Mirai Studios | AI Development & Product Engineering",
     description: SITE.description,
     path: "/",
   });
@@ -27,6 +28,17 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function HomePage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLdScript([
+          webpageJsonLd({
+            name: "Mirai Studios | AI Development & Product Engineering",
+            description: SITE.description,
+            path: "/",
+          }),
+          faqPageJsonLd([...HOME_FAQS]),
+        ])}
+      />
       <Hero />
       <BlueprintFrame>
         <Divider />
@@ -42,14 +54,20 @@ export default function HomePage() {
                   {SITE.positioning}
                 </p>
                 <p className="mt-4 text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
-                  Teams work with Mirai for AI product development, AI agents, custom software and
-                  enterprise platforms, intelligent automation, product design, digital twins and
-                  immersive experiences across the United States, United Kingdom and Middle East.
+                  Delivery is product-led: we define the workflow, design the experience, then
+                  engineer systems operators can trust. That includes agentic AI, intelligent
+                  automation and AI-native software with human-supervised controls. Super
+                  Intelligence remains a longer-term industry topic, not a product we claim to
+                  ship.
                 </p>
                 <p className="mt-4 text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
-                  Explore our{" "}
+                  See{" "}
                   <a href="/#services" className="underline underline-offset-2 hover:text-foreground">
                     services
+                  </a>
+                  ,{" "}
+                  <a href="/#work" className="underline underline-offset-2 hover:text-foreground">
+                    selected work
                   </a>
                   ,{" "}
                   <a href="/regions" className="underline underline-offset-2 hover:text-foreground">
@@ -58,8 +76,8 @@ export default function HomePage() {
                   , or{" "}
                   <a href="/partners" className="underline underline-offset-2 hover:text-foreground">
                     partner with us
-                  </a>{" "}
-                  if you need Mirai as a technical delivery partner.
+                  </a>
+                  .
                 </p>
               </div>
 
@@ -85,6 +103,25 @@ export default function HomePage() {
         <Testimonials />
         <Divider />
         <EngagementModels />
+        <Divider />
+        <Section className="py-8 sm:py-10 lg:py-12" aria-labelledby="home-faqs">
+          <Container>
+            <div className="max-w-3xl">
+              <p className="eyebrow">Questions</p>
+              <h2 id="home-faqs" className="display mt-3 text-[clamp(1.75rem,3vw,2.75rem)] leading-[1.08]">
+                Common questions
+              </h2>
+            </div>
+            <dl className="mt-8 grid gap-4 lg:grid-cols-2">
+              {HOME_FAQS.map((faq) => (
+                <div key={faq.question} className="rounded-2xl border border-border bg-surface px-5 py-4">
+                  <dt className="text-lg font-medium text-foreground">{faq.question}</dt>
+                  <dd className="mt-2 text-sm leading-relaxed text-muted-foreground sm:text-base">{faq.answer}</dd>
+                </div>
+              ))}
+            </dl>
+          </Container>
+        </Section>
         <Divider />
         <Contact />
       </BlueprintFrame>

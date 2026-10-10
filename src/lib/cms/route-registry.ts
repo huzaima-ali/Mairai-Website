@@ -35,9 +35,9 @@ const HOME: RegistryPage = {
   route: "/",
   pageName: "Homepage",
   pageType: "home",
-  defaultTitle: "AI Development & Product Engineering Company",
+  defaultTitle: "Mirai Studios | AI Development & Product Engineering",
   defaultDescription:
-    "Mirai Studios designs and builds AI products, agents, platforms, digital twins and immersive experiences for businesses across the US, UK and Middle East.",
+    "Mirai Studios designs and builds AI products, intelligent agents, enterprise software and digital twins for businesses across the US, UK and Middle East.",
   indexable: true,
 };
 
@@ -67,7 +67,7 @@ export function getStaticRegistryPages(): RegistryPage[] {
       route: "/regions",
       pageName: "Regions",
       pageType: "region",
-      defaultTitle: "Regions — US, UK & Middle East",
+      defaultTitle: "Regions: US, UK and Middle East",
       defaultDescription:
         "Mirai Studios partners with companies in the United States, United Kingdom and Middle East, with delivery from Pakistan.",
       indexable: true,
@@ -95,9 +95,9 @@ export function getStaticRegistryPages(): RegistryPage[] {
       route: "/insights",
       pageName: "Insights",
       pageType: "insights",
-      defaultTitle: "Insights on AI Products, Agents & Digital Twins",
+      defaultTitle: "Insights on AI Products, Agents and Super Intelligence",
       defaultDescription:
-        "Mirai Studios insights on AI product development, AI agents, automation, digital twins and delivery practices.",
+        "Mirai Studios insights on AI product development, AI agents, automation, digital twins and Super Intelligence terminology.",
       indexable: true,
     },
     {

@@ -18,7 +18,7 @@ const sans = Inter({ subsets: ["latin"], display: "swap", variable: "--font-sans
 export const metadata: Metadata = {
   metadataBase: new URL(CANONICAL_ORIGIN),
   title: {
-    default: "AI Development & Product Engineering Company | Mirai Studios",
+    default: "Mirai Studios | AI Development & Product Engineering",
     template: `%s | Mirai Studios`,
   },
   description: SITE.description,
@@ -27,12 +27,12 @@ export const metadata: Metadata = {
     type: "website",
     url: CANONICAL_ORIGIN,
     siteName: SITE.name,
-    title: "AI Development & Product Engineering Company | Mirai Studios",
+    title: "Mirai Studios | AI Development & Product Engineering",
     description: SITE.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: "AI Development & Product Engineering Company | Mirai Studios",
+    title: "Mirai Studios | AI Development & Product Engineering",
     description: SITE.description,
   },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large" } },

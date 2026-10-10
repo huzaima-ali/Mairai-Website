@@ -3,9 +3,9 @@ export const SITE = {
   tagline: "Bringing\ntechnology to life",
   url: "https://miraistudios.co",
   description:
-    "Mirai Studios designs and builds AI products, AI agents, enterprise software, intelligent automation and digital twins for businesses across the US, UK and MENA.",
+    "Mirai Studios designs and builds AI products, intelligent agents, enterprise software and digital twins for businesses across the US, UK and Middle East.",
   positioning:
-    "Mirai Studios is an AI product development and technology engineering company that designs, builds and scales AI products, AI agents, enterprise platforms, intelligent automation, digital twins and immersive experiences for businesses across the United States, United Kingdom and Middle East.",
+    "Mirai Studios is an AI product development and technology engineering studio. We design, build and scale production software for companies that need applied AI, agentic workflows, custom platforms, digital twins and immersive experiences.",
   email: "hello@miraistudios.co",
 } as const;
 
@@ -44,7 +44,7 @@ export const HERO = {
   /** Explicit line breaks for the display headline. */
   headlineLines: ["Building AI", "Products That Drive", "Business Growth"] as const,
   body:
-    "We help businesses design, build, and scale AI products, internal platforms, and intelligent automation. From strategy and product design to engineering and deployment, we deliver end-to-end solutions that create measurable business impact.",
+    "We help businesses design, build and scale AI products, internal platforms and intelligent automation. From strategy and product design through engineering and deployment, we deliver end-to-end solutions that create measurable business impact.",
   cta: "Book a Call",
 } as const;
 
@@ -96,7 +96,7 @@ export const SERVICES_INTRO = {
   eyebrow: "Services",
   title: "What We Do",
   body:
-    "From AI products and enterprise platforms to digital twins and immersive systems, we turn ambitious ideas into technology that ships, scales and creates measurable value.",
+    "From AI-native products and enterprise platforms to digital twins and immersive systems, we turn ambitious ideas into technology that ships, scales and creates measurable value.",
 } as const;
 
 export interface ServiceMedia {
@@ -384,6 +384,29 @@ export const ENGAGEMENT_MODELS: EngagementModel[] = [
     cta: "Contact Us",
   },
 ];
+
+export const HOME_FAQS = [
+  {
+    question: "What does Mirai Studios do?",
+    answer:
+      "Mirai Studios designs and builds AI products, intelligent agents, custom software, digital twins and immersive experiences. Work typically covers product strategy, design, engineering and deployment for companies in the United States, United Kingdom and Middle East.",
+  },
+  {
+    question: "Does Mirai Studios build Super Intelligence or AGI?",
+    answer:
+      "No. Super Intelligence, AGI and ASI are research and policy topics, not products Mirai sells. We build applied AI systems with defined workflows, integrations and human oversight. Super Intelligence language on this site refers to longer-term capability trends, not a claim that Mirai develops frontier foundation models.",
+  },
+  {
+    question: "Where does Mirai Studios work?",
+    answer:
+      "Mirai partners with clients across the United States, United Kingdom and Middle East. Delivery is remote from the studio in Pakistan, with planned overlap for workshops, reviews and decision-making.",
+  },
+  {
+    question: "How do we start a project?",
+    answer:
+      "Use the contact form on this page or email hello@miraistudios.co. Share the problem, users and any constraints. The team follows up to discuss scope, approach and next steps.",
+  },
+] as const;
 
 export const CONTACT = {
   title: "Start building with us",

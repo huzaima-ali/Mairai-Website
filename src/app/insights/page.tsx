@@ -13,9 +13,9 @@ export const dynamic = "force-dynamic";
 export async function generateMetadata(): Promise<Metadata> {
   return resolvePageMetadata({
     path: "/insights",
-    title: "Insights on AI Products, Agents & Digital Twins",
+    title: "Insights on AI Products, Agents and Super Intelligence",
     description:
-      "Mirai Studios insights on AI product development, AI agents, automation, digital twins and delivery practices.",
+      "Mirai Studios writing on AI product development, agents, automation, digital twins and what Super Intelligence language means for enterprise software.",
   });
 }
 
@@ -31,11 +31,11 @@ export default async function InsightsIndexPage() {
           </div>
           <p className="eyebrow mb-4">Insights</p>
           <h1 className="display text-[clamp(2rem,4vw,3.5rem)] leading-[1.05]">
-            Insights on AI products and technology delivery
+            Insights on AI products, agents and Super Intelligence
           </h1>
           <p className="mt-5 text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Practical writing on AI product development, agents, automation and digital twins from the Mirai
-            Studios team.
+            Practical writing on AI product development, agentic systems, automation, digital twins and how
+            Super Intelligence terminology relates to work enterprises can actually ship.
           </p>
         </div>
 

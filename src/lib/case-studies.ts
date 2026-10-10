@@ -94,12 +94,12 @@ export const CASE_STUDIES: CaseStudy[] = [
       },
     ],
     gallery: [
-      { src: "/case-studies/lillyai/image-02.png", alt: "LillyAI product screenshot 2" },
-      { src: "/case-studies/lillyai/image-03.png", alt: "LillyAI product screenshot 3" },
-      { src: "/case-studies/lillyai/image-04.png", alt: "LillyAI product screenshot 4" },
-      { src: "/case-studies/lillyai/image-05.png", alt: "LillyAI product screenshot 5" },
-      { src: "/case-studies/lillyai/image-06.png", alt: "LillyAI product screenshot 6" },
-      { src: "/case-studies/lillyai/image-07.png", alt: "LillyAI product screenshot 7" },
+      { src: "/case-studies/lillyai/image-02.png", alt: "LillyAI clinical intelligence platform interface" },
+      { src: "/case-studies/lillyai/image-03.png", alt: "LillyAI clinical intelligence platform interface" },
+      { src: "/case-studies/lillyai/image-04.png", alt: "LillyAI clinical intelligence platform interface" },
+      { src: "/case-studies/lillyai/image-05.png", alt: "LillyAI clinical intelligence platform interface" },
+      { src: "/case-studies/lillyai/image-06.png", alt: "LillyAI clinical intelligence platform interface" },
+      { src: "/case-studies/lillyai/image-07.png", alt: "LillyAI clinical intelligence platform interface" },
     ],
     testimonial: {
       quote:
@@ -165,11 +165,11 @@ export const CASE_STUDIES: CaseStudy[] = [
       },
     ],
     gallery: [
-      { src: "/case-studies/cero/image-02.png", alt: "Cero product screenshot 2" },
-      { src: "/case-studies/cero/image-03.png", alt: "Cero product screenshot 3" },
-      { src: "/case-studies/cero/image-04.png", alt: "Cero product screenshot 4" },
-      { src: "/case-studies/cero/image-05.png", alt: "Cero product screenshot 5" },
-      { src: "/case-studies/cero/image-06.png", alt: "Cero product screenshot 6" },
+      { src: "/case-studies/cero/image-02.png", alt: "Cero AI LinkedIn product interface" },
+      { src: "/case-studies/cero/image-03.png", alt: "Cero AI LinkedIn product interface" },
+      { src: "/case-studies/cero/image-04.png", alt: "Cero AI LinkedIn product interface" },
+      { src: "/case-studies/cero/image-05.png", alt: "Cero AI LinkedIn product interface" },
+      { src: "/case-studies/cero/image-06.png", alt: "Cero AI LinkedIn product interface" },
     ],
     testimonial: {
       quote:

@@ -11,6 +11,7 @@ import {
   getInsightUrl as staticInsightUrl,
 } from "@/lib/insights";
 import { getHomepageFeaturedArticleId } from "@/lib/cms/ops-store";
+import { editorialArticles, getEditorialArticleBySlug } from "@/lib/cms/editorial-articles";
 
 export function articlePublicUrl(slug: string) {
   return `/insights/${slug}`;
@@ -50,6 +51,17 @@ function mapLegacyArticle(article: InsightArticle): Partial<ArticleRow> & {
   };
 }
 
+function mergePublished(cms: ArticleRow[]): ArticleRow[] {
+  const editorial = editorialArticles();
+  const cmsSlugs = new Set(cms.map((article) => article.slug));
+  const extra = editorial.filter((article) => !cmsSlugs.has(article.slug));
+  return [...cms, ...extra].sort((a, b) => {
+    const aTime = a.published_at ? Date.parse(a.published_at) : 0;
+    const bTime = b.published_at ? Date.parse(b.published_at) : 0;
+    return bTime - aTime;
+  });
+}
+
 export async function listPublishedArticles(): Promise<ArticleRow[]> {
   if (isSupabaseConfigured() && hasServiceRole()) {
     try {
@@ -60,18 +72,14 @@ export async function listPublishedArticles(): Promise<ArticleRow[]> {
         .eq("status", "published")
         .is("deleted_at", null)
         .order("published_at", { ascending: false });
-      if (!error && data && data.length > 0) {
-        return data as ArticleRow[];
-      }
-      // Empty CMS → fall back to code placeholders so the public hub is never blank during setup
-      if (!error && data && data.length === 0) {
-        return INSIGHT_ARTICLES.map((a) => mapLegacyArticle(a) as ArticleRow);
+      if (!error && data) {
+        return mergePublished(data as ArticleRow[]);
       }
     } catch {
       // fall through
     }
   }
-  return INSIGHT_ARTICLES.map((a) => mapLegacyArticle(a) as ArticleRow);
+  return editorialArticles();
 }
 
 export async function getPublishedArticleBySlug(slug: string): Promise<ArticleRow | null> {
@@ -90,6 +98,8 @@ export async function getPublishedArticleBySlug(slug: string): Promise<ArticleRo
       // fall through
     }
   }
+  const editorial = getEditorialArticleBySlug(slug);
+  if (editorial) return editorial;
   const legacy = INSIGHT_ARTICLES.find((a) => a.slug === slug);
   return legacy ? (mapLegacyArticle(legacy) as ArticleRow) : null;
 }

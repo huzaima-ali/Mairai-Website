@@ -1,0 +1,18 @@
+# Mirai Studios
+
+> Mirai Studios is an AI product development, custom software engineering and immersive technology studio. It designs and builds applied AI products, intelligent agents, enterprise software, digital twins and immersive experiences for companies primarily in the United States, United Kingdom and Middle East.
+
+Mirai Studios does not claim to develop artificial superintelligence, AGI or proprietary frontier foundation models. Super Intelligence language on the site is educational and forward-looking.
+
+- Home: https://miraistudios.co/
+- Services: https://miraistudios.co/services
+- AI product development: https://miraistudios.co/services/ai-product-development
+- AI agent development: https://miraistudios.co/services/ai-agent-development
+- AI automation: https://miraistudios.co/services/ai-automation
+- Custom software: https://miraistudios.co/services/custom-software-development
+- Digital twins: https://miraistudios.co/services/digital-twin-development
+- Insights: https://miraistudios.co/insights
+- Super Intelligence briefing: https://miraistudios.co/insights/what-super-intelligence-means-for-enterprise-software
+- Regions: https://miraistudios.co/regions
+- Contact: https://miraistudios.co/#contact
+- Email: hello@miraistudios.co

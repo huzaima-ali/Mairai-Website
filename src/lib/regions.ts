@@ -50,6 +50,18 @@ export const REGION_PAGES: MarketingPage[] = [
       { label: "Digital Twin Development", href: "/services/digital-twin-development" },
       { label: "Enterprise Engineering", href: "/services/enterprise-engineering" },
     ],
+    faqs: [
+      {
+        question: "Does Mirai have a US office?",
+        answer:
+          "Mirai is a Wyoming LLC and partners with US companies remotely. There is no claim of a public walk-in office in this market. Collaboration is scheduled across US time zones.",
+      },
+      {
+        question: "What work is most relevant for US buyers?",
+        answer:
+          "AI product development, clinical and legal AI workflows, software platforms and digital twins. Case work includes LillyAI, Cero, MiraPulse, thyssenkrupp visualization and Mindful Legal Solutions.",
+      },
+    ],
   },
   {
     slug: "united-kingdom",
@@ -87,12 +99,30 @@ export const REGION_PAGES: MarketingPage[] = [
           "UK product and technology leaders often need a partner who can own complex delivery without losing product clarity. Mirai brings design, AI and engineering together so the work stays coherent from first prototype to production release.",
         ],
       },
+      {
+        heading: "UK-relevant delivery notes",
+        body: [
+          "UK hours overlap well with Mirai’s working day, which helps for design reviews, technical workshops and release decisions. Legal, content and SaaS products in the portfolio are useful references for UK buyers who need AI-assisted workflows rather than a research lab engagement.",
+        ],
+      },
     ],
     relatedCaseStudies: ["cero", "enorta", "lillyai", "esteria"],
     relatedServices: [
       { label: "AI Product Development", href: "/services/ai-product-development" },
       { label: "Custom Software Development", href: "/services/custom-software-development" },
       { label: "Product Design", href: "/services/product-design" },
+    ],
+    faqs: [
+      {
+        question: "Is Mirai a UK-registered company?",
+        answer:
+          "The operating company presented on this site is Mirai Studios LLC, a Wyoming LLC. UK work is delivered remotely as a technology partner, not as a claimed UK office network.",
+      },
+      {
+        question: "How does timezone overlap work with the UK?",
+        answer:
+          "UK business hours align well with Mirai’s delivery rhythm. Workshops and reviews are scheduled in overlap. Day-to-day execution continues asynchronously.",
+      },
     ],
   },
   {
@@ -143,7 +173,19 @@ export const REGION_PAGES: MarketingPage[] = [
       { label: "Digital Twin Development", href: "/services/digital-twin-development" },
       { label: "Immersive Experiences", href: "/services/immersive-experiences" },
       { label: "AI Product Development", href: "/services/ai-product-development" },
-    ],
+    ],
+    faqs: [
+      {
+        question: "Does Mirai have offices in Riyadh, Dubai or Abu Dhabi?",
+        answer:
+          "No public Middle East office is listed here. Mirai supports GCC buyers remotely, including teams in Saudi Arabia and the UAE, with scheduled collaboration windows in Gulf time.",
+      },
+      {
+        question: "Which Mirai projects are most relevant in the Middle East?",
+        answer:
+          "Interactive real estate visualization (Esteria), hospital operations concepts (MiraPulse), manufacturing digital twins (thyssenkrupp) and AI product work (Cero) are the closest public references.",
+      },
+    ],
   },
 ];
 

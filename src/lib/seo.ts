@@ -110,8 +110,7 @@ export function organizationJsonLd() {
     alternateName: "Mirai Studios",
     url: CANONICAL_ORIGIN,
     logo: absoluteUrl("/icon"),
-    description:
-      "Mirai Studios is an AI product development and technology engineering company that designs, builds and scales AI products, AI agents, enterprise platforms, intelligent automation, digital twins and immersive experiences for businesses across the United States, United Kingdom and Middle East.",
+    description: SITE.description,
     email: SITE.email,
     sameAs: [...SOCIAL_PROFILES],
     areaServed: [
@@ -122,12 +121,14 @@ export function organizationJsonLd() {
     knowsAbout: [
       "AI product development",
       "AI agents",
+      "Agentic AI",
       "Intelligent automation",
       "Custom software development",
       "Digital twins",
       "Immersive experiences",
       "Product design",
       "Enterprise engineering",
+      "Super Intelligence",
     ],
   };
 }
@@ -192,6 +193,21 @@ export function webpageJsonLd(input: {
     page.spatialCoverage = input.areaServed;
   }
   return page;
+}
+
+export function faqPageJsonLd(faqs: Array<{ question: string; answer: string }>) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  };
 }
 
 export function serviceJsonLd(input: {

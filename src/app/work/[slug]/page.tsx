@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: WorkPageProps): Promise<Metad
   }
 
   return resolvePageMetadata({
-    title: study.title,
+    title: `${study.cardTitle} case study`,
     description: study.summary,
     path: getCaseStudyUrl(study.slug),
     ogImage: study.heroImage?.src ?? study.cardImage.src,

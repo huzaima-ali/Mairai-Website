@@ -110,6 +110,7 @@ export function StackedCaseCarousel({
             return (
               <m.div
                 key={study.slug}
+                aria-hidden={!isActive}
                 className={cn(
                   "absolute",
                   isActive ? "cursor-grab active:cursor-grabbing" : "cursor-pointer",
