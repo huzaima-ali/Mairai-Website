@@ -1,4 +1,6 @@
 import { exclusiveHomepageFeatured, homepageFeatureFlags } from "./homepage-featured.ts";
+import { editorialArticles } from "./editorial-articles.ts";
+import { isCmsArticleId, mergeAdminArticles } from "./article-merge.ts";
 import { jobDraftSchema } from "./job-fields.ts";
 import {
   applicationEmailSubject,
@@ -13,6 +15,40 @@ import {
 } from "../job-application.ts";
 import assert from "node:assert/strict";
 import { test } from "node:test";
+
+test("admin insights list includes editorial articles missing from CMS", () => {
+  const editorial = editorialArticles();
+  const merged = mergeAdminArticles([], editorial);
+  const slugs = merged.map((article) => article.slug);
+  assert.ok(slugs.includes("what-super-intelligence-means-for-enterprise-software"));
+  assert.ok(slugs.includes("ai-agents-vs-traditional-automation"));
+  assert.ok(slugs.includes("enterprise-ai-agent-architecture-security-and-oversight"));
+  assert.ok(slugs.includes("ai-powered-digital-twins-in-real-estate-and-healthcare"));
+  assert.equal(merged.length, editorial.length);
+});
+
+test("admin insights list does not duplicate editorial slugs already in CMS", () => {
+  const editorial = editorialArticles();
+  const first = editorial[0];
+  assert.ok(first);
+  const cmsCopy = { ...first, id: "11111111-1111-4111-8111-111111111111" };
+  const merged = mergeAdminArticles([cmsCopy], editorial);
+  assert.equal(merged.filter((article) => article.slug === first.slug).length, 1);
+  assert.equal(merged.find((article) => article.slug === first.slug)?.id, cmsCopy.id);
+});
+
+test("deleted CMS slugs are not reintroduced from editorial copy", () => {
+  const editorial = editorialArticles();
+  const first = editorial[0];
+  assert.ok(first);
+  const merged = mergeAdminArticles([], editorial, [first.slug]);
+  assert.equal(merged.some((article) => article.slug === first.slug), false);
+});
+
+test("CMS article ids are UUIDs and editorial ids are not", () => {
+  assert.equal(isCmsArticleId("11111111-1111-4111-8111-111111111111"), true);
+  assert.equal(isCmsArticleId("editorial-what-super-intelligence-means-for-enterprise-software"), false);
+});
 
 test("switching homepage article removes the previous one", () => {
   const articles = [

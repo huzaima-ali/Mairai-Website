@@ -204,3 +204,7 @@ export function editorialArticles(): ArticleRow[] {
 export function getEditorialArticleBySlug(slug: string) {
   return editorialArticles().find((article) => article.slug === slug) || null;
 }
+
+export function getEditorialArticleById(id: string) {
+  return editorialArticles().find((article) => article.id === id) || null;
+}

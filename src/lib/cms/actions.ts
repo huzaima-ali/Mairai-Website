@@ -6,7 +6,7 @@ import { requireAdminSession } from "@/lib/cms/auth";
 import { sanitizeArticleHtml } from "@/lib/cms/sanitize";
 import { slugify, ALLOWED_MEDIA_MIME, MAX_MEDIA_BYTES } from "@/lib/cms/utils";
 import { createServerSupabaseClient, isSupabaseConfigured } from "@/lib/supabase/server";
-import { articlePublicUrl, listArticlesAdmin } from "@/lib/cms/articles";
+import { articlePublicUrl, listArticlesAdmin, resolveAdminArticleId } from "@/lib/cms/articles";
 import { jobPublicUrl, listJobsAdmin } from "@/lib/cms/jobs";
 import {
   upsertSeoExtras,
@@ -587,7 +587,7 @@ export async function deleteCmsPageAction(id: string) {
 }
 
 const articleSchema = z.object({
-  id: z.string().uuid().optional(),
+  id: z.string().min(1).optional(),
   title: z.string().min(1),
   slug: z.string().min(1),
   excerpt: z.string().optional().default(""),
@@ -649,16 +649,17 @@ export async function saveArticleDraftAction(input: z.infer<typeof articleSchema
   let wasPublished = false;
 
   let data: { id: string; slug: string; status?: string; [key: string]: unknown };
-  if (parsed.id) {
+  const cmsId = parsed.id ? await resolveAdminArticleId(parsed.id) : undefined;
+  if (cmsId) {
     const { data: existing } = await supabase
       .from("articles")
       .select("slug, status")
-      .eq("id", parsed.id)
+      .eq("id", cmsId)
       .maybeSingle();
     previousSlug = existing?.slug || null;
     wasPublished = existing?.status === "published";
 
-    const result = await supabase.from("articles").update(payload).eq("id", parsed.id).select("*").single();
+    const result = await supabase.from("articles").update(payload).eq("id", cmsId).select("*").single();
     if (result.error) throw new Error(result.error.message);
     data = result.data as { id: string; slug: string; status?: string };
   } else {
@@ -725,8 +726,9 @@ export async function publishArticleAction(
       slug: slugify(idOrInput.slug || idOrInput.title),
     });
     if (!parsed.id) throw new Error("Article id is required to publish");
+    const cmsId = await resolveAdminArticleId(parsed.id);
 
-    const { data: existing } = await supabase.from("articles").select("*").eq("id", parsed.id).single();
+    const { data: existing } = await supabase.from("articles").select("*").eq("id", cmsId).single();
     if (!existing) throw new Error("Article not found");
 
     const content = sanitizeArticleHtml(parsed.content || "");
@@ -738,7 +740,7 @@ export async function publishArticleAction(
         status: "published",
         published_at: publishedAt,
       })
-      .eq("id", parsed.id)
+      .eq("id", cmsId)
       .select("*")
       .single();
     if (result.error) throw new Error(result.error.message);
@@ -766,11 +768,11 @@ export async function publishArticleAction(
     }
     revalidateInsights(result.data.slug);
     revalidatePath("/admin/insights");
-    revalidatePath(`/admin/insights/${parsed.id}`);
+    revalidatePath(`/admin/insights/${cmsId}`);
     return result.data;
   }
 
-  const id = idOrInput;
+  const id = await resolveAdminArticleId(idOrInput);
   const { data: existing } = await supabase.from("articles").select("*").eq("id", id).single();
   if (!existing) throw new Error("Article not found");
 
@@ -794,6 +796,7 @@ export async function publishArticleAction(
 
 export async function unpublishArticleAction(id: string) {
   const { session, supabase } = await adminClient();
+  const cmsId = await resolveAdminArticleId(id);
   const { data, error } = await supabase
     .from("articles")
     .update({
@@ -801,12 +804,12 @@ export async function unpublishArticleAction(id: string) {
       updated_at: new Date().toISOString(),
       updated_by: session.user.id,
     })
-    .eq("id", id)
+    .eq("id", cmsId)
     .select("*")
     .single();
   if (error) throw new Error(error.message);
   const featuredId = await getHomepageFeaturedArticleId();
-  if (featuredId === id) {
+  if (featuredId === cmsId) {
     await setHomepageFeaturedArticleId(null);
   }
   revalidateInsights(data.slug);
@@ -816,6 +819,7 @@ export async function unpublishArticleAction(id: string) {
 
 export async function softDeleteArticleAction(id: string) {
   const { session, supabase } = await adminClient();
+  const cmsId = await resolveAdminArticleId(id);
   const { data, error } = await supabase
     .from("articles")
     .update({
@@ -824,12 +828,12 @@ export async function softDeleteArticleAction(id: string) {
       updated_at: new Date().toISOString(),
       updated_by: session.user.id,
     })
-    .eq("id", id)
+    .eq("id", cmsId)
     .select("*")
     .single();
   if (error) throw new Error(error.message);
   const featuredId = await getHomepageFeaturedArticleId();
-  if (featuredId === id) {
+  if (featuredId === cmsId) {
     await setHomepageFeaturedArticleId(null);
   }
   revalidateInsights(data.slug);
@@ -840,12 +844,13 @@ export async function softDeleteArticleAction(id: string) {
 export async function setHomepageFeaturedArticleAction(articleId: string | null) {
   const { supabase } = await adminClient();
   const { exclusiveHomepageFeatured } = await import("@/lib/cms/homepage-featured");
+  const resolvedId = articleId ? await resolveAdminArticleId(articleId) : null;
   const { data: articles } = await supabase
     .from("articles")
     .select("id, status")
     .is("deleted_at", null);
   const current = await getHomepageFeaturedArticleId();
-  const result = exclusiveHomepageFeatured(current, articleId, articles || []);
+  const result = exclusiveHomepageFeatured(current, resolvedId, articles || []);
   if (result.error) throw new Error(result.error);
   await setHomepageFeaturedArticleId(result.featuredId);
   revalidatePath("/", "layout");
