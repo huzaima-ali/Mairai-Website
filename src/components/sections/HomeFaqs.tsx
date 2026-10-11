@@ -13,7 +13,7 @@ export function HomeFaqs() {
             Common questions
           </h2>
         </div>
-        <div className="mt-8 grid gap-3 lg:grid-cols-2 lg:gap-4">
+        <div className="mt-6 flex max-w-3xl flex-col gap-2">
           {HOME_FAQS.map((faq) => (
             <details
               key={faq.question}
