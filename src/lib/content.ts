@@ -1,11 +1,12 @@
 export const SITE = {
   name: "Mirai Studios",
-  tagline: "Bringing\ntechnology to life",
+  tagline: "We make ambitious ideas real.",
+  identity: "Independent AI Product Studio",
   url: "https://miraistudios.co",
   description:
     "Mirai Studios designs and builds AI products, intelligent agents, enterprise software and digital twins for businesses across the US, UK and Middle East.",
   positioning:
-    "Mirai Studios is an AI product development and technology engineering studio. We design, build and scale production software for companies that need applied AI, agentic workflows, custom platforms, digital twins and immersive experiences.",
+    "Mirai Studios is an AI Product Studio combining strategy, design and engineering to create AI-powered products, SaaS platforms, digital twins and immersive digital experiences. We design, build and scale production software for founders and enterprises that need applied AI, agentic workflows, custom software and human-supervised automation.",
   email: "hello@miraistudios.co",
 } as const;
 
@@ -35,29 +36,40 @@ export const NAV_LINKS: NavLink[] = [
   { label: "Our Work", href: "/#work" },
   { label: "Insights", href: "/insights" },
   { label: "Testimonials", href: "/#testimonials" },
-  { label: "Work With Us", href: "/#contact", dropdown: "work-with-us" },
+  { label: "Build With Us", href: "/#contact", dropdown: "work-with-us" },
   { label: "Careers", href: "/careers", align: "end" },
 ];
 
 export const HERO = {
-  headline: "Building AI Products That Drive Business Growth",
+  eyebrow: "Independent AI Product Studio",
+  headline: "We make ambitious ideas real.",
   /** Explicit line breaks for the display headline. */
-  headlineLines: ["Building AI", "Products That Drive", "Business Growth"] as const,
+  headlineLines: ["We make ambitious", "ideas real."] as const,
   body:
-    "We help businesses design, build and scale AI products, internal platforms and intelligent automation. From strategy and product design through engineering and deployment, we deliver end-to-end solutions that create measurable business impact.",
-  cta: "Book a Call",
+    "Mirai Studios is an AI product development studio designing, building and scaling AI-powered products, SaaS platforms, digital twins and immersive experiences. One team bringing product strategy, design and engineering together for custom software, AI agents and intelligent automation.",
+  primaryCta: "Explore Our Work",
+  primaryHref: "/#products",
+  secondaryCta: "Build With Us",
+  secondaryHref: "/#contact",
+  cta: "Build With Us",
+} as const;
+
+export const HOME_ABOUT = {
+  eyebrow: "Independent AI Product Studio",
+  title: "What Mirai Studios builds",
+  kicker: "From what if to what's live.",
 } as const;
 
 export const TRUST_STRIP = {
-  text: "Trusted by leading startups and enterprises",
-  cta: "Work with Us",
+  text: "Selected products and teams we have built with",
+  cta: "Build With Us",
 } as const;
 
 export const VIDEO_SECTION = {
-  eyebrow: "Inside Mirai",
-  title: "See how Mirai Studios brings technology to life",
+  eyebrow: "Inside the studio",
+  title: "How we think, design and engineer",
   body:
-    "A closer look at the product thinking, engineering craft, and visual systems behind our work.",
+    "A closer look at the product thinking, design craft and engineering behind Mirai work. Curious by nature. Serious about craft.",
   youtubeUrl: "https://www.youtube.com/embed/EbR1OEfwCFA?si=hngsfiP1_sDeKW8g",
   titleLabel: "Mirai Studios video",
 } as const;
@@ -93,10 +105,10 @@ export const CLIENT_ROWS: ClientLogo[][] = [
 ];
 
 export const SERVICES_INTRO = {
-  eyebrow: "Services",
-  title: "What We Do",
+  eyebrow: "Capabilities",
+  title: "What we can build with you",
   body:
-    "From AI-native products and enterprise platforms to digital twins and immersive systems, we turn ambitious ideas into technology that ships, scales and creates measurable value.",
+    "Strategy, design and engineering for AI products, SaaS platforms, digital twins, immersive experiences and enterprise software. From idea to a product people can actually use.",
 } as const;
 
 export interface ServiceMedia {
@@ -223,10 +235,10 @@ export const PROJECTS: Project[] = [
 ];
 
 export const WORK_INTRO = {
-  eyebrow: "Our Work",
-  title: "Proven innovations",
+  eyebrow: "Selected work",
+  title: "Built to be used, not just demonstrated",
   body:
-    "From AI products and internal business platforms to immersive digital twins and interactive experiences, our portfolio showcases solutions that transform how businesses operate and engage.",
+    "AI products, SaaS platforms, digital twins and immersive experiences designed with operators in mind. Each project shows how Mirai thinks through product, interface and engineering together.",
 } as const;
 
 export interface WorkItem {
@@ -242,8 +254,8 @@ export const WORK_ITEMS: WorkItem[] = [
 
 export const PARTNER_BAR = {
   title: "Partner With Us",
-  subtitle: "Productive Long-term innovation",
-  cta: "Contact Us",
+  subtitle: "Long-term product collaboration",
+  cta: "Build With Us",
 } as const;
 
 export const PARTNER_LOGOS: ClientLogo[] = [
@@ -251,8 +263,8 @@ export const PARTNER_LOGOS: ClientLogo[] = [
 ];
 
 export const TESTIMONIALS_INTRO = {
-  title: "Trusted globally to deliver experiences that outperform.",
-  cta: "Work with Us",
+  title: "The people and products behind the work.",
+  cta: "Build With Us",
 } as const;
 
 export interface Testimonial {
@@ -317,10 +329,10 @@ export const TESTIMONIALS: Testimonial[] = [
 ];
 
 export const ENGAGEMENT_INTRO = {
-  eyebrow: "Work with Mirai",
-  title: "Ways to build with us",
+  eyebrow: "How we work",
+  title: "Strategy meets design meets engineering",
   body:
-    "Scale your vision with flexible engagement models: from fixed-scope projects to dedicated engineering teams.",
+    "Good products do not happen by accident. Choose how you want to build with Mirai, from a defined product engagement to a dedicated studio team.",
 } as const;
 
 export interface EngagementModel {
@@ -339,7 +351,7 @@ export const ENGAGEMENT_MODELS: EngagementModel[] = [
     id: "build",
     badge: "End-to-End",
     name: "Build With Us",
-    description: "End-to-end execution model. Share your vision, we define scope, architecture, and roadmap.",
+    description: "Share the idea. We shape the product, design the experience and engineer the system through to launch.",
     features: [
       "Share your vision",
       "Fixed or milestone-based pricing",
@@ -352,7 +364,7 @@ export const ENGAGEMENT_MODELS: EngagementModel[] = [
       "Teams automating workflows with AI",
       "Companies modernizing legacy systems"
     ],
-    cta: "Contact Us",
+    cta: "Build With Us",
   },
   {
     id: "scale",
@@ -373,7 +385,7 @@ export const ENGAGEMENT_MODELS: EngagementModel[] = [
     id: "partner",
     badge: "Long Term",
     name: "Partner With Us",
-    description: "Productive Long-term innovation & transformation collaboration for visionary organizations.",
+    description: "A longer collaboration for teams that want a standing product studio alongside their own.",
     features: [
       "Tech roadmap co-creation",
       "Innovation lab setup and R&D partnerships",
@@ -389,7 +401,7 @@ export const HOME_FAQS = [
   {
     question: "What does Mirai Studios do?",
     answer:
-      "Mirai Studios designs and builds AI products, intelligent agents, custom software, digital twins and immersive experiences. Work typically covers product strategy, design, engineering and deployment for companies in the United States, United Kingdom and Middle East.",
+      "Mirai Studios is an AI Product Studio. We design and build AI products, intelligent agents, custom software, digital twins and immersive experiences. Work typically covers product strategy, design, engineering and deployment for companies in the United States, United Kingdom and Middle East.",
   },
   {
     question: "Does Mirai Studios build Super Intelligence or AGI?",
@@ -409,8 +421,8 @@ export const HOME_FAQS = [
 ] as const;
 
 export const CONTACT = {
-  title: "Start building with us",
-  body: "Tell us about your project. We'll take it from there, with a strategy session within 48 hours.",
+  title: "Have something ambitious in mind?",
+  body: "Tell us about the product. We will follow up with a strategy session within 48 hours.",
   fullNamePlaceholder: "Full Name",
   phonePlaceholder: "00 0000 000",
   emailPlaceholder: "Email Address",
@@ -441,8 +453,8 @@ export const CONTACT_STEPS = [
 ] as const;
 
 export const MAIN_CTA = {
-  title: "Let's Collaborate",
-  body: "Ready to engineer the next digital reality? We're accepting new projects for Q2 2026: limited slots available.",
-  primary: "Work with Us",
-  secondary: "Contact Us",
+  title: "Let's build it",
+  body: "If you have a product to ship, a workflow to rethink, or an experience that needs to feel real, Mirai can help. New projects for 2026 are open.",
+  primary: "Build With Us",
+  secondary: "Explore Our Work",
 } as const;

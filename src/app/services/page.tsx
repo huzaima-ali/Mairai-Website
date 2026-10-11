@@ -17,7 +17,7 @@ export default function ServicesIndexPage() {
     <HubIndexPage
       eyebrow="Services"
       title="AI product development and technology services"
-      intro="Explore how Mirai Studios designs and builds AI products, agents, automation, software platforms, digital twins and immersive experiences for businesses across the US, UK and Middle East."
+      intro="Mirai Studios is an AI Product Studio. Explore how we design and build AI products, agents, automation, software platforms, digital twins and immersive experiences for businesses across the US, UK and Middle East."
       links={SERVICE_PAGES.map((page) => ({
         href: page.path,
         label: page.title,

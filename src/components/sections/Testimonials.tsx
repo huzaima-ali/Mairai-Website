@@ -173,7 +173,7 @@ export function Testimonials() {
         </m.div>
 
         <div className="mt-10 hidden justify-center lg:flex">
-          <Button href="#engagement" size="lg">
+          <Button href="/#contact" size="lg">
             {TESTIMONIALS_INTRO.cta}
           </Button>
         </div>

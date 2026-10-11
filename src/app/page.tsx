@@ -13,7 +13,8 @@ import { Divider } from "@/components/ui/Divider";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { FeaturedInsightCard } from "@/components/insights/FeaturedInsightCard";
-import { VIDEO_SECTION, SITE, HOME_FAQS } from "@/lib/content";
+import { HomeFaqs } from "@/components/sections/HomeFaqs";
+import { VIDEO_SECTION, SITE, HOME_FAQS, HOME_ABOUT } from "@/lib/content";
 import { resolvePageMetadata } from "@/lib/cms/seo-overrides";
 import { faqPageJsonLd, jsonLdScript, webpageJsonLd } from "@/lib/seo";
 
@@ -42,14 +43,17 @@ export default function HomePage() {
       <Hero />
       <BlueprintFrame>
         <Divider />
-        <Section className="py-8 sm:py-10 lg:py-12" aria-label="About Mirai Studios">
+        <Section className="py-10 sm:py-12 lg:py-16" aria-label="About Mirai Studios">
           <Container>
-            <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-stretch lg:gap-10">
+            <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-stretch lg:gap-12">
               <div className="max-w-3xl">
-                <p className="eyebrow">AI Product & Technology Partner</p>
-                <h2 className="display mt-3 text-[clamp(1.75rem,3vw,2.75rem)] leading-[1.08]">
-                  What Mirai Studios builds
+                <p className="eyebrow">{HOME_ABOUT.eyebrow}</p>
+                <h2 className="display mt-3 text-[clamp(1.85rem,3.2vw,2.95rem)] leading-[1.06]">
+                  {HOME_ABOUT.title}
                 </h2>
+                <p className="mt-5 text-pretty text-lg font-medium leading-snug tracking-snug text-foreground sm:text-xl">
+                  {HOME_ABOUT.kicker}
+                </p>
                 <p className="mt-4 text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
                   {SITE.positioning}
                 </p>
@@ -62,6 +66,10 @@ export default function HomePage() {
                 </p>
                 <p className="mt-4 text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
                   See{" "}
+                  <a href="/#products" className="underline underline-offset-2 hover:text-foreground">
+                    products
+                  </a>
+                  ,{" "}
                   <a href="/#services" className="underline underline-offset-2 hover:text-foreground">
                     services
                   </a>
@@ -92,36 +100,19 @@ export default function HomePage() {
             <Divider />
           </>
         ) : null}
-        <CompanyLogos />
-        <Divider />
-        <Services />
-        <Divider />
         <Projects />
         <Divider />
         <OurWork />
         <Divider />
-        <Testimonials />
+        <Services />
         <Divider />
         <EngagementModels />
         <Divider />
-        <Section className="py-8 sm:py-10 lg:py-12" aria-labelledby="home-faqs">
-          <Container>
-            <div className="max-w-3xl">
-              <p className="eyebrow">Questions</p>
-              <h2 id="home-faqs" className="display mt-3 text-[clamp(1.75rem,3vw,2.75rem)] leading-[1.08]">
-                Common questions
-              </h2>
-            </div>
-            <dl className="mt-8 grid gap-4 lg:grid-cols-2">
-              {HOME_FAQS.map((faq) => (
-                <div key={faq.question} className="rounded-2xl border border-border bg-surface px-5 py-4">
-                  <dt className="text-lg font-medium text-foreground">{faq.question}</dt>
-                  <dd className="mt-2 text-sm leading-relaxed text-muted-foreground sm:text-base">{faq.answer}</dd>
-                </div>
-              ))}
-            </dl>
-          </Container>
-        </Section>
+        <CompanyLogos />
+        <Divider />
+        <Testimonials />
+        <Divider />
+        <HomeFaqs />
         <Divider />
         <Contact />
       </BlueprintFrame>

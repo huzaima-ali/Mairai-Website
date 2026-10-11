@@ -44,6 +44,8 @@ export interface CaseStudy {
   };
   cta?: string;
   featured?: boolean;
+  /** Short homepage story: problem, experience, and what Mirai built. */
+  homepagePitch?: string;
   /** Structured SEO / AIO linking — only verified relationships. */
   industryLabel?: string;
   relatedServices?: Array<{ label: string; href: string }>;
@@ -179,6 +181,8 @@ export const CASE_STUDIES: CaseStudy[] = [
     },
     cta: "Start a project like this",
     featured: true,
+    homepagePitch:
+      "Founders and consultants needed a LinkedIn presence without hours of writing. Mirai designed and engineered Cero as a Chrome extension that generates posts, carousels and images inside the LinkedIn workflow.",
     industryLabel: "AI-powered SaaS",
     relatedServices: [
       { label: "AI Product Development", href: "/services/ai-product-development" },
@@ -271,6 +275,8 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
     cta: "Start a project like this",
     featured: true,
+    homepagePitch:
+      "Hospital teams needed one view of capacity, staff, equipment and incoming patients. Mirai designed a spatial digital twin with command-centre workflows, companion actions and a guided surge simulation.",
     industryLabel: "Healthcare operations",
     relatedServices: [
       { label: "Digital Twin Development", href: "/services/digital-twin-development" },
@@ -359,6 +365,8 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
     cta: "Start a project like this",
     featured: true,
+    homepagePitch:
+      "Buyers needed more than a brochure. Mirai built a browser-based sales experience from masterplan to floor plans to a panoramic apartment walkthrough, using Three.js and no app install.",
     industryLabel: "Real estate technology",
     relatedServices: [
       { label: "Digital Twin Development", href: "/services/digital-twin-development" },
@@ -628,7 +636,10 @@ export function getCaseStudy(slug: string) {
 }
 
 export function getFeaturedCaseStudies() {
-  return CASE_STUDIES.filter((study) => study.featured);
+  return CASE_STUDIES.filter((study) => study.featured).sort((a, b) => {
+    if (Boolean(a.demoUrl) === Boolean(b.demoUrl)) return 0;
+    return a.demoUrl ? -1 : 1;
+  });
 }
 
 export function getFeaturedProductShortName(slug: string) {

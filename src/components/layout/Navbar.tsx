@@ -120,7 +120,7 @@ function ProductsDropdown() {
 
 function WorkWithUsDropdown() {
   return (
-    <NavDropdown label="Work With Us" href="/#contact" menuLabel="Work with us">
+    <NavDropdown label="Build With Us" href="/#contact" menuLabel="Build with us">
       {WORK_WITH_US_LINKS.map((item) => (
         <a
           key={item.href}
@@ -188,7 +188,7 @@ export function Navbar() {
               {endLinks.map((link) => renderNavItem(link))}
             </ul>
             <Button href="/#contact" className="hidden h-11 px-6 text-sm sm:inline-flex">
-              Contact Us
+              Build With Us
             </Button>
             <button
               type="button"

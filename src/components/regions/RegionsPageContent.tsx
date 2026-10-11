@@ -23,8 +23,8 @@ export function RegionsPageContent() {
               AI and technology delivery across key markets
             </h1>
             <p className="mt-5 text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Explore how Mirai Studios partners with companies in the United States, United Kingdom and Middle
-              East. Our product and engineering delivery studio is based in Pakistan.
+              Explore how Mirai Studios, an AI Product Studio, partners with companies in the United States,
+              United Kingdom and Middle East. Product, design and engineering delivery is based in Pakistan.
             </p>
 
             <ul className="mt-8 flex flex-col gap-3">

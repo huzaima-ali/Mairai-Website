@@ -32,7 +32,7 @@ export function PartnerBar() {
               <p className="text-sm text-muted-foreground">{PARTNER_BAR.subtitle}</p>
             </div>
           </div>
-          <Button href="#contact" variant="outline" className="shrink-0">
+          <Button href="/#contact" variant="outline" className="shrink-0">
             {PARTNER_BAR.cta}
           </Button>
         </div>

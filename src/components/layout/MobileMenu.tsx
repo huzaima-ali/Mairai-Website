@@ -200,7 +200,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
 
             <div className="mt-auto flex flex-col gap-3 pt-8">
               <Button href="/#contact" className="w-full" onClick={onClose}>
-                Contact Us
+                Build With Us
               </Button>
               <a
                 href={`mailto:${SITE.email}`}

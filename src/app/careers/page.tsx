@@ -52,9 +52,9 @@ export default async function CareersPage() {
               Build AI products and technology with Mirai
             </h1>
             <p className="mt-5 text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Mirai Studios is an AI product development and technology engineering company. We work across
-              product strategy, design and engineering to ship AI products, agents, platforms, digital twins
-              and immersive experiences for clients in the US, UK and Middle East.
+              Mirai Studios is an AI Product Studio. We work across product strategy, design and
+              engineering to ship AI products, agents, platforms, digital twins and immersive
+              experiences for clients in the US, UK and Middle East.
             </p>
 
             <section className="mt-10">

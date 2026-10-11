@@ -12,17 +12,10 @@ import { CarouselNavigator } from "@/components/ui/CarouselNavigator";
 import { PartnerBar } from "@/components/sections/PartnerBar";
 import { StackedCaseCarousel } from "@/components/case-studies/StackedCaseCarousel";
 
-const AUTO_ADVANCE_MS = 2000;
+const AUTO_ADVANCE_MS = 4000;
 
 export function OurWork() {
-  const workStudies = useMemo(
-    () =>
-      CASE_STUDIES.filter(
-        (study) =>
-          study.slug !== "cero" && study.slug !== "mira-pulse" && study.slug !== "esteria",
-      ),
-    [],
-  );
+  const workStudies = useMemo(() => CASE_STUDIES.filter((study) => !study.featured), []);
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
 

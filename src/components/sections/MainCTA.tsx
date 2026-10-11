@@ -17,7 +17,7 @@ export function MainCTA() {
               <p className="mt-4 text-pretty leading-relaxed text-muted-foreground sm:text-lg">{MAIN_CTA.body}</p>
             </div>
             <div className="flex shrink-0 items-center gap-3">
-              <Button href="#contact" variant="outline">
+              <Button href="/#products" variant="outline">
                 {MAIN_CTA.secondary}
               </Button>
               <Button href="#contact">{MAIN_CTA.primary}</Button>

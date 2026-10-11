@@ -6,7 +6,7 @@ export const PARTNER_PAGE = {
   eyebrow: "Partnerships",
   h1: "Your AI & technology delivery partner",
   intro:
-    "Mirai Studios partners with marketing agencies, creative agencies, consultancies, product studios, software companies, systems integrators and design agencies that need a reliable technical delivery partner.",
+    "Mirai Studios is an AI Product Studio that partners with marketing agencies, creative agencies, consultancies, product studios, software companies, systems integrators and design agencies that need a reliable technical delivery partner.",
   whoFor: [
     "Marketing and creative agencies",
     "Consultancies and transformation teams",

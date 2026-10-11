@@ -19,10 +19,9 @@ import { CaseStudyVisual } from "@/components/case-studies/CaseStudyVisual";
 const AUTO_ADVANCE_MS = 4000;
 
 function productShortName(product: CaseStudy) {
-  if (product.slug === "cero" || product.slug === "mira-pulse" || product.slug === "esteria") {
-    return getFeaturedProductShortName(product.slug);
-  }
-  return product.cardTitle;
+  return getFeaturedProductShortName(product.slug) === product.slug
+    ? product.cardTitle
+    : getFeaturedProductShortName(product.slug);
 }
 
 function ProductCard({
@@ -60,13 +59,15 @@ function ProductCard({
           <span className="rounded-full bg-white/12 px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.14em] text-white/80 backdrop-blur-md sm:px-3.5 sm:py-2 sm:text-xs">
             {String(index + 1).padStart(2, "0")}
           </span>
-          <span className="inline-flex items-center gap-2 rounded-full bg-black/45 px-3 py-1.5 text-xs font-semibold tracking-wide text-white backdrop-blur-md sm:px-3.5 sm:py-2 sm:text-sm">
-            <span className="relative flex h-2 w-2 sm:h-2.5 sm:w-2.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-55" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-accent sm:h-2.5 sm:w-2.5" />
+          {product.demoUrl ? (
+            <span className="inline-flex items-center gap-2 rounded-full bg-black/45 px-3 py-1.5 text-xs font-semibold tracking-wide text-white backdrop-blur-md sm:px-3.5 sm:py-2 sm:text-sm">
+              <span className="relative flex h-2 w-2 sm:h-2.5 sm:w-2.5">
+                <span className="absolute inline-flex h-full w-full motion-safe:animate-ping rounded-full bg-accent opacity-55" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-accent sm:h-2.5 sm:w-2.5" />
+              </span>
+              Live
             </span>
-            Live
-          </span>
+          ) : null}
         </div>
       </div>
 
@@ -75,11 +76,11 @@ function ProductCard({
           <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-white/45">
             {product.eyebrow}
           </p>
-          <h3 className="mt-1.5 text-balance text-xl font-medium leading-snug tracking-snug text-white sm:text-[1.35rem]">
+          <h3 className="mt-1.5 text-balance text-xl font-medium leading-snug tracking-snug text-white sm:text-[1.4rem]">
             {productShortName(product)}
           </h3>
-          <p className="mt-2 line-clamp-2 text-pretty text-sm leading-relaxed text-white/65">
-            {product.summary}
+          <p className="mt-2 text-pretty text-sm leading-relaxed text-white/70">
+            {product.homepagePitch || product.summary}
           </p>
         </div>
 
@@ -132,7 +133,7 @@ function MobileProductStack({ products }: { products: CaseStudy[] }) {
   return (
     <div className="md:hidden">
       <div
-        className="relative h-[420px]"
+        className="relative h-[520px]"
         onPointerEnter={() => setPaused(true)}
         onPointerLeave={() => setPaused(false)}
         onFocus={() => setPaused(true)}
@@ -192,13 +193,14 @@ export function Projects() {
   return (
     <Section id="products" className="py-8 sm:py-10 lg:py-12">
       <Container>
-        <div className="mb-8 max-w-2xl">
-          <p className="eyebrow">Our products</p>
-          <h2 className="display mt-3 text-[clamp(2rem,3.5vw,3.25rem)] leading-[1.05]">
-            Products we build and ship
+        <div className="mb-10 max-w-2xl">
+          <p className="eyebrow">Products we ship</p>
+          <h2 className="display mt-3 text-[clamp(2.1rem,3.8vw,3.5rem)] leading-[1.04]">
+            Here is what we have actually built
           </h2>
           <p className="mt-4 text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Explore live demos, then dive into the full case studies.
+            Live AI products, digital twins and immersive experiences. Open a demo, then read how
+            Mirai designed and engineered it.
           </p>
         </div>
 

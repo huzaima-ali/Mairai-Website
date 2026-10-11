@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { SITE } from "./content.ts";
+import { HERO, HOME_ABOUT, SITE } from "./content.ts";
 import { SERVICE_PAGES } from "./services.ts";
 import { REGION_PAGES } from "./regions.ts";
 import { editorialArticles } from "./cms/editorial-articles.ts";
@@ -9,6 +9,19 @@ test("homepage description matches preferred commercial summary", () => {
   assert.match(SITE.description, /AI products/);
   assert.match(SITE.description, /US, UK and Middle East/);
   assert.equal(SITE.description.includes("—"), false);
+});
+
+test("visible brand copy stays crawlable and avoids em dashes", () => {
+  assert.match(SITE.positioning, /AI Product Studio/);
+  assert.match(SITE.positioning, /AI-powered products/);
+  assert.match(HERO.body, /AI product development/);
+  assert.match(HERO.body, /SaaS platforms/);
+  assert.match(HERO.body, /digital twins/);
+  assert.equal(HERO.headline, "We make ambitious ideas real.");
+  assert.equal(HOME_ABOUT.title, "What Mirai Studios builds");
+  for (const text of [SITE.tagline, SITE.positioning, HERO.body, HERO.headline, HOME_ABOUT.kicker]) {
+    assert.equal(text.includes("—"), false);
+  }
 });
 
 test("service pages have unique H1s, metadata and FAQs", () => {
