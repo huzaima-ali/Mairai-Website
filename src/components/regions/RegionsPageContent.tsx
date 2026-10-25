@@ -68,7 +68,7 @@ export function RegionsPageContent() {
                   : "border-border bg-surface hover:border-foreground/25",
               )}
             >
-              <span className="block text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
+              <span className="block text-sm text-muted-foreground">
                 Delivery studio
               </span>
               <span className="mt-1 block text-lg font-medium text-foreground">Pakistan</span>

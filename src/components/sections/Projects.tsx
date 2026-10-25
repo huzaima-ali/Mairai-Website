@@ -73,7 +73,7 @@ function ProductCard({
 
       <div className="relative z-[1] -mt-10 flex flex-1 flex-col gap-4 px-5 pb-5 pt-0 sm:px-6 sm:pb-6">
         <div>
-          <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-white/45">
+          <p className="text-sm font-normal text-white/55">
             {product.eyebrow}
           </p>
           <h3 className="mt-1.5 text-balance text-xl font-medium leading-snug tracking-snug text-white sm:text-[1.4rem]">

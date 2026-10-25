@@ -110,7 +110,7 @@ export function MarketingPageView({
                           className="group flex items-start justify-between gap-4 rounded-2xl border border-border bg-surface px-5 py-4 transition-colors hover:border-foreground/25"
                         >
                           <span>
-                            <span className="block text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+                            <span className="block text-sm text-muted-foreground">
                               {study.eyebrow}
                             </span>
                             <span className="mt-1 block text-base font-medium text-foreground sm:text-lg">

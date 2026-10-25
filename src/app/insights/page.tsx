@@ -63,7 +63,7 @@ export default async function InsightsIndexPage() {
                   ) : null}
                   <div className="flex flex-1 flex-col p-6">
                     <div className="flex items-center justify-between gap-3">
-                      <span className="text-xs font-medium uppercase tracking-[0.12em] text-accent">
+                      <span className="text-sm text-accent">
                         {article.category || "Insights"}
                       </span>
                       <span className="text-xs text-muted-foreground">

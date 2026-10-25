@@ -28,10 +28,10 @@ export async function FeaturedInsightCard() {
       ) : null}
       <div className="flex flex-1 flex-col p-6 sm:p-7">
         <div className="flex items-center justify-between gap-3">
-          <p className="text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground">Insights</p>
+          <p className="text-sm text-muted-foreground">Insights</p>
           <span className="text-xs text-muted-foreground">{formatAdminDate(article.published_at)}</span>
         </div>
-        <p className="mt-4 text-xs font-medium uppercase tracking-[0.12em] text-accent">
+        <p className="mt-4 text-sm text-accent">
           {article.category || "Insights"}
         </p>
         <h3 className="mt-2 text-balance text-xl font-medium leading-snug tracking-snug text-foreground sm:text-[1.35rem]">
