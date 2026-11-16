@@ -10,12 +10,6 @@ export const SITE = {
   email: "hello@miraistudios.co",
 } as const;
 
-export const ANNOUNCEMENT = {
-  text: "Cero is Free for a Limited Time",
-  cta: "Learn More",
-  href: "https://usecero.com",
-} as const;
-
 export type NavLink = {
   label: string;
   href: string;
