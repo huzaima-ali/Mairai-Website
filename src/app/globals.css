@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/inter-latin-variable.woff2") format("woff2");
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -107,7 +115,7 @@
     border-inline: 1px solid hsl(var(--border));
   }
 
-  /* Heading scale — Google Sans / Inter, regular weight, tight tracking */
+  /* Heading scale — Inter, regular weight, tight tracking */
   .display {
     @apply font-normal tracking-tightest text-foreground;
   }

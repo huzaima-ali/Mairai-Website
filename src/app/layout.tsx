@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import { SITE } from "@/lib/content";
 import {
@@ -11,9 +10,6 @@ import {
 import { MotionProvider } from "@/components/animations/MotionProvider";
 import { LenisProvider } from "@/components/animations/LenisProvider";
 import { SiteChrome } from "@/components/layout/SiteChrome";
-
-// Inter stands in for "Google Sans" (the Figma font, not freely distributable).
-const sans = Inter({ subsets: ["latin"], display: "swap", variable: "--font-sans" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(CANONICAL_ORIGIN),
@@ -46,7 +42,16 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={sans.variable}>
+    <html lang="en">
+      <head>
+        <link
+          rel="preload"
+          href="/fonts/inter-latin-variable.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body className="min-h-dvh bg-background font-sans antialiased">
         <script
           type="application/ld+json"

@@ -28,7 +28,7 @@ const config: Config = {
         "3xl": "28px",
       },
       fontFamily: {
-        sans: ["var(--font-sans)", "Google Sans", "ui-sans-serif", "system-ui", "sans-serif"],
+        sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
       },
       letterSpacing: {
         tightest: "-0.03em",
