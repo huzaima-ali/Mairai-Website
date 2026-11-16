@@ -98,7 +98,7 @@ export const SERVICE_PAGES: MarketingPage[] = [
         ],
       },
     ],
-    relatedCaseStudies: ["cero", "lillyai", "enorta", "storypage-ai"],
+    relatedCaseStudies: ["cero", "rolerasta", "cofound", "lillyai", "enorta", "storypage-ai"],
     relatedServices: [
       { label: "AI Agent Development", href: "/services/ai-agent-development" },
       { label: "Product Design", href: "/services/product-design" },
@@ -249,7 +249,7 @@ export const SERVICE_PAGES: MarketingPage[] = [
         ],
       },
     ],
-    relatedCaseStudies: ["cero", "lillyai", "mindful-legal-solutions"],
+    relatedCaseStudies: ["cero", "rolerasta", "lillyai", "mindful-legal-solutions"],
     relatedServices: [
       { label: "AI Agent Development", href: "/services/ai-agent-development" },
       { label: "Custom Software Development", href: "/services/custom-software-development" },
@@ -319,7 +319,7 @@ export const SERVICE_PAGES: MarketingPage[] = [
         ],
       },
     ],
-    relatedCaseStudies: ["enorta", "storypage-ai", "cero", "mindful-legal-solutions"],
+    relatedCaseStudies: ["rolerasta", "cofound", "enorta", "storypage-ai", "cero", "mindful-legal-solutions"],
     relatedServices: [
       { label: "AI Product Development", href: "/services/ai-product-development" },
       { label: "Product Design", href: "/services/product-design" },
@@ -459,7 +459,7 @@ export const SERVICE_PAGES: MarketingPage[] = [
         ],
       },
     ],
-    relatedCaseStudies: ["cero", "enorta", "esteria", "mira-pulse"],
+    relatedCaseStudies: ["cero", "cofound", "enorta", "esteria", "mira-pulse"],
     relatedServices: [
       { label: "AI Product Development", href: "/services/ai-product-development" },
       { label: "Custom Software Development", href: "/services/custom-software-development" },

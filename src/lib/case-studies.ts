@@ -191,6 +191,160 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
   },
   {
+    slug: "rolerasta",
+    eyebrow: "Job Discovery Platform",
+    title: "RoleRasta Pakistan-eligible remote jobs",
+    cardTitle: "RoleRasta: Pakistan-Eligible Remote Jobs",
+    summary: "International remote jobs. Without the location guesswork.",
+    cardImage: {
+      src: "/case-studies/rolerasta/rolerasta-product.webp",
+      alt: "RoleRasta homepage with Rahi the explorer and a search for remote jobs assessed for applicants in Pakistan",
+    },
+    heroImage: {
+      src: "/case-studies/rolerasta/rolerasta-product.webp",
+      alt: "RoleRasta homepage with Rahi the explorer and a search for remote jobs assessed for applicants in Pakistan",
+    },
+    websiteUrl: "https://www.rolerasta.com",
+    demoUrl: "https://www.rolerasta.com",
+    demoLabel: "Visit RoleRasta",
+    projectInfo: [
+      { label: "Website", value: "rolerasta.com" },
+      { label: "Category", value: "AI-powered job discovery platform" },
+      { label: "Format", value: "Live SaaS product" },
+      {
+        label: "Services",
+        value:
+          "Product strategy, UX/UI design, AI-assisted eligibility evaluation, automated data ingestion, matching workflows, and full-stack SaaS engineering",
+      },
+    ],
+    sections: [
+      {
+        heading: "Overview",
+        body: [
+          "Professionals in Pakistan waste time applying to remote jobs that silently exclude their location. Mirai built RoleRasta to change that.",
+          "The platform discovers international remote opportunities, assesses Pakistan eligibility, and helps candidates find relevant roles through intelligent matching and application tracking.",
+          "Mirai led product strategy, UX/UI design, AI-assisted eligibility evaluation, automated data ingestion, matching workflows, full-stack SaaS engineering and production deployment.",
+        ],
+      },
+      {
+        heading: "Key capabilities",
+        body: [
+          "Automated job discovery from company career pages and applicant tracking systems, AI-assisted geographic eligibility assessment for applicants in Pakistan, personalized job matching based on skills, experience and preferences, eligibility evidence explaining why a role may be suitable, saved opportunities and application tracking, and search and filtering across industries, functions and employment types.",
+        ],
+      },
+      {
+        heading: "Outcome",
+        body: [
+          "RoleRasta is a live job discovery product. Candidates can search employer-sourced remote roles, see why a posting may be suitable from Pakistan, and keep track of applications in one place.",
+        ],
+      },
+    ],
+    gallery: [
+      {
+        src: "/case-studies/rolerasta/rolerasta-jobs.webp",
+        alt: "RoleRasta job discovery search with eligibility and employment-type filters",
+        caption: "Search and filter employer-sourced remote roles by function, eligibility and employment type.",
+      },
+      {
+        src: "/case-studies/rolerasta/rolerasta-role.webp",
+        alt: "RoleRasta job detail with Pakistan eligibility evidence and apply actions",
+        caption: "Each role surfaces eligibility evidence so candidates know why a posting may be suitable.",
+      },
+      {
+        src: "/case-studies/rolerasta/rolerasta-eligibility.webp",
+        alt: "RoleRasta eligibility assessment flow with Rahi character illustrations",
+        caption: "RoleRasta assesses geographic language and hiring signals before a role is published.",
+      },
+    ],
+    cta: "Start a project like this",
+    featured: true,
+    homepagePitch:
+      "Professionals in Pakistan waste time applying to remote jobs that silently exclude their location. Mirai built RoleRasta to discover international roles, assess Pakistan eligibility and match candidates to work they can actually apply to.",
+    industryLabel: "Job discovery",
+    relatedServices: [
+      { label: "AI Product Development", href: "/services/ai-product-development" },
+      { label: "AI Automation", href: "/services/ai-automation" },
+      { label: "Custom Software Development", href: "/services/custom-software-development" },
+    ],
+  },
+  {
+    slug: "cofound",
+    eyebrow: "Founder Collaboration",
+    title: "Cofound shared workspace for co-founders",
+    cardTitle: "Cofound: Shared Workspace for Co-Founders",
+    summary: "A shared second brain for co-founders.",
+    cardImage: {
+      src: "/case-studies/cofound/cofound-product.webp",
+      alt: "Cofound demo workspace showing today's actions, open loops and capture for co-founders",
+    },
+    heroImage: {
+      src: "/case-studies/cofound/cofound-product.webp",
+      alt: "Cofound demo workspace showing today's actions, open loops and capture for co-founders",
+    },
+    websiteUrl: "https://cofound.miraistudios.co",
+    demoUrl: "https://cofound.miraistudios.co",
+    demoLabel: "Explore Cofound",
+    projectInfo: [
+      { label: "Website", value: "cofound.miraistudios.co" },
+      { label: "Category", value: "Founder collaboration and productivity SaaS" },
+      { label: "Format", value: "Live SaaS product" },
+      {
+        label: "Services",
+        value:
+          "Product strategy, collaborative workflow architecture, UX/UI design, authentication, notification workflows, and full-stack SaaS engineering",
+      },
+    ],
+    sections: [
+      {
+        heading: "Overview",
+        body: [
+          "Building a company requires alignment, but important conversations, decisions and responsibilities often get lost across different channels.",
+          "Mirai created Cofound as a shared workspace where co-founders can organize their thoughts, document decisions, assign ownership and keep each other accountable.",
+          "Mirai led product strategy, collaborative workflow architecture, UX/UI design, authentication, notification workflows, full-stack SaaS engineering and production deployment.",
+        ],
+      },
+      {
+        heading: "Key capabilities",
+        body: [
+          "Shared workspace for co-founders, organized thoughts, ideas and discussions, decision documentation and acknowledgements, responsibility assignment and ownership tracking, follow-up reminders for unresolved items, and shared visibility into discussions and outstanding responsibilities.",
+        ],
+      },
+      {
+        heading: "Outcome",
+        body: [
+          "Cofound is a live collaboration product. Co-founders can capture thoughts, keep decisions and responsibilities in one place, and follow up on what still needs attention.",
+        ],
+      },
+    ],
+    gallery: [
+      {
+        src: "/case-studies/cofound/cofound-decisions.webp",
+        alt: "Cofound Open Loops view for actions, decisions, routines and unresolved responsibilities",
+        caption: "Open loops keep actions, decisions and routines visible so ownership does not get lost.",
+      },
+      {
+        src: "/case-studies/cofound/cofound-brain.webp",
+        alt: "Cofound Brain view for capturing and sharing thoughts between co-founders",
+        caption: "Thoughts can be captured first, then turned into a next step when the team is ready.",
+      },
+      {
+        src: "/case-studies/cofound/cofound-notifications.webp",
+        alt: "Cofound notifications for daily check-ins, reminders and unresolved loops",
+        caption: "Reminders and check-ins keep unresolved items from disappearing across channels.",
+      },
+    ],
+    cta: "Start a project like this",
+    featured: true,
+    homepagePitch:
+      "Building a company requires alignment, but conversations, decisions and responsibilities get lost across channels. Mirai created Cofound as a shared workspace where co-founders organize thoughts, document decisions and keep each other accountable.",
+    industryLabel: "Founder collaboration",
+    relatedServices: [
+      { label: "AI Product Development", href: "/services/ai-product-development" },
+      { label: "Custom Software Development", href: "/services/custom-software-development" },
+      { label: "Product Design", href: "/services/product-design" },
+    ],
+  },
+  {
     slug: "mira-pulse",
     eyebrow: "Digital Twin Products",
     title: "MiraPulse hospital operations digital twin",
@@ -644,6 +798,8 @@ export function getFeaturedCaseStudies() {
 
 export function getFeaturedProductShortName(slug: string) {
   if (slug === "cero") return "Cero";
+  if (slug === "rolerasta") return "RoleRasta";
+  if (slug === "cofound") return "Cofound";
   if (slug === "mira-pulse") return "MiraPulse";
   if (slug === "esteria") return "Esteria";
   return slug;
