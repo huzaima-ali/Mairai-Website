@@ -103,10 +103,10 @@ function ProductsDropdown() {
           role="menuitem"
           className="block rounded-xl px-3.5 py-3 transition-colors hover:bg-surface"
         >
-          <span className="block text-sm text-muted-foreground">
+          <span className="block text-[13px] font-medium leading-none tracking-snug text-muted-foreground">
             {product.type}
           </span>
-          <span className="mt-1 block text-[15px] font-medium text-foreground">{product.name}</span>
+          <span className="mt-2 block text-[15px] font-medium text-foreground">{product.name}</span>
         </a>
       ))}
       <div className="mt-1 border-t border-border px-3.5 py-2.5">

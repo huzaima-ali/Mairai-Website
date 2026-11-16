@@ -48,7 +48,7 @@ export default function HomePage() {
             <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-stretch lg:gap-12">
               <div className="max-w-3xl">
                 <p className="eyebrow">{HOME_ABOUT.eyebrow}</p>
-                <h2 className="display mt-3 text-[clamp(1.85rem,3.2vw,2.95rem)] leading-[1.06]">
+                <h2 className="display text-[clamp(1.85rem,3.2vw,2.95rem)] leading-[1.06]">
                   {HOME_ABOUT.title}
                 </h2>
                 <p className="mt-5 text-pretty text-lg font-medium leading-snug tracking-snug text-foreground sm:text-xl">

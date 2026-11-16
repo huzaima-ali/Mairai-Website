@@ -69,7 +69,7 @@ export function MarketingPageView({
             <PageBackLink href={parentHref} label={`Back to ${parentLabel}`} />
 
             <header className="border-b border-border pb-8">
-              <p className="eyebrow mb-4">{page.eyebrow}</p>
+              <p className="eyebrow">{page.eyebrow}</p>
               <h1 className="display text-[clamp(2rem,4vw,3.5rem)] leading-[1.05]">{page.h1}</h1>
               <p className="mt-5 text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
                 {page.intro}
@@ -110,10 +110,10 @@ export function MarketingPageView({
                           className="group flex items-start justify-between gap-4 rounded-2xl border border-border bg-surface px-5 py-4 transition-colors hover:border-foreground/25"
                         >
                           <span>
-                            <span className="block text-sm text-muted-foreground">
+                            <span className="block text-[13px] font-medium leading-none tracking-snug text-muted-foreground">
                               {study.eyebrow}
                             </span>
-                            <span className="mt-1 block text-base font-medium text-foreground sm:text-lg">
+                            <span className="mt-2 block text-base font-medium text-foreground sm:text-lg">
                               {study.cardTitle}
                             </span>
                             <span className="mt-1 block text-sm text-muted-foreground">{study.summary}</span>

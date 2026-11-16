@@ -20,7 +20,7 @@ export function Footer() {
           <Logo />
         </a>
         <p className="eyebrow mt-8">{SITE.identity}</p>
-        <p className="mt-3 max-w-2xl text-balance text-[clamp(1.85rem,4vw,3rem)] font-normal leading-[1.04] tracking-tightest text-foreground">
+        <p className="max-w-2xl text-balance text-[clamp(1.85rem,4vw,3rem)] font-normal leading-[1.04] tracking-tightest text-foreground">
           {SITE.tagline}
         </p>
 

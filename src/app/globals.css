@@ -112,7 +112,7 @@
     @apply font-normal tracking-tightest text-foreground;
   }
   .eyebrow {
-    @apply text-sm font-normal tracking-normal text-muted-foreground;
+    @apply mb-2.5 text-[13px] font-medium leading-none tracking-snug text-muted-foreground;
   }
   .pill {
     @apply inline-flex min-h-[44px] select-none items-center justify-center gap-2 rounded-full px-[22px] text-[15px] font-medium leading-none transition-all duration-300;

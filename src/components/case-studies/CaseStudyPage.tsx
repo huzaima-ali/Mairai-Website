@@ -94,7 +94,7 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
 
           <div className="grid gap-7 lg:grid-cols-[1.05fr_0.95fr] lg:items-end lg:gap-10">
             <div>
-              <p className="eyebrow mb-4">{study.eyebrow}</p>
+              <p className="eyebrow">{study.eyebrow}</p>
               <h1 className="display max-w-4xl text-balance text-[clamp(2.25rem,4.5vw,4.75rem)] leading-[1.02]">
                 {study.title}
               </h1>
@@ -297,7 +297,7 @@ export function CaseStudyPage({ study }: CaseStudyPageProps) {
           <Container>
             <div className="mb-10 flex items-end justify-between gap-6">
               <div>
-                <p className="eyebrow mb-3">More work</p>
+                <p className="eyebrow">More work</p>
                 <h2 className="display text-[clamp(1.75rem,3vw,3rem)] leading-tight">Explore related case studies</h2>
               </div>
             </div>

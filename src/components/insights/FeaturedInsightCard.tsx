@@ -31,7 +31,7 @@ export async function FeaturedInsightCard() {
           <p className="text-sm text-muted-foreground">Insights</p>
           <span className="text-xs text-muted-foreground">{formatAdminDate(article.published_at)}</span>
         </div>
-        <p className="mt-4 text-sm text-accent">
+        <p className="mt-4 text-[13px] font-medium leading-none tracking-snug text-accent">
           {article.category || "Insights"}
         </p>
         <h3 className="mt-2 text-balance text-xl font-medium leading-snug tracking-snug text-foreground sm:text-[1.35rem]">

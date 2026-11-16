@@ -147,10 +147,10 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
                             onClick={onClose}
                             className="block rounded-xl px-4 py-3 transition-colors hover:bg-surface"
                           >
-                            <span className="block text-sm text-muted-foreground">
+                            <span className="block text-[13px] font-medium leading-none tracking-snug text-muted-foreground">
                               {product.type}
                             </span>
-                            <span className="mt-1 block text-base font-medium text-foreground">{product.name}</span>
+                            <span className="mt-2 block text-base font-medium text-foreground">{product.name}</span>
                           </a>
                         ))}
                       </MobileExpandable>

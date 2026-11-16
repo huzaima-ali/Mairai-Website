@@ -41,7 +41,7 @@ export default function PartnersPage() {
 
               <PageBackLink />
 
-              <p className="eyebrow mb-4">{PARTNER_PAGE.eyebrow}</p>
+              <p className="eyebrow">{PARTNER_PAGE.eyebrow}</p>
               <h1 className="display text-[clamp(2rem,4vw,3.5rem)] leading-[1.05]">{PARTNER_PAGE.h1}</h1>
               <p className="mt-5 max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
                 {PARTNER_PAGE.intro}

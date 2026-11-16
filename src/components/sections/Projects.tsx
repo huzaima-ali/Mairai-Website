@@ -73,10 +73,10 @@ function ProductCard({
 
       <div className="relative z-[1] -mt-10 flex flex-1 flex-col gap-4 px-5 pb-5 pt-0 sm:px-6 sm:pb-6">
         <div>
-          <p className="text-sm font-normal text-white/55">
+          <p className="text-[13px] font-medium leading-none tracking-snug text-white/55">
             {product.eyebrow}
           </p>
-          <h3 className="mt-1.5 text-balance text-xl font-medium leading-snug tracking-snug text-white sm:text-[1.4rem]">
+          <h3 className="mt-2 text-balance text-xl font-medium leading-snug tracking-snug text-white sm:text-[1.4rem]">
             {productShortName(product)}
           </h3>
           <p className="mt-2 text-pretty text-sm leading-relaxed text-white/70">
@@ -195,7 +195,7 @@ export function Projects() {
       <Container>
         <div className="mb-10 max-w-2xl">
           <p className="eyebrow">Products we ship</p>
-          <h2 className="display mt-3 text-[clamp(2.1rem,3.8vw,3.5rem)] leading-[1.04]">
+          <h2 className="display text-[clamp(2.1rem,3.8vw,3.5rem)] leading-[1.04]">
             Here is what we have actually built
           </h2>
           <p className="mt-4 text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">

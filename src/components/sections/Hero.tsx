@@ -45,14 +45,14 @@ export function Hero() {
           animate="show"
           className="grid items-end gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-12"
         >
-          <div className="max-w-xl">
-            <m.p custom={0} variants={heroReveal} className="eyebrow mb-5">
+          <div>
+            <m.p custom={0} variants={heroReveal} className="eyebrow">
               {HERO.eyebrow}
             </m.p>
             <m.h1
               custom={1}
               variants={heroReveal}
-              className="display text-[clamp(2.85rem,7vw,5rem)] leading-[0.94]"
+              className="display max-w-3xl text-[clamp(2.85rem,6.2vw,4.5rem)] leading-[0.94]"
             >
               {HERO.headlineLines.map((line) => (
                 <span key={line} className="block">

@@ -18,7 +18,7 @@ export function RegionsPageContent() {
         <PageBackLink />
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start lg:gap-12 xl:gap-14">
           <div className="max-w-xl">
-            <p className="eyebrow mb-4">Regions</p>
+            <p className="eyebrow">Regions</p>
             <h1 className="display text-[clamp(2rem,4vw,3.5rem)] leading-[1.05]">
               AI and technology delivery across key markets
             </h1>
@@ -68,10 +68,10 @@ export function RegionsPageContent() {
                   : "border-border bg-surface hover:border-foreground/25",
               )}
             >
-              <span className="block text-sm text-muted-foreground">
+              <span className="block text-[13px] font-medium leading-none tracking-snug text-muted-foreground">
                 Delivery studio
               </span>
-              <span className="mt-1 block text-lg font-medium text-foreground">Pakistan</span>
+              <span className="mt-2 block text-lg font-medium text-foreground">Pakistan</span>
               <span className="mt-1 block text-sm text-muted-foreground">
                 Back office and development team based in Pakistan, collaborating with clients across US, UK and
                 MENA time zones.

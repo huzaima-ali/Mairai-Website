@@ -9,7 +9,7 @@ export function HomeFaqs() {
       <Container>
         <div className="max-w-3xl">
           <p className="eyebrow">Questions</p>
-          <h2 id="home-faqs" className="display mt-3 text-[clamp(1.85rem,3.2vw,2.95rem)] leading-[1.06]">
+          <h2 id="home-faqs" className="display text-[clamp(1.85rem,3.2vw,2.95rem)] leading-[1.06]">
             Common questions
           </h2>
         </div>

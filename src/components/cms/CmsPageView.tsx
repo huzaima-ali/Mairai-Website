@@ -59,7 +59,7 @@ export function CmsPageView({
         <Container>
           <div className="mx-auto max-w-3xl">
             <PageBackLink href={backHref} label={backLabel} />
-            <p className="eyebrow mb-4">
+            <p className="eyebrow">
               {page.region_code && page.region_code !== "global" ? page.region_label : parent.label}
             </p>
             <h1 className="display text-[clamp(2rem,4vw,3.5rem)] leading-[1.05]">{page.h1}</h1>

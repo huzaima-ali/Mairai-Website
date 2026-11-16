@@ -17,7 +17,7 @@ export function JobDetailView({ job, preview = false }: { job: JobRow; preview?:
         <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-start lg:gap-14">
           <div className="min-w-0">
             {!preview ? <PageBackLink href="/careers" label="Back to Careers" /> : null}
-            <p className="eyebrow mb-4">Careers</p>
+            <p className="eyebrow">Careers</p>
             <h1 className="display text-[clamp(2rem,4vw,3.5rem)] leading-[1.05]">{job.title}</h1>
             <p className="mt-4 text-sm text-muted-foreground">
               {[job.department, job.location, job.workplace_type, job.employment_type]

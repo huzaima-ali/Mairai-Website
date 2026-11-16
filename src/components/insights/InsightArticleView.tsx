@@ -25,7 +25,7 @@ export function InsightArticleView({
               <PageBackLink href="/insights" label="Back to Insights" />
             </div>
           ) : null}
-          <p className="eyebrow mb-4">{article.category || "Insights"}</p>
+          <p className="eyebrow">{article.category || "Insights"}</p>
           <h1 className="display text-[clamp(2rem,4vw,3.5rem)] leading-[1.05]">{article.title}</h1>
           <p className="mt-4 text-sm text-muted-foreground">
             {article.author_name || "Mirai Studios"}

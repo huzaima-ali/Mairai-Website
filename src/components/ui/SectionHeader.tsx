@@ -24,7 +24,7 @@ export function SectionHeader({ eyebrow, title, body }: SectionHeaderProps) {
     >
       <div>
         {eyebrow ? (
-          <m.p variants={fadeUp} className="eyebrow mb-4">
+          <m.p variants={fadeUp} className="eyebrow">
             {eyebrow}
           </m.p>
         ) : null}

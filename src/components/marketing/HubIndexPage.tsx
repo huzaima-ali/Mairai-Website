@@ -19,7 +19,7 @@ export function HubIndexPage({
       <Container>
         <div className="max-w-3xl">
           <PageBackLink />
-          <p className="eyebrow mb-4">{eyebrow}</p>
+          <p className="eyebrow">{eyebrow}</p>
           <h1 className="display text-[clamp(2rem,4vw,3.5rem)] leading-[1.05]">{title}</h1>
           <p className="mt-5 text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">{intro}</p>
 

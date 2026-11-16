@@ -29,7 +29,7 @@ export default async function InsightsIndexPage() {
           <div className="flex justify-center">
             <PageBackLink />
           </div>
-          <p className="eyebrow mb-4">Insights</p>
+          <p className="eyebrow">Insights</p>
           <h1 className="display text-[clamp(2rem,4vw,3.5rem)] leading-[1.05]">
             Insights on AI products, agents and Super Intelligence
           </h1>
@@ -63,14 +63,14 @@ export default async function InsightsIndexPage() {
                   ) : null}
                   <div className="flex flex-1 flex-col p-6">
                     <div className="flex items-center justify-between gap-3">
-                      <span className="text-sm text-accent">
+                      <span className="text-[13px] font-medium leading-none tracking-snug text-accent">
                         {article.category || "Insights"}
                       </span>
                       <span className="text-xs text-muted-foreground">
                         {formatAdminDate(article.published_at)}
                       </span>
                     </div>
-                    <h2 className="mt-4 text-xl font-medium leading-snug tracking-snug text-foreground">
+                    <h2 className="mt-2 text-xl font-medium leading-snug tracking-snug text-foreground">
                       {article.title}
                     </h2>
                     <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{article.excerpt}</p>

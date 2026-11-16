@@ -47,7 +47,7 @@ export default async function CareersPage() {
         <Container>
           <div className="max-w-3xl">
             <PageBackLink />
-            <p className="eyebrow mb-4">Careers</p>
+            <p className="eyebrow">Careers</p>
             <h1 className="display text-[clamp(2rem,4vw,3.5rem)] leading-[1.05]">
               Build AI products and technology with Mirai
             </h1>
