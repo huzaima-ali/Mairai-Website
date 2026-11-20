@@ -1,6 +1,6 @@
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { CMS_PUBLIC_KINDS, cmsPageMetadata, cmsPublicRoute, renderPublishedCmsPage } from "@/lib/cms/public-page";
+import { notFound, permanentRedirect } from "next/navigation";
+import { CMS_PUBLIC_KINDS } from "@/lib/cms/public-page";
+import { regionalRouteFor } from "@/lib/cms/seo-helpers";
 
 export const dynamic = "force-dynamic";
 
@@ -8,12 +8,8 @@ type Props = {
   params: { region: string; kind: string; slug: string };
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  if (!CMS_PUBLIC_KINDS.has(params.kind)) return {};
-  return cmsPageMetadata(cmsPublicRoute(params.kind, params.slug, params.region));
-}
-
-export default async function RegionalCmsPage({ params }: Props) {
+export default function LegacyRegionalCmsPage({ params }: Props) {
   if (!CMS_PUBLIC_KINDS.has(params.kind)) notFound();
-  return renderPublishedCmsPage(cmsPublicRoute(params.kind, params.slug, params.region));
+  if (!["us", "uk", "mena"].includes(params.region)) notFound();
+  permanentRedirect(regionalRouteFor(`/${params.kind}/${params.slug}`, params.region));
 }

@@ -4,12 +4,14 @@ import { getPublishedCmsPageByRoute } from "@/lib/cms/ops-store";
 import { resolvePageMetadata } from "@/lib/cms/seo-overrides";
 import { CmsPageView } from "@/components/cms/CmsPageView";
 import type { CmsPageRow } from "@/lib/cms/types";
+import { regionalRouteFor } from "@/lib/cms/seo-helpers";
 
 export const CMS_PUBLIC_KINDS = new Set(["services", "industries", "landing", "regions"]);
 
 export function cmsPublicRoute(kind: string, slug: string, region?: string | null) {
   const path = `/${kind}/${slug}`;
-  return region ? `/${region}${path}` : path;
+  if (!region || region === "global") return path;
+  return regionalRouteFor(path, region);
 }
 
 export async function cmsPageMetadata(route: string): Promise<Metadata> {

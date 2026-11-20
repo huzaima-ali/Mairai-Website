@@ -4,6 +4,7 @@ import { getRegistryPage } from "@/lib/cms/route-registry";
 import type { PageSeoRow } from "@/lib/cms/types";
 import { createServiceSupabaseClient, hasServiceRole, isSupabaseConfigured } from "@/lib/supabase/server";
 import { getSeoExtras, getSeoExtrasMap } from "@/lib/cms/ops-store";
+import { canonicalizeCmsRoute, cmsRouteAliases } from "@/lib/cms/seo-helpers";
 
 function mergeSeo(row: PageSeoRow | null, extras: Partial<PageSeoRow>): PageSeoRow | null {
   if (!row && !Object.keys(extras).length) return null;
@@ -49,16 +50,24 @@ function mergeSeo(row: PageSeoRow | null, extras: Partial<PageSeoRow>): PageSeoR
 
 export async function getPageSeoOverride(route: string): Promise<PageSeoRow | null> {
   let row: PageSeoRow | null = null;
+  const canonical = canonicalizeCmsRoute(route);
   if (isSupabaseConfigured() && hasServiceRole()) {
     try {
       const supabase = createServiceSupabaseClient();
-      const { data, error } = await supabase.from("page_seo").select("*").eq("route", route).maybeSingle();
-      if (!error && data) row = data as PageSeoRow;
+      const { data, error } = await supabase
+        .from("page_seo")
+        .select("*")
+        .in("route", cmsRouteAliases(canonical));
+      if (!error && data?.length) {
+        const match =
+          (data as PageSeoRow[]).find((item) => item.route === canonical) || (data as PageSeoRow[])[0];
+        if (match) row = { ...match, route: canonical };
+      }
     } catch {
       // fall through
     }
   }
-  const extras = await getSeoExtras(route);
+  const extras = await getSeoExtras(canonical);
   return mergeSeo(row, extras);
 }
 
@@ -71,7 +80,8 @@ export async function getAllPageSeoOverrides(): Promise<PageSeoRow[]> {
       const supabase = createServiceSupabaseClient();
       const { data } = await supabase.from("page_seo").select("*").order("updated_at", { ascending: false });
       for (const row of (data || []) as PageSeoRow[]) {
-        byRoute.set(row.route, mergeSeo(row, extrasMap[row.route] || {})!);
+        const canonical = canonicalizeCmsRoute(row.route);
+        byRoute.set(canonical, mergeSeo({ ...row, route: canonical }, extrasMap[row.route] || extrasMap[canonical] || {})!);
       }
     } catch {
       // ignore
@@ -79,9 +89,10 @@ export async function getAllPageSeoOverrides(): Promise<PageSeoRow[]> {
   }
 
   for (const [route, extras] of Object.entries(extrasMap)) {
-    if (!byRoute.has(route)) {
-      const merged = mergeSeo(null, { ...extras, route });
-      if (merged) byRoute.set(route, merged);
+    const canonical = canonicalizeCmsRoute(route);
+    if (!byRoute.has(canonical)) {
+      const merged = mergeSeo(null, { ...extras, route: canonical });
+      if (merged) byRoute.set(canonical, merged);
     }
   }
 

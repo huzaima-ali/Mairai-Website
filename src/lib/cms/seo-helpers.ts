@@ -1,6 +1,13 @@
 import type { PageSeoRow, CmsPageRow } from "@/lib/cms/types";
 import { CANONICAL_ORIGIN } from "@/lib/seo";
 
+export {
+  canonicalizeCmsRoute,
+  cmsRouteAliases,
+  regionHubPath,
+  regionalRouteFor,
+} from "@/lib/cms/regional-routes";
+
 export type SchemaHint = {
   type: string;
   source: "site" | "page" | "cms";
@@ -112,13 +119,4 @@ export function similarity(a: string, b: string) {
   let inter = 0;
   for (const w of ta) if (tb.has(w)) inter += 1;
   return inter / Math.max(ta.size, tb.size);
-}
-
-export function regionalRouteFor(baseRoute: string, regionCode: string, customSlug?: string) {
-  if (regionCode === "custom") {
-    const slug = customSlug?.replace(/^\/+|\/+$/g, "") || "custom";
-    return `/${slug}${baseRoute.startsWith("/") ? baseRoute : `/${baseRoute}`}`;
-  }
-  const prefix = regionCode === "us" ? "/us" : regionCode === "uk" ? "/uk" : regionCode === "mena" ? "/mena" : "";
-  return `${prefix}${baseRoute.startsWith("/") ? baseRoute : `/${baseRoute}`}`;
 }

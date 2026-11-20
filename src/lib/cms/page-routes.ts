@@ -11,7 +11,7 @@ import {
   type CmsPageRow,
   type CmsPageStatus,
 } from "@/lib/cms/types";
-import { regionalRouteFor } from "@/lib/cms/seo-helpers";
+import { canonicalizeCmsRoute, regionalRouteFor } from "@/lib/cms/seo-helpers";
 
 /** First-path segments and exact routes that CMS pages must never occupy. */
 export const RESERVED_PATH_PREFIXES = [
@@ -82,7 +82,7 @@ export function buildCmsRoute(input: {
   const regionCode = input.regionCode && input.regionCode !== "global" ? input.regionCode : null;
   if (!regionCode) return { route: baseRoute, baseRoute, slug };
   const route = regionalRouteFor(baseRoute, regionCode, input.customPrefix);
-  return { route: normalizeRoute(route), baseRoute, slug };
+  return { route: canonicalizeCmsRoute(normalizeRoute(route)), baseRoute, slug };
 }
 
 export function isReservedRoute(route: string) {
@@ -117,7 +117,7 @@ export function findRouteCollision({
   articleRoutes = [],
   jobRoutes = [],
 }: CollisionCheckInput) {
-  const normalized = normalizeRoute(route);
+  const normalized = canonicalizeCmsRoute(normalizeRoute(route));
 
   if (isReservedRoute(normalized)) {
     return `“${normalized}” is a protected system route and cannot be used.`;
@@ -136,7 +136,10 @@ export function findRouteCollision({
   }
 
   const cmsHit = cmsPages.find(
-    (page) => !page.deleted_at && page.route === normalized && page.id !== ignorePageId,
+    (page) =>
+      !page.deleted_at &&
+      canonicalizeCmsRoute(page.route) === normalized &&
+      page.id !== ignorePageId,
   );
   if (cmsHit) {
     return `“${normalized}” is already used by another CMS page.`;
@@ -196,7 +199,7 @@ export function defaultCmsFieldsFromName(pageName: string, h1?: string) {
 export function withCmsPageDefaults(
   page: Partial<CmsPageRow> & Pick<CmsPageRow, "id" | "route" | "page_name">,
 ): CmsPageRow {
-  const route = normalizeRoute(page.route);
+  const route = canonicalizeCmsRoute(normalizeRoute(page.route));
   const slug = page.slug || slugFromRoute(route);
   return {
     id: page.id,

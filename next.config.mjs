@@ -13,6 +13,18 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ["lucide-react", "framer-motion"],
   },
+  async redirects() {
+    const hubs = [
+      { code: "us", dest: "/regions/united-states" },
+      { code: "uk", dest: "/regions/united-kingdom" },
+      { code: "mena", dest: "/regions/middle-east" },
+    ];
+    return hubs.flatMap(({ code, dest }) => [
+      { source: `/${code}`, destination: dest, permanent: true },
+      { source: `/${code}/landing`, destination: dest, permanent: true },
+      { source: `/${code}/:kind/:slug`, destination: `${dest}/:slug`, permanent: true },
+    ]);
+  },
 };
 
 export default nextConfig;

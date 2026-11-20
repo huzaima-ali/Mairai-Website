@@ -177,10 +177,10 @@ export type ProfileRow = {
 };
 
 export const REGION_VARIANT_OPTIONS = [
-  { code: "us" as const, label: "United States", prefix: "/us", areaServed: "United States" },
-  { code: "uk" as const, label: "United Kingdom", prefix: "/uk", areaServed: "United Kingdom" },
-  { code: "mena" as const, label: "Middle East / MENA", prefix: "/mena", areaServed: "Middle East" },
-  { code: "custom" as const, label: "Custom Region", prefix: "", areaServed: "" },
+  { code: "us" as const, label: "United States", prefix: "/regions/united-states", areaServed: "United States" },
+  { code: "uk" as const, label: "United Kingdom", prefix: "/regions/united-kingdom", areaServed: "United Kingdom" },
+  { code: "mena" as const, label: "Middle East / MENA", prefix: "/regions/middle-east", areaServed: "Middle East" },
+  { code: "custom" as const, label: "Custom Region", prefix: "/regions", areaServed: "" },
 ];
 
 export const CMS_PAGE_TYPE_OPTIONS = [

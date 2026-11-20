@@ -18,7 +18,7 @@ import {
   setHomepageFeaturedArticleId,
   getHomepageFeaturedArticleId,
 } from "@/lib/cms/ops-store";
-import { regionalRouteFor } from "@/lib/cms/seo-helpers";
+import { canonicalizeCmsRoute, cmsRouteAliases, regionalRouteFor } from "@/lib/cms/seo-helpers";
 import { CMS_PAGE_TYPE_OPTIONS, REGION_VARIANT_OPTIONS, type CmsPageRow } from "@/lib/cms/types";
 import { randomUUID } from "crypto";
 import { jobDraftSchema } from "@/lib/cms/job-fields";
@@ -70,14 +70,17 @@ function revalidateCareers(slug?: string) {
 }
 
 function revalidateCmsPublic(route: string, extra?: string | null) {
-  revalidatePath(route);
-  revalidatePath(route, "page");
+  const paths = new Set([route, ...cmsRouteAliases(route)]);
+  if (extra) {
+    paths.add(extra);
+    for (const alias of cmsRouteAliases(extra)) paths.add(alias);
+  }
+  for (const path of paths) {
+    revalidatePath(path);
+    revalidatePath(path, "page");
+  }
   revalidatePath("/admin/pages");
   revalidatePath("/sitemap.xml");
-  if (extra && extra !== route) {
-    revalidatePath(extra);
-    revalidatePath(extra, "page");
-  }
 }
 
 async function collisionLists() {
@@ -423,7 +426,7 @@ export async function createRegionalVariantAction(input: {
     throw new Error("Regional variants can only be created from a global source page.");
   }
 
-  const route = normalizeRoute(regionalRouteFor(baseRoute, input.regionCode, input.customPrefix));
+  const route = canonicalizeCmsRoute(normalizeRoute(regionalRouteFor(baseRoute, input.regionCode, input.customPrefix)));
   const lists = await collisionLists();
   assertRouteAvailable({ route, ...lists });
 

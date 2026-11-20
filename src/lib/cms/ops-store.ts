@@ -6,6 +6,7 @@ import {
 } from "@/lib/supabase/server";
 import type { CmsPageRow, PageSeoRow } from "@/lib/cms/types";
 import { withCmsPageDefaults } from "@/lib/cms/page-routes";
+import { canonicalizeCmsRoute, cmsRouteAliases } from "@/lib/cms/seo-helpers";
 import { unstable_noStore as noStore } from "next/cache";
 
 const SEO_EXTRAS_PATH = "ops/seo-overrides.json";
@@ -64,19 +65,32 @@ export async function getSeoExtrasMap(): Promise<SeoExtrasMap> {
 
 export async function getSeoExtras(route: string): Promise<Partial<PageSeoRow>> {
   const map = await getSeoExtrasMap();
-  return map[route] || {};
+  for (const key of cmsRouteAliases(route)) {
+    if (map[key]) {
+      return { ...map[key], route: canonicalizeCmsRoute(route) };
+    }
+  }
+  return {};
 }
 
 export async function upsertSeoExtras(route: string, extras: Partial<PageSeoRow>) {
   const map = await getSeoExtrasMap();
-  map[route] = {
-    ...(map[route] || {}),
+  const canonical = canonicalizeCmsRoute(route);
+  const previous = cmsRouteAliases(canonical).reduce(
+    (acc, key) => ({ ...acc, ...(map[key] || {}) }),
+    {} as Partial<PageSeoRow>,
+  );
+  for (const key of cmsRouteAliases(canonical)) {
+    if (key !== canonical) delete map[key];
+  }
+  map[canonical] = {
+    ...previous,
     ...extras,
-    route,
+    route: canonical,
     updated_at: new Date().toISOString(),
   };
   await uploadJson(SEO_EXTRAS_PATH, map);
-  return map[route];
+  return map[canonical];
 }
 
 export async function listCmsPages(): Promise<CmsPageRow[]> {
@@ -89,7 +103,8 @@ export async function listCmsPages(): Promise<CmsPageRow[]> {
 
 export async function getCmsPageByRoute(route: string): Promise<CmsPageRow | null> {
   const pages = await listCmsPages();
-  return pages.find((p) => p.route === route) || null;
+  const wanted = canonicalizeCmsRoute(route);
+  return pages.find((p) => canonicalizeCmsRoute(p.route) === wanted) || null;
 }
 
 export async function getCmsPageById(id: string): Promise<CmsPageRow | null> {
@@ -158,12 +173,20 @@ export async function upsertSeoExtrasAsAdmin(route: string, extras: Partial<Page
   // Fallback: attempt via user client (storage policy requires admin)
   const supabase = createServerSupabaseClient();
   const map = await getSeoExtrasMap();
-  map[route] = { ...(map[route] || {}), ...extras, route, updated_at: new Date().toISOString() };
+  const canonical = canonicalizeCmsRoute(route);
+  const previous = cmsRouteAliases(canonical).reduce(
+    (acc, key) => ({ ...acc, ...(map[key] || {}) }),
+    {} as Partial<PageSeoRow>,
+  );
+  for (const key of cmsRouteAliases(canonical)) {
+    if (key !== canonical) delete map[key];
+  }
+  map[canonical] = { ...previous, ...extras, route: canonical, updated_at: new Date().toISOString() };
   const body = Buffer.from(JSON.stringify(map, null, 2), "utf8");
   const { error } = await supabase.storage.from("website-media").upload(SEO_EXTRAS_PATH, body, {
     contentType: "application/json",
     upsert: true,
   });
   if (error) throw new Error(error.message);
-  return map[route];
+  return map[canonical];
 }

@@ -9,8 +9,13 @@ import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { PageBackLink } from "@/components/ui/PageBackLink";
+import { regionHubPath } from "@/lib/cms/seo-helpers";
 
 function parentFor(page: CmsPageRow) {
+  const hub = regionHubPath(page.region_code);
+  if (hub) {
+    return { label: page.region_label || "Regions", href: hub };
+  }
   if (page.page_type === "service-detail" || page.page_type === "service") {
     return { label: "Services", href: "/services" };
   }
@@ -31,9 +36,9 @@ export function CmsPageView({
   preview?: boolean;
 }) {
   const parent = parentFor(page);
-  const backHref = page.base_route && page.base_route !== page.route ? page.base_route : parent.href;
-  const backLabel =
-    page.base_route && page.base_route !== page.route ? "Back to global page" : `Back to ${parent.label}`;
+  const hub = regionHubPath(page.region_code);
+  const backHref = hub || parent.href;
+  const backLabel = hub ? `Back to ${page.region_label || "region"}` : `Back to ${parent.label}`;
 
   const relatedStudies = CASE_STUDIES.filter((study) => page.related_case_studies.includes(study.slug));
   const relatedServiceLinks = page.related_services.map((href) => {
@@ -41,11 +46,18 @@ export function CmsPageView({
     return { href, label: match?.title || href };
   });
 
-  const breadcrumbs = [
-    { name: "Home", path: "/" },
-    { name: parent.label, path: parent.href },
-    { name: page.page_name, path: page.route },
-  ];
+  const breadcrumbs = hub
+    ? [
+        { name: "Home", path: "/" },
+        { name: "Regions", path: "/regions" },
+        { name: page.region_label || "Region", path: hub },
+        { name: page.page_name, path: page.route },
+      ]
+    : [
+        { name: "Home", path: "/" },
+        { name: parent.label, path: parent.href },
+        { name: page.page_name, path: page.route },
+      ];
 
   return (
     <>

@@ -326,7 +326,8 @@ export function SeoEditorForm({
             <div className="rounded-2xl border border-black/8 bg-white p-5">
               <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground">Create regional variant</p>
               <p className="mt-2 text-xs text-muted-foreground">
-                Creates a draft/noindex page under /us|/uk|/mena — independently editable. Does not auto-publish.
+                Creates a draft/noindex page under /regions/united-states, /regions/united-kingdom or
+                /regions/middle-east. Independently editable. Does not auto-publish.
               </p>
               <select value={regionCode} onChange={(e) => setRegionCode(e.target.value as typeof regionCode)} className="mt-3 w-full rounded-xl border border-black/10 px-3 py-2.5 text-sm">
                 {REGION_VARIANT_OPTIONS.map((r) => (

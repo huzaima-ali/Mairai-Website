@@ -4,6 +4,7 @@ import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { createCmsPageAction } from "@/lib/cms/actions";
 import { CMS_PAGE_TYPE_OPTIONS, REGION_VARIANT_OPTIONS } from "@/lib/cms/types";
+import { buildCmsRoute } from "@/lib/cms/page-routes";
 import { RichTextEditor } from "@/components/admin/RichTextEditor";
 import { slugify } from "@/lib/cms/utils";
 import { AdminBackLink } from "@/components/admin/AdminBackLink";
@@ -37,11 +38,20 @@ export function CreatePageForm() {
   const [message, setMessage] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
 
-  const prefix = CMS_PAGE_TYPE_OPTIONS.find((opt) => opt.value === pageType)?.prefix || "/landing";
   const previewSlug = slug || slugify(pageName);
-  const regionPrefix =
-    regionCode === "global" ? "" : regionCode === "custom" ? `/${slugify(customPrefix) || "custom"}` : `/${regionCode}`;
-  const previewRoute = `${regionPrefix}${prefix}/${previewSlug || "…"}`;
+  const previewRoute = (() => {
+    try {
+      const route = buildCmsRoute({
+        pageType,
+        slug: previewSlug || "page",
+        regionCode: regionCode === "global" ? null : regionCode,
+        customPrefix,
+      }).route;
+      return previewSlug ? route : route.replace(/page$/, "…");
+    } catch {
+      return "/…";
+    }
+  })();
 
   const split = (value: string) => value.split(",").map((item) => item.trim()).filter(Boolean);
 
