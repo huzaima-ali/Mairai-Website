@@ -1,13 +1,20 @@
 export const SITE = {
   name: "Mirai Studios",
   tagline: "We make ambitious ideas real.",
-  identity: "Independent AI Product Studio",
+  identity: "Product engineering and applied AI",
   url: "https://miraistudios.co",
   description:
-    "Mirai Studios designs and builds AI products, intelligent agents, enterprise software and digital twins for businesses across the US, UK and Middle East.",
+    "Mirai Studios helps founders and businesses design, build and scale digital products from MVP to production, with practical AI consulting and implementation across the US, UK and Middle East.",
   positioning:
-    "Mirai Studios is an AI Product Studio combining strategy, design and engineering to create AI-powered products, SaaS platforms, digital twins and immersive digital experiences. We design, build and scale production software for founders and enterprises that need applied AI, agentic workflows, custom software and human-supervised automation.",
+    "We work with founders, startups and established businesses to take products from concept through MVP, launch and production. We also help organisations identify practical AI opportunities, design a roadmap and implement working solutions inside existing operations and products.",
   email: "hello@miraistudios.co",
+} as const;
+
+export const FOUNDERS = {
+  people: [
+    { name: "Bilal Ahmed", href: "https://www.linkedin.com/in/bilalahmed99/" },
+    { name: "Ahmad Mujtaba", href: "https://www.linkedin.com/in/madebyahmad/" },
+  ],
 } as const;
 
 export type NavLink = {
@@ -35,12 +42,12 @@ export const NAV_LINKS: NavLink[] = [
 ];
 
 export const HERO = {
-  eyebrow: "Independent AI Product Studio",
+  eyebrow: "Product engineering and applied AI",
   headline: "We make ambitious ideas real.",
   /** Explicit line breaks for the display headline. */
   headlineLines: ["We make ambitious", "ideas real."] as const,
   body:
-    "Mirai Studios is an AI product development studio designing, building and scaling AI-powered products, SaaS platforms, digital twins and immersive experiences. One team bringing product strategy, design and engineering together for custom software, AI agents and intelligent automation.",
+    "From MVPs to production-ready platforms, we help founders and businesses design, build and scale digital products. We also help organisations turn AI opportunities into practical solutions, from strategy and consulting to implementation.",
   primaryCta: "Explore Our Work",
   primaryHref: "/#products",
   secondaryCta: "Build With Us",
@@ -49,7 +56,7 @@ export const HERO = {
 } as const;
 
 export const HOME_ABOUT = {
-  eyebrow: "Independent AI Product Studio",
+  eyebrow: "Product engineering and applied AI",
   title: "What Mirai Studios builds",
   kicker: "From what if to what's live.",
 } as const;
@@ -61,9 +68,8 @@ export const TRUST_STRIP = {
 
 export const VIDEO_SECTION = {
   eyebrow: "Inside the studio",
-  title: "How we think, design and engineer",
-  body:
-    "A closer look at the product thinking, design craft and engineering behind Mirai work. Curious by nature. Serious about craft.",
+  title: "A closer look at how we operate",
+  body: "Product thinking, design craft and engineering, from the people who ship the work.",
   youtubeUrl: "https://www.youtube.com/embed/EbR1OEfwCFA?si=hngsfiP1_sDeKW8g",
   titleLabel: "Mirai Studios video",
 } as const;
@@ -76,25 +82,20 @@ export const VIDEO_SECTION = {
 export interface ClientLogo {
   name: string;
   file: string;
+  /** Pair the mark with the brand name so square icons are not stretched. */
+  showName?: boolean;
+  /** Black-background raster logos: blend so the plate disappears on white. */
+  onDark?: boolean;
 }
 
-/** Logo wall order. */
+/** Logo wall order. Only brands represented in published case studies or testimonials. */
 export const CLIENT_ROWS: ClientLogo[][] = [
   [
     { name: "Lilly AI", file: "lilly-ai-wordmark.svg" },
-    { name: "Rivian", file: "rivian.svg" },
-  ],
-  [
-    { name: "Google", file: "google.svg" },
-    { name: "enorta", file: "enorta.png" },
-    { name: "Cero", file: "cero.png" },
-    { name: "salesforce", file: "salesforce.svg" },
-  ],
-  [
-    { name: "Epidemic Sound", file: "epidemic-sound.png" },
-    { name: "LaunchDarkly", file: "launchdarkly.svg" },
-    { name: "Tim Hortons", file: "tim-hortons.svg" },
-    { name: "Flipboard", file: "flipboard.svg" },
+    { name: "Cero", file: "cero-mark.svg", showName: true },
+    { name: "enorta", file: "enorta-mark.svg", showName: true },
+    { name: "thyssenkrupp", file: "thyssenkrupp.webp", onDark: true },
+    { name: "RoleRasta", file: "rolerasta-mark.png", showName: true, onDark: true },
   ],
 ];
 
@@ -102,7 +103,7 @@ export const SERVICES_INTRO = {
   eyebrow: "Capabilities",
   title: "What we can build with you",
   body:
-    "Strategy, design and engineering for AI products, SaaS platforms, digital twins, immersive experiences and enterprise software. From idea to a product people can actually use.",
+    "End-to-end product development from MVP to production, and practical AI consulting through to implementation.",
 } as const;
 
 export interface ServiceMedia {
@@ -126,7 +127,7 @@ export const SERVICES: Service[] = [
     number: "01",
     title: "AI Products & Agents",
     description:
-      "We design and build intelligent products that automate complex workflows, augment teams and create entirely new digital experiences.",
+      "We help teams identify practical AI opportunities, then design and implement products, agents and workflows that fit existing operations.",
     capabilities: ["AI Products", "AI Agents & Copilots", "Intelligent Automation", "Predictive & Generative AI"],
     media: {
       src: "/case-studies/cero/image-01.png",
@@ -139,7 +140,7 @@ export const SERVICES: Service[] = [
     number: "02",
     title: "Digital Products & Platforms",
     description:
-      "We turn ambitious product ideas into scalable web, mobile, SaaS and enterprise platforms from strategy through deployment.",
+      "From discovery and MVP validation to production-ready web, mobile, SaaS and enterprise platforms, we take products through launch and scale.",
     capabilities: ["SaaS Platforms", "Web Applications", "Mobile Products", "Enterprise Platforms"],
     media: {
       src: "/case-studies/storypage-ai/image-01.png",
@@ -148,17 +149,17 @@ export const SERVICES: Service[] = [
     href: "/services/custom-software-development",
   },
   {
-    id: "digital-twins",
+    id: "enterprise",
     number: "03",
-    title: "Digital Twins & Real-Time 3D",
+    title: "AI for Businesses",
     description:
-      "We transform physical spaces, assets and environments into interactive digital experiences built for visualization, simulation and engagement.",
-    capabilities: ["Digital Twins", "Real-Time 3D", "Interactive Visualization", "Simulation"],
+      "We help organisations put AI into existing operations, from opportunity mapping and a practical roadmap through to working automations and integrations.",
+    capabilities: ["AI opportunity mapping", "Process automation", "System integrations", "Production deployment"],
     media: {
-      src: "/case-studies/thyssenkrupp/image-01.png",
-      alt: "thyssenkrupp interactive digital twin experience",
+      src: "/case-studies/lillyai/image-01.png",
+      alt: "LillyAI enterprise clinical intelligence platform",
     },
-    href: "/services/digital-twin-development",
+    href: "/services/ai-automation",
   },
   {
     id: "product-design",
@@ -174,30 +175,17 @@ export const SERVICES: Service[] = [
     href: "/services/product-design",
   },
   {
-    id: "spatial",
+    id: "digital-twins",
     number: "05",
-    title: "Spatial & Immersive Experiences",
+    title: "Digital Twins & Real-Time 3D",
     description:
-      "We build spatial experiences that extend digital products beyond traditional screens into AR, VR, XR and interactive environments.",
-    capabilities: ["AR", "VR", "XR", "Interactive Experiences"],
+      "We transform physical spaces, assets and environments into interactive digital experiences built for visualization, simulation and engagement.",
+    capabilities: ["Digital Twins", "Real-Time 3D", "Interactive Visualization", "Simulation"],
     media: {
-      src: "/case-studies/thyssenkrupp/image-03.png",
-      alt: "Immersive spatial visualization from Mirai Studios",
+      src: "/case-studies/thyssenkrupp/image-01.png",
+      alt: "thyssenkrupp interactive digital twin experience",
     },
-    href: "/services/immersive-experiences",
-  },
-  {
-    id: "enterprise",
-    number: "06",
-    title: "Enterprise Engineering",
-    description:
-      "We engineer the infrastructure, integrations and systems required to make ambitious digital products reliable, secure and scalable.",
-    capabilities: ["Cloud Architecture", "API Systems", "Enterprise Integrations", "Cybersecurity"],
-    media: {
-      src: "/case-studies/lillyai/image-01.png",
-      alt: "LillyAI enterprise clinical intelligence platform",
-    },
-    href: "/services/enterprise-engineering",
+    href: "/services/digital-twin-development",
   },
 ];
 
@@ -228,11 +216,18 @@ export const PROJECTS: Project[] = [
   },
 ];
 
+export const PRODUCTS_INTRO = {
+  eyebrow: "Products we ship",
+  title: "Here is what we have built",
+  body:
+    "Live products and studio builds, including RoleRasta, Cofound and Cero. Open a demo, then read the problem, what Mirai delivered and the resulting value.",
+} as const;
+
 export const WORK_INTRO = {
-  eyebrow: "Selected work",
+  eyebrow: "Client work",
   title: "Built to be used, not just demonstrated",
   body:
-    "AI products, SaaS platforms, digital twins and immersive experiences designed with operators in mind. Each project shows how Mirai thinks through product, interface and engineering together.",
+    "Selected client engagements, from clinical platforms to immersive plant experiences. Each case study covers the problem, what Mirai delivered and the resulting value.",
 } as const;
 
 export interface WorkItem {
@@ -253,7 +248,7 @@ export const PARTNER_BAR = {
 } as const;
 
 export const PARTNER_LOGOS: ClientLogo[] = [
-  { name: "Mirai Studios Partner", file: "partner-mark.svg" },
+  { name: "Mirai Studios", file: "mirai-studios-mark.svg" },
 ];
 
 export const TESTIMONIALS_INTRO = {
@@ -326,7 +321,7 @@ export const ENGAGEMENT_INTRO = {
   eyebrow: "How we work",
   title: "Strategy meets design meets engineering",
   body:
-    "Good products do not happen by accident. Choose how you want to build with Mirai, from a defined product engagement to a dedicated studio team.",
+    "We do not stop at advice. Choose how you want to build with Mirai, from a defined product engagement to a dedicated studio team that can design, develop, deploy and maintain the solution.",
 } as const;
 
 export interface EngagementModel {
@@ -395,7 +390,7 @@ export const HOME_FAQS = [
   {
     question: "What does Mirai Studios do?",
     answer:
-      "Mirai Studios is an AI Product Studio. We design and build AI products, intelligent agents, custom software, digital twins and immersive experiences. Work typically covers product strategy, design, engineering and deployment for companies in the United States, United Kingdom and Middle East.",
+      "Mirai Studios is a product engineering and applied AI consultancy. We help founders and businesses design, build and scale digital products from MVP to production, and we help organisations turn AI opportunities into working solutions. Work typically covers strategy, design, engineering and deployment for companies in the United States, United Kingdom and Middle East.",
   },
   {
     question: "Does Mirai Studios build Super Intelligence or AGI?",
@@ -416,7 +411,7 @@ export const HOME_FAQS = [
 
 export const CONTACT = {
   title: "Have something ambitious in mind?",
-  body: "Tell us about the product. We will follow up with a strategy session within 48 hours.",
+  body: "Tell us about the product or the AI opportunity. We will follow up with a strategy session within 48 hours.",
   fullNamePlaceholder: "Full Name",
   phonePlaceholder: "00 0000 000",
   emailPlaceholder: "Email Address",
@@ -448,7 +443,7 @@ export const CONTACT_STEPS = [
 
 export const MAIN_CTA = {
   title: "Let's build it",
-  body: "If you have a product to ship, a workflow to rethink, or an experience that needs to feel real, Mirai can help. New projects for 2026 are open.",
+  body: "If you have a product to ship, a workflow to rethink, or an AI opportunity to implement, Mirai can help. New projects for 2026 are open.",
   primary: "Build With Us",
   secondary: "Explore Our Work",
 } as const;

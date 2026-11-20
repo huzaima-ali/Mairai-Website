@@ -2,7 +2,7 @@
 
 import { m } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import { getCaseStudyUrl, type CaseStudy } from "@/lib/case-studies";
+import { getCaseStudyClient, getCaseStudyUrl, type CaseStudy } from "@/lib/case-studies";
 import { cn } from "@/lib/utils";
 import { fadeUp } from "@/lib/motion";
 import { CaseStudyVisual } from "@/components/case-studies/CaseStudyVisual";
@@ -24,6 +24,7 @@ export function CaseStudyCard({
   centerTitle = false,
   interactive = true,
 }: CaseStudyCardProps) {
+  const client = getCaseStudyClient(study);
   const classNames = cn(
     "group relative block h-full overflow-hidden rounded-[24px] shadow-card transition-transform duration-500 ease-out-expo focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
     interactive && "hover:-translate-y-1.5",
@@ -38,6 +39,11 @@ export function CaseStudyCard({
         imgClassName="transition-transform duration-700 ease-out-expo group-hover:scale-[1.03]"
       />
       <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/15 to-transparent" />
+      {client ? (
+        <span className="absolute left-4 top-4 z-10 rounded-full bg-black/45 px-3 py-1.5 text-[11px] font-medium tracking-wide text-white backdrop-blur-md">
+          Client work
+        </span>
+      ) : null}
       <span className="absolute right-4 top-4 z-10 grid h-9 w-9 place-items-center rounded-lg bg-white/20 text-white backdrop-blur-[21px] transition-all duration-300 group-hover:bg-white/30">
         <ArrowUpRight className="h-4 w-4" />
       </span>

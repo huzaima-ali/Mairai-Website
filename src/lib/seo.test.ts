@@ -6,17 +6,18 @@ import { REGION_PAGES } from "./regions.ts";
 import { editorialArticles } from "./cms/editorial-articles.ts";
 
 test("homepage description matches preferred commercial summary", () => {
-  assert.match(SITE.description, /AI products/);
+  assert.match(SITE.description, /digital products/);
+  assert.match(SITE.description, /MVP/);
+  assert.match(SITE.description, /AI consulting/);
   assert.match(SITE.description, /US, UK and Middle East/);
   assert.equal(SITE.description.includes("—"), false);
 });
 
 test("visible brand copy stays crawlable and avoids em dashes", () => {
-  assert.match(SITE.positioning, /AI Product Studio/);
-  assert.match(SITE.positioning, /AI-powered products/);
-  assert.match(HERO.body, /AI product development/);
-  assert.match(HERO.body, /SaaS platforms/);
-  assert.match(HERO.body, /digital twins/);
+  assert.match(SITE.positioning, /MVP/);
+  assert.match(SITE.positioning, /AI opportunities/);
+  assert.match(HERO.body, /MVPs to production-ready platforms/);
+  assert.match(HERO.body, /AI opportunities/);
   assert.equal(HERO.headline, "We make ambitious ideas real.");
   assert.equal(HOME_ABOUT.title, "What Mirai Studios builds");
   for (const text of [SITE.tagline, SITE.positioning, HERO.body, HERO.headline, HOME_ABOUT.kicker]) {

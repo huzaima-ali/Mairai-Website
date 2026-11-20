@@ -11,8 +11,10 @@ import {
 } from "@/lib/case-studies";
 import { cn } from "@/lib/utils";
 import { EASE_OUT_EXPO, fadeUp, staggerContainer, viewportOnce } from "@/lib/motion";
+import { PRODUCTS_INTRO } from "@/lib/content";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 import { CarouselNavigator } from "@/components/ui/CarouselNavigator";
 import { CaseStudyVisual } from "@/components/case-studies/CaseStudyVisual";
 
@@ -28,10 +30,12 @@ function ProductCard({
   product,
   index,
   className,
+  featured = false,
 }: {
   product: CaseStudy;
   index: number;
   className?: string;
+  featured?: boolean;
 }) {
   return (
     <article
@@ -40,7 +44,12 @@ function ProductCard({
         className,
       )}
     >
-      <div className="relative aspect-[16/11] overflow-hidden sm:aspect-[16/10]">
+      <div
+        className={cn(
+          "relative overflow-hidden",
+          featured ? "aspect-[16/10] sm:aspect-[16/9]" : "aspect-[16/11] sm:aspect-[16/10]",
+        )}
+      >
         <CaseStudyVisual
           image={product.cardImage}
           className="absolute inset-0 rounded-none border-0"
@@ -76,7 +85,12 @@ function ProductCard({
           <p className="text-[13px] font-medium leading-none tracking-snug text-white/55">
             {product.eyebrow}
           </p>
-          <h3 className="mt-2 text-balance text-xl font-medium leading-snug tracking-snug text-white sm:text-[1.4rem]">
+          <h3
+            className={cn(
+              "mt-2 text-balance font-medium leading-snug tracking-snug text-white",
+              featured ? "text-[1.45rem] sm:text-[1.65rem]" : "text-xl sm:text-[1.4rem]",
+            )}
+          >
             {productShortName(product)}
           </h3>
           <p className="mt-2 text-pretty text-sm leading-relaxed text-white/70">
@@ -193,15 +207,12 @@ export function Projects() {
   return (
     <Section id="products" className="py-8 sm:py-10 lg:py-12">
       <Container>
-        <div className="mb-10 max-w-2xl">
-          <p className="eyebrow">Products we ship</p>
-          <h2 className="display text-[clamp(2.1rem,3.8vw,3.5rem)] leading-[1.04]">
-            Here is what we have actually built
-          </h2>
-          <p className="mt-4 text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Live AI products, digital twins and immersive experiences. Open a demo, then read how
-            Mirai designed and engineered it.
-          </p>
+        <div className="mb-10">
+          <SectionHeader
+            eyebrow={PRODUCTS_INTRO.eyebrow}
+            title={PRODUCTS_INTRO.title}
+            body={PRODUCTS_INTRO.body}
+          />
         </div>
 
         <MobileProductStack products={featuredProjects} />
@@ -211,13 +222,24 @@ export function Projects() {
           initial="hidden"
           whileInView="show"
           viewport={viewportOnce}
-          className="hidden gap-5 md:grid md:grid-cols-2 lg:grid-cols-3 lg:gap-6"
+          className="hidden gap-5 md:grid"
         >
-          {featuredProjects.map((product, index) => (
-            <m.div key={product.slug} variants={fadeUp}>
-              <ProductCard product={product} index={index} />
-            </m.div>
-          ))}
+          <div className="grid gap-5 md:grid-cols-2 lg:gap-6">
+            {featuredProjects.slice(0, 2).map((product, index) => (
+              <m.div key={product.slug} variants={fadeUp}>
+                <ProductCard product={product} index={index} featured />
+              </m.div>
+            ))}
+          </div>
+          {featuredProjects.length > 2 ? (
+            <div className="grid gap-5 md:grid-cols-3 lg:gap-6">
+              {featuredProjects.slice(2).map((product, index) => (
+                <m.div key={product.slug} variants={fadeUp}>
+                  <ProductCard product={product} index={index + 2} />
+                </m.div>
+              ))}
+            </div>
+          ) : null}
         </m.div>
       </Container>
     </Section>

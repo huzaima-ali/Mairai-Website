@@ -75,6 +75,12 @@ export function OurWork() {
             />
           </div>
         ) : null}
+
+        {workStudies[active] ? (
+          <p className="mx-auto mt-5 max-w-2xl px-6 text-center text-sm leading-relaxed text-muted-foreground sm:text-base">
+            {workStudies[active].homepagePitch || workStudies[active].summary}
+          </p>
+        ) : null}
       </m.div>
 
       <div className="mt-6 sm:mt-8">

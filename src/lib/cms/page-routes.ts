@@ -189,7 +189,7 @@ export function defaultCmsFieldsFromName(pageName: string, h1?: string) {
   return {
     seo_title: heading,
     meta_description: heading
-      ? `${heading} — Mirai Studios designs and builds AI products, agents and digital twins.`
+      ? `${heading}. Mirai Studios designs, builds and scales digital products, with practical AI consulting and implementation.`
       : "",
     og_title: heading,
     og_description: "",

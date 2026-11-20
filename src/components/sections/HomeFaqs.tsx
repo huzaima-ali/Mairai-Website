@@ -7,13 +7,12 @@ export function HomeFaqs() {
   return (
     <Section className="py-10 sm:py-12 lg:py-16" aria-labelledby="home-faqs">
       <Container>
-        <div className="max-w-3xl">
-          <p className="eyebrow">Questions</p>
+        <div className="mx-auto max-w-3xl text-center">
           <h2 id="home-faqs" className="display text-[clamp(1.85rem,3.2vw,2.95rem)] leading-[1.06]">
             Common questions
           </h2>
         </div>
-        <div className="mt-6 flex max-w-3xl flex-col gap-2">
+        <div className="mx-auto mt-6 flex max-w-3xl flex-col gap-2">
           {HOME_FAQS.map((faq) => (
             <details
               key={faq.question}

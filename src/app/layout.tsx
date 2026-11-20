@@ -14,7 +14,7 @@ import { SiteChrome } from "@/components/layout/SiteChrome";
 export const metadata: Metadata = {
   metadataBase: new URL(CANONICAL_ORIGIN),
   title: {
-    default: "Mirai Studios | AI Development & Product Engineering",
+    default: "Mirai Studios | Product Development & AI Consulting",
     template: `%s | Mirai Studios`,
   },
   description: SITE.description,
@@ -23,12 +23,12 @@ export const metadata: Metadata = {
     type: "website",
     url: CANONICAL_ORIGIN,
     siteName: SITE.name,
-    title: "Mirai Studios | AI Development & Product Engineering",
+    title: "Mirai Studios | Product Development & AI Consulting",
     description: SITE.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mirai Studios | AI Development & Product Engineering",
+    title: "Mirai Studios | Product Development & AI Consulting",
     description: SITE.description,
   },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large" } },

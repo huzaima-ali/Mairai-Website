@@ -44,7 +44,7 @@ export const SERVICE_PAGES: MarketingPage[] = [
     eyebrow: "Services",
     h1: "AI product development for teams that need to ship",
     intro:
-      "Mirai Studios is an AI product and technology partner. We help companies turn AI ideas into usable products, with clear product thinking, strong UX and engineering that holds up in production.",
+      "Mirai Studios is a product and technology partner. We help companies identify practical AI opportunities, then turn them into usable products, with clear product thinking, strong UX and engineering that holds up in production.",
     sections: [
       {
         heading: "Problems we solve",
@@ -275,11 +275,11 @@ export const SERVICE_PAGES: MarketingPage[] = [
     title: "Custom Software Development",
     metaTitle: "Custom Software Development Company | Mirai Studios",
     metaDescription:
-      "Mirai Studios builds custom web, mobile and enterprise software products with product design, engineering and long-term scalability in mind.",
+      "Mirai Studios builds custom web, mobile and SaaS products from MVP to production, with product design, engineering and long-term scalability in mind.",
     eyebrow: "Services",
     h1: "Custom software built around your product goals",
     intro:
-      "We design and engineer software products and platforms when off-the-shelf tools cannot support the workflow, experience or differentiation your business needs.",
+      "We take products from discovery and MVP through production-ready web, mobile and SaaS platforms when off-the-shelf tools cannot support the workflow, experience or differentiation your business needs.",
     sections: [
       {
         heading: "Problems we solve",

@@ -119,16 +119,19 @@ export function organizationJsonLd() {
       { "@type": "Place", name: "Middle East" },
     ],
     knowsAbout: [
+      "MVP development",
+      "End-to-end product development",
+      "Custom software development",
+      "SaaS development",
+      "AI consulting",
+      "AI implementation",
+      "Business AI automation",
       "AI product development",
       "AI agents",
-      "Agentic AI",
-      "Intelligent automation",
-      "Custom software development",
       "Digital twins",
       "Immersive experiences",
       "Product design",
       "Enterprise engineering",
-      "Super Intelligence",
     ],
   };
 }

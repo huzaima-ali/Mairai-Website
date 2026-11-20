@@ -35,9 +35,9 @@ const HOME: RegistryPage = {
   route: "/",
   pageName: "Homepage",
   pageType: "home",
-  defaultTitle: "Mirai Studios | AI Development & Product Engineering",
+  defaultTitle: "Mirai Studios | Product Development & AI Consulting",
   defaultDescription:
-    "Mirai Studios designs and builds AI products, intelligent agents, enterprise software and digital twins for businesses across the US, UK and Middle East.",
+    "Mirai Studios helps founders and businesses design, build and scale digital products from MVP to production, with practical AI consulting and implementation across the US, UK and Middle East.",
   indexable: true,
 };
 
@@ -48,9 +48,9 @@ export function getStaticRegistryPages(): RegistryPage[] {
       route: "/services",
       pageName: "Services",
       pageType: "service",
-      defaultTitle: "AI & Technology Services",
+      defaultTitle: "Product Development & AI Consulting Services",
       defaultDescription:
-        "Explore Mirai Studios services spanning AI product development, agents, automation, custom software, digital twins, immersive experiences, product design and enterprise engineering.",
+        "Explore Mirai Studios services spanning MVP and custom software development, SaaS platforms, AI consulting, AI implementation, automation, digital twins, product design and enterprise engineering.",
       indexable: true,
     },
     ...SERVICE_PAGES.map(

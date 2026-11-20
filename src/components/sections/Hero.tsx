@@ -46,11 +46,8 @@ export function Hero() {
           className="grid items-end gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-12"
         >
           <div>
-            <m.p custom={0} variants={heroReveal} className="eyebrow">
-              {HERO.eyebrow}
-            </m.p>
             <m.h1
-              custom={1}
+              custom={0}
               variants={heroReveal}
               className="display max-w-3xl text-[clamp(2.85rem,6.2vw,4.5rem)] leading-[0.94]"
             >
@@ -62,14 +59,14 @@ export function Hero() {
             </m.h1>
 
             <m.p
-              custom={2}
+              custom={1}
               variants={heroReveal}
-              className="mt-7 max-w-lg text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg"
+              className="mt-7 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg"
             >
               {HERO.body}
             </m.p>
 
-            <m.div custom={3} variants={heroReveal} className="mt-10 flex flex-wrap items-center gap-3 sm:mt-12">
+            <m.div custom={2} variants={heroReveal} className="mt-10 flex flex-wrap items-center gap-3 sm:mt-12">
               <Button href={HERO.primaryHref}>{HERO.primaryCta}</Button>
               <Button href={HERO.secondaryHref} variant="outline">
                 {HERO.secondaryCta}

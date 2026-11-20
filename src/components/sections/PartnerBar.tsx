@@ -21,7 +21,7 @@ export function PartnerBar() {
                   <LogoImg
                     src={`/logos/${logo.file}`}
                     name={logo.name}
-                    className="block max-h-full max-w-full object-contain"
+                    className="block h-8 w-[28px] object-contain"
                     wordmarkClassName="text-center text-[10px] leading-tight text-foreground/50"
                   />
                 </span>

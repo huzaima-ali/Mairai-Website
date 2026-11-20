@@ -19,8 +19,7 @@ export function Footer() {
         <a href="/" aria-label="Mirai Studios home" className="inline-flex transition-opacity hover:opacity-80">
           <Logo />
         </a>
-        <p className="eyebrow mt-8">{SITE.identity}</p>
-        <p className="max-w-2xl text-balance text-[clamp(1.85rem,4vw,3rem)] font-normal leading-[1.04] tracking-tightest text-foreground">
+        <p className="mt-8 max-w-2xl text-balance text-[clamp(1.85rem,4vw,3rem)] font-normal leading-[1.04] tracking-tightest text-foreground">
           {SITE.tagline}
         </p>
 

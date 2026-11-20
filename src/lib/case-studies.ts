@@ -789,10 +789,17 @@ export function getCaseStudy(slug: string) {
   return CASE_STUDIES.find((study) => study.slug === slug);
 }
 
+export function getCaseStudyClient(study: CaseStudy) {
+  return study.projectInfo.find((item) => item.label === "Client")?.value ?? null;
+}
+
+const FEATURED_HOMEPAGE_ORDER = ["rolerasta", "cofound", "cero", "mira-pulse", "esteria"];
+
 export function getFeaturedCaseStudies() {
   return CASE_STUDIES.filter((study) => study.featured).sort((a, b) => {
-    if (Boolean(a.demoUrl) === Boolean(b.demoUrl)) return 0;
-    return a.demoUrl ? -1 : 1;
+    const aIndex = FEATURED_HOMEPAGE_ORDER.indexOf(a.slug);
+    const bIndex = FEATURED_HOMEPAGE_ORDER.indexOf(b.slug);
+    return (aIndex === -1 ? 99 : aIndex) - (bIndex === -1 ? 99 : bIndex);
   });
 }
 

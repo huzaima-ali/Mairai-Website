@@ -3,13 +3,15 @@ import type { CmsPageRow } from "@/lib/cms/types";
 import { cmsPageJsonLd } from "@/lib/cms/schema";
 import { sanitizeArticleHtml } from "@/lib/cms/sanitize";
 import { breadcrumbJsonLd, jsonLdScript } from "@/lib/seo";
-import { CASE_STUDIES, getCaseStudyUrl } from "@/lib/case-studies";
-import { SERVICE_PAGES } from "@/lib/services";
+import { CASE_STUDIES } from "@/lib/case-studies";
+import { SERVICE_PAGES, type RelatedLink } from "@/lib/services";
+import { getRegionPage } from "@/lib/regions";
+import { regionHubPath } from "@/lib/cms/seo-helpers";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { PageBackLink } from "@/components/ui/PageBackLink";
-import { regionHubPath } from "@/lib/cms/seo-helpers";
+import { RelatedCaseStudyCards, RelatedPagePills } from "@/components/marketing/RelatedLinks";
 
 function parentFor(page: CmsPageRow) {
   const hub = regionHubPath(page.region_code);
@@ -28,6 +30,32 @@ function parentFor(page: CmsPageRow) {
   return { label: "Home", href: "/" };
 }
 
+function relatedServiceLinks(page: CmsPageRow): RelatedLink[] {
+  return page.related_services
+    .map((value) => {
+      const path = value.startsWith("/") ? value : `/services/${value}`;
+      const match = SERVICE_PAGES.find((service) => service.path === path || service.slug === value);
+      return { href: match?.path || path, label: match?.title || value };
+    })
+    .filter((link) => link.href && link.label);
+}
+
+function relatedStudySlugs(values: string[]) {
+  const slugs: string[] = [];
+  for (const value of values) {
+    const normalized = value.replace(/^\/work\//, "").replace(/^\//, "").trim().toLowerCase();
+    if (!normalized) continue;
+    const match = CASE_STUDIES.find(
+      (study) =>
+        study.slug === normalized ||
+        study.cardTitle.toLowerCase() === normalized ||
+        study.title.toLowerCase() === normalized,
+    );
+    if (match && !slugs.includes(match.slug)) slugs.push(match.slug);
+  }
+  return slugs;
+}
+
 export function CmsPageView({
   page,
   preview = false,
@@ -39,12 +67,11 @@ export function CmsPageView({
   const hub = regionHubPath(page.region_code);
   const backHref = hub || parent.href;
   const backLabel = hub ? `Back to ${page.region_label || "region"}` : `Back to ${parent.label}`;
-
-  const relatedStudies = CASE_STUDIES.filter((study) => page.related_case_studies.includes(study.slug));
-  const relatedServiceLinks = page.related_services.map((href) => {
-    const match = SERVICE_PAGES.find((service) => service.path === href);
-    return { href, label: match?.title || href };
-  });
+  const hubPage = hub ? getRegionPage(hub.split("/").filter(Boolean).pop() || "") : undefined;
+  const serviceLinks = relatedServiceLinks(page);
+  const resolvedServices = serviceLinks.length ? serviceLinks : hubPage?.relatedServices ?? [];
+  const explicitStudies = relatedStudySlugs(page.related_case_studies);
+  const studySlugs = explicitStudies.length ? explicitStudies : hubPage?.relatedCaseStudies ?? [];
 
   const breadcrumbs = hub
     ? [
@@ -69,7 +96,7 @@ export function CmsPageView({
       ) : null}
       <Section className="pb-16 pt-10 sm:pb-20 sm:pt-14 lg:pb-24 lg:pt-16">
         <Container>
-          <div className="mx-auto max-w-3xl">
+          <div className="max-w-3xl">
             <PageBackLink href={backHref} label={backLabel} />
             <p className="eyebrow">
               {page.region_code && page.region_code !== "global" ? page.region_label : parent.label}
@@ -92,64 +119,34 @@ export function CmsPageView({
               dangerouslySetInnerHTML={{ __html: sanitizeArticleHtml(page.body_html) }}
             />
 
-            {relatedServiceLinks.length > 0 || page.related_industries.length > 0 || relatedStudies.length > 0 ? (
-              <div className="mt-12 grid gap-8 sm:grid-cols-2">
-                {relatedServiceLinks.length > 0 ? (
-                  <div>
-                    <h2 className="text-lg font-medium">Related services</h2>
-                    <ul className="mt-3 space-y-2">
-                      {relatedServiceLinks.map((link) => (
-                        <li key={link.href}>
-                          <a href={link.href} className="text-sm hover:text-accent">
-                            {link.label}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ) : null}
-                {page.related_industries.length > 0 ? (
-                  <div>
-                    <h2 className="text-lg font-medium">Related industries</h2>
-                    <ul className="mt-3 space-y-2">
-                      {page.related_industries.map((item) => (
-                        <li key={item} className="text-sm text-muted-foreground">
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ) : null}
-                {relatedStudies.length > 0 ? (
-                  <div className="sm:col-span-2">
-                    <h2 className="text-lg font-medium">Related work</h2>
-                    <ul className="mt-3 space-y-2">
-                      {relatedStudies.map((study) => (
-                        <li key={study.slug}>
-                          <a href={getCaseStudyUrl(study.slug)} className="text-sm hover:text-accent">
-                            {study.cardTitle || study.title}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ) : null}
-              </div>
-            ) : null}
-
-            <div className="mt-12 rounded-[24px] border border-border bg-surface p-6 sm:p-8">
-              <h2 className="display text-[clamp(1.5rem,2.4vw,2rem)] leading-tight">
-                {page.cta_heading || "Ready to talk through a project?"}
-              </h2>
-              {page.cta_copy ? (
-                <p className="mt-3 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground">
-                  {page.cta_copy}
-                </p>
+            <div className="mt-12 flex flex-col gap-10">
+              <RelatedCaseStudyCards slugs={studySlugs} />
+              <RelatedPagePills links={resolvedServices} />
+              {page.related_industries.length > 0 ? (
+                <section>
+                  <h2 className="display text-[clamp(1.35rem,2.2vw,1.85rem)] leading-snug tracking-snug">
+                    Related industries
+                  </h2>
+                  <p className="mt-4 text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
+                    {page.related_industries.join(", ")}
+                  </p>
+                </section>
               ) : null}
-              <Button href={page.cta_href || "/#contact"} size="lg" className="mt-6 w-fit">
-                {page.cta_label || "Request a call"}
-                <ArrowUpRight className="h-4 w-4" />
-              </Button>
+
+              <div className="rounded-[24px] border border-border bg-surface p-6 sm:p-8">
+                <h2 className="display text-[clamp(1.5rem,2.4vw,2rem)] leading-tight">
+                  {page.cta_heading || "Ready to talk through a project?"}
+                </h2>
+                {page.cta_copy ? (
+                  <p className="mt-3 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground">
+                    {page.cta_copy}
+                  </p>
+                ) : null}
+                <Button href={page.cta_href || "/#contact"} size="lg" className="mt-6 w-fit">
+                  {page.cta_label || "Request a call"}
+                  <ArrowUpRight className="h-4 w-4" />
+                </Button>
+              </div>
             </div>
           </div>
         </Container>

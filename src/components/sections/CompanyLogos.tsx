@@ -4,67 +4,65 @@ import { type CSSProperties } from "react";
 import { Reveal } from "@/components/animations/Reveal";
 import { Container } from "@/components/ui/Container";
 import { LogoImg } from "@/components/ui/LogoImg";
-import { CLIENT_ROWS } from "@/lib/content";
+import { CLIENT_ROWS, type ClientLogo } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
-const LOGO_DIMENSIONS: Record<string, string> = {
-  "Lilly AI": "h-[48px] w-[138px]",
-  Rivian: "h-[32px] w-[160px]",
-  Google: "h-[42px] w-[133px]",
-  enorta: "h-[28px] w-[128px]",
-  Cero: "h-[24px] w-[109px]",
-  salesforce: "h-[60px] w-[86px]",
-  "Epidemic Sound": "h-[19px] w-[160px]",
-  thyssenkrupp: "h-[28px] w-[150px]",
-  LaunchDarkly: "h-[25px] w-[160px]",
-  "Tim Hortons": "h-[32px] w-[160px]",
-  Flipboard: "h-[32px] w-[159px]",
-};
-
-const PRECOMPOSITED_LOGOS = new Set(["enorta", "Cero", "Epidemic Sound"]);
-
-function Logo({
-  name,
-  file,
-  blend = false,
-}: {
-  name: string;
-  file: string;
-  blend?: boolean;
-}) {
+function Logo({ name, file, showName = false, onDark = false }: ClientLogo) {
   return (
-    <div
-      className={cn(
-        "flex h-[60px] w-[206px] shrink-0 items-center justify-center",
-        !PRECOMPOSITED_LOGOS.has(name) && "opacity-[0.56]",
-        blend && "mix-blend-luminosity",
-      )}
-    >
-      <div className={LOGO_DIMENSIONS[name]}>
+    <div className="flex h-12 shrink-0 items-center justify-center gap-2.5 px-2">
+      <div
+        className={cn(
+          "flex items-center justify-center",
+          showName ? "h-7 w-7 shrink-0" : "h-8 w-auto",
+          onDark && "mix-blend-screen",
+        )}
+      >
         <LogoImg
           src={`/logos/${file}`}
           name={name}
-          className="block size-full"
-          wordmarkClassName="text-foreground/40"
+          className={cn(
+            "object-contain object-center",
+            showName ? "h-7 w-7" : "h-8 w-auto max-h-8",
+          )}
+          wordmarkClassName="text-foreground/45"
         />
       </div>
+      {showName ? (
+        <span className="whitespace-nowrap text-[17px] font-medium tracking-tight text-foreground/55">
+          {name}
+        </span>
+      ) : null}
+    </div>
+  );
+}
+
+function LogoTrack({ logos, hidden = false }: { logos: ClientLogo[]; hidden?: boolean }) {
+  return (
+    <div
+      className="flex shrink-0 items-center gap-14 pr-14 lg:gap-16 lg:pr-16"
+      aria-hidden={hidden || undefined}
+    >
+      {logos.map((logo, index) => (
+        <Logo key={`${logo.name}-${index}`} {...logo} />
+      ))}
     </div>
   );
 }
 
 export function CompanyLogos() {
-  const all = CLIENT_ROWS.flatMap((row, rowIndex) =>
-    row.map((logo) => ({ ...logo, blend: rowIndex === 0 || rowIndex === 2 })),
-  );
+  const all = CLIENT_ROWS.flat();
+  const track = [...all, ...all];
 
   return (
     <Container className="py-6 lg:py-8">
       <Reveal>
         <div className="mask-fade-x overflow-hidden">
-          <div className="flex w-max animate-marquee items-center gap-12 lg:gap-16" style={{ "--marquee-duration": "38s" } as CSSProperties}>
-            {[...all, ...all].map((logo, index) => (
-              <Logo key={`${logo.name}-${index}`} name={logo.name} file={logo.file} blend={logo.blend} />
-            ))}
+          <div
+            className="flex w-max animate-marquee items-center"
+            style={{ "--marquee-duration": "42s" } as CSSProperties}
+          >
+            <LogoTrack logos={track} />
+            <LogoTrack logos={track} hidden />
           </div>
         </div>
       </Reveal>

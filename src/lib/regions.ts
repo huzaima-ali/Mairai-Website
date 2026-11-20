@@ -7,11 +7,11 @@ export const REGION_PAGES: MarketingPage[] = [
     title: "United States",
     metaTitle: "AI Development & Technology Partner in the USA | Mirai Studios",
     metaDescription:
-      "Mirai Studios partners with US companies to design and build AI products, software platforms, automation and digital twins with product-led engineering delivery.",
+      "Mirai Studios partners with US companies on MVP and custom product development, SaaS platforms, AI consulting and implementation, with product-led engineering delivery.",
     eyebrow: "Regions",
     h1: "AI development and technology partner for US companies",
     intro:
-      "Mirai Studios works with startups, product teams and enterprises in the United States that need a partner to design, build and scale AI products, software platforms and immersive technology.",
+      "Mirai Studios works with startups, product teams and enterprises in the United States that need a partner to design, build and scale digital products, from MVP to production, and to implement practical AI.",
     sections: [
       {
         heading: "Services available",
@@ -69,7 +69,7 @@ export const REGION_PAGES: MarketingPage[] = [
     title: "United Kingdom",
     metaTitle: "AI Development & Product Engineering Partner in the UK | Mirai Studios",
     metaDescription:
-      "Mirai Studios helps UK companies design and build AI products, enterprise software, automation and digital twins with clear product engineering delivery.",
+      "Mirai Studios helps UK companies with end-to-end product development, SaaS platforms, AI consulting and implementation, with clear product engineering delivery.",
     eyebrow: "Regions",
     h1: "AI and product engineering partner for UK businesses",
     intro:

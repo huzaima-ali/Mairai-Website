@@ -240,14 +240,14 @@ function MobileServiceAccordion({
   voxel: ReactNode;
 }) {
   return (
-    <ul className="border-t border-black/[0.08]">
+    <div className="border-t border-black/[0.08]">
       {services.map((service) => {
         const open = service.id === activeId;
         const panelId = `mobile-service-panel-${service.id}`;
         const buttonId = `mobile-service-trigger-${service.id}`;
 
         return (
-          <li key={service.id} className="border-b border-black/[0.08]">
+          <div key={service.id} className="border-b border-black/[0.08]">
             <h3>
               <button
                 type="button"
@@ -278,29 +278,23 @@ function MobileServiceAccordion({
                 </span>
               </button>
             </h3>
-
-            {/*
-              No AnimatePresence around the WebGL tree: exit animations keep the
-              previous panel mounted while the next opens, which spawned two
-              Canvases on mobile and often blanked the scene.
-            */}
             {open ? (
               <div id={panelId} role="region" aria-labelledby={buttonId} className="pb-6 pt-1">
                 <ServiceDetails
                   service={service}
                   showTitle={false}
                   media={
-                    <div className="relative aspect-[16/9] w-full min-h-[220px]">
+                    <div className="relative aspect-[16/9] min-h-[220px] w-full">
                       {voxel}
                     </div>
                   }
                 />
               </div>
             ) : null}
-          </li>
+          </div>
         );
       })}
-    </ul>
+    </div>
   );
 }
 

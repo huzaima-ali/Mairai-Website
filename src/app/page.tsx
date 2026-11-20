@@ -14,13 +14,13 @@ import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { FeaturedInsightCard } from "@/components/insights/FeaturedInsightCard";
 import { HomeFaqs } from "@/components/sections/HomeFaqs";
-import { VIDEO_SECTION, SITE, HOME_FAQS, HOME_ABOUT } from "@/lib/content";
+import { VIDEO_SECTION, SITE, HOME_FAQS, HOME_ABOUT, FOUNDERS } from "@/lib/content";
 import { resolvePageMetadata } from "@/lib/cms/seo-overrides";
 import { faqPageJsonLd, jsonLdScript, webpageJsonLd } from "@/lib/seo";
 
 export async function generateMetadata(): Promise<Metadata> {
   return resolvePageMetadata({
-    title: "Mirai Studios | AI Development & Product Engineering",
+    title: "Mirai Studios | Product Development & AI Consulting",
     description: SITE.description,
     path: "/",
   });
@@ -33,7 +33,7 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={jsonLdScript([
           webpageJsonLd({
-            name: "Mirai Studios | AI Development & Product Engineering",
+            name: "Mirai Studios | Product Development & AI Consulting",
             description: SITE.description,
             path: "/",
           }),
@@ -47,7 +47,6 @@ export default function HomePage() {
           <Container>
             <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-stretch lg:gap-12">
               <div className="max-w-3xl">
-                <p className="eyebrow">{HOME_ABOUT.eyebrow}</p>
                 <h2 className="display text-[clamp(1.85rem,3.2vw,2.95rem)] leading-[1.06]">
                   {HOME_ABOUT.title}
                 </h2>
@@ -57,25 +56,18 @@ export default function HomePage() {
                 <p className="mt-4 text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
                   {SITE.positioning}
                 </p>
-                <p className="mt-4 text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
-                  Delivery is product-led: we define the workflow, design the experience, then
-                  engineer systems operators can trust. That includes agentic AI, intelligent
-                  automation and AI-native software with human-supervised controls. Super
-                  Intelligence remains a longer-term industry topic, not a product we claim to
-                  ship.
-                </p>
-                <p className="mt-4 text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
+                <p className="mt-5 text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
                   See{" "}
                   <a href="/#products" className="underline underline-offset-2 hover:text-foreground">
                     products
                   </a>
                   ,{" "}
-                  <a href="/#services" className="underline underline-offset-2 hover:text-foreground">
-                    services
+                  <a href="/#work" className="underline underline-offset-2 hover:text-foreground">
+                    client work
                   </a>
                   ,{" "}
-                  <a href="/#work" className="underline underline-offset-2 hover:text-foreground">
-                    selected work
+                  <a href="/#services" className="underline underline-offset-2 hover:text-foreground">
+                    services
                   </a>
                   ,{" "}
                   <a href="/regions" className="underline underline-offset-2 hover:text-foreground">
@@ -86,6 +78,27 @@ export default function HomePage() {
                     partner with us
                   </a>
                   .
+                </p>
+                <p className="mt-5 text-sm leading-relaxed text-muted-foreground sm:text-[15px]">
+                  Meet{" "}
+                  <a
+                    href={FOUNDERS.people[0]?.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="underline underline-offset-2 hover:text-foreground"
+                  >
+                    {FOUNDERS.people[0]?.name.split(" ")[0]}
+                  </a>{" "}
+                  and{" "}
+                  <a
+                    href={FOUNDERS.people[1]?.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="underline underline-offset-2 hover:text-foreground"
+                  >
+                    {FOUNDERS.people[1]?.name.split(" ")[0]}
+                  </a>
+                  , cofounders of Mirai.
                 </p>
               </div>
 
