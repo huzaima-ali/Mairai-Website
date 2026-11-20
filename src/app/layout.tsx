@@ -45,6 +45,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <head>
         <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-KBJBJ926" />
+        <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-PXMZT6GZ" />
         <script
           dangerouslySetInnerHTML={{
             __html:
