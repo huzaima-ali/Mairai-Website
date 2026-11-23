@@ -1,12 +1,13 @@
 "use client";
 
-import { useEditor, EditorContent } from "@tiptap/react";
+import { useEditor, EditorContent, type Editor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Link from "@tiptap/extension-link";
 import Image from "@tiptap/extension-image";
 import Placeholder from "@tiptap/extension-placeholder";
 import { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
+import { canOpenCmsHref, CMS_LINK_OPTIONS, normalizeCmsHref } from "@/lib/cms/rich-text-link";
 
 const EDITOR_CONTENT_CLASS = [
   "max-w-none min-h-[280px] px-4 py-3 focus:outline-none text-foreground text-[15px] leading-relaxed",
@@ -24,6 +25,33 @@ const EDITOR_CONTENT_CLASS = [
   "[&_code]:rounded [&_code]:bg-zinc-100 [&_code]:px-1 [&_code]:py-0.5 [&_code]:text-sm",
   "[&_img]:my-4 [&_img]:max-w-full [&_img]:rounded-xl",
 ].join(" ");
+
+function currentHref(editor: Editor) {
+  return normalizeCmsHref(String(editor.getAttributes("link").href || ""));
+}
+
+function setOrEditLink(editor: Editor) {
+  const href = window.prompt("URL", currentHref(editor) || "https://");
+  if (href === null) return;
+
+  const next = normalizeCmsHref(href);
+  if (!next) {
+    editor.chain().focus().extendMarkRange("link").unsetLink().run();
+    return;
+  }
+
+  editor.chain().focus().extendMarkRange("link").setLink({ href: next }).run();
+}
+
+function unlink(editor: Editor) {
+  editor.chain().focus().extendMarkRange("link").unsetLink().run();
+}
+
+function openLink(editor: Editor) {
+  const href = currentHref(editor);
+  if (!canOpenCmsHref(href)) return;
+  window.open(href, "_blank", "noopener,noreferrer");
+}
 
 export function RichTextEditor({
   value,
@@ -43,7 +71,7 @@ export function RichTextEditor({
         bulletList: { keepMarks: true, keepAttributes: false },
         orderedList: { keepMarks: true, keepAttributes: false },
       }),
-      Link.configure({ openOnClick: false, HTMLAttributes: { rel: "noopener noreferrer" } }),
+      Link.configure(CMS_LINK_OPTIONS),
       Image,
       Placeholder.configure({ placeholder }),
     ],
@@ -59,7 +87,9 @@ export function RichTextEditor({
         class: EDITOR_CONTENT_CLASS,
       },
       transformPastedHTML(html) {
-        // Keep common list/paragraph structure from Word/Google Docs paste
+        // Keep common list/paragraph structure from Word/Google Docs paste.
+        // Existing <a> tags are left intact; plain-text URLs are not wrapped
+        // because linkOnPaste is disabled on the Link extension.
         return html
           .replace(/<\/?o:p[^>]*>/gi, "")
           .replace(/<span[^>]*mso-[^>]*>/gi, "")
@@ -80,6 +110,9 @@ export function RichTextEditor({
 
   if (!editor) return null;
 
+  const linkActive = editor.isActive("link");
+  const href = currentHref(editor);
+
   const tools = [
     { label: "H2", action: () => editor.chain().focus().toggleHeading({ level: 2 }).run(), active: editor.isActive("heading", { level: 2 }) },
     { label: "H3", action: () => editor.chain().focus().toggleHeading({ level: 3 }).run(), active: editor.isActive("heading", { level: 3 }) },
@@ -91,19 +124,21 @@ export function RichTextEditor({
     { label: "Code", action: () => editor.chain().focus().toggleCodeBlock().run(), active: editor.isActive("codeBlock") },
     { label: "HR", action: () => editor.chain().focus().setHorizontalRule().run(), active: false },
     {
-      label: "Link",
-      action: () => {
-        const prev = editor.getAttributes("link").href as string | undefined;
-        const href = window.prompt("URL", prev || "https://");
-        if (href === null) return;
-        if (href === "") {
-          editor.chain().focus().extendMarkRange("link").unsetLink().run();
-          return;
-        }
-        editor.chain().focus().extendMarkRange("link").setLink({ href }).run();
-      },
-      active: editor.isActive("link"),
+      label: linkActive ? "Edit Link" : "Link",
+      action: () => setOrEditLink(editor),
+      active: linkActive,
     },
+    ...(linkActive
+      ? [
+          { label: "Unlink", action: () => unlink(editor), active: false },
+          {
+            label: "Open",
+            action: () => openLink(editor),
+            active: false,
+            disabled: !canOpenCmsHref(href),
+          },
+        ]
+      : []),
     {
       label: "Image",
       action: () => {
@@ -117,21 +152,29 @@ export function RichTextEditor({
 
   return (
     <div className={cn("rounded-xl border border-black/10 bg-white", className)}>
-      <div className="sticky top-0 z-20 flex flex-wrap gap-1 rounded-t-xl border-b border-black/8 bg-[#faf9f7]/95 px-2 py-1.5 backdrop-blur supports-[backdrop-filter]:bg-[#faf9f7]/85">
-        {tools.map((btn) => (
-          <button
-            key={btn.label}
-            type="button"
-            onMouseDown={(e) => e.preventDefault()}
-            onClick={btn.action}
-            className={cn(
-              "rounded-md px-2 py-1 text-xs font-medium transition-colors",
-              btn.active ? "bg-ink text-white" : "text-foreground/70 hover:bg-black/[0.05]",
-            )}
-          >
-            {btn.label}
-          </button>
-        ))}
+      <div className="sticky top-0 z-20 rounded-t-xl border-b border-black/8 bg-[#faf9f7]/95 px-2 py-1.5 backdrop-blur supports-[backdrop-filter]:bg-[#faf9f7]/85">
+        <div className="flex flex-wrap gap-1">
+          {tools.map((btn) => (
+            <button
+              key={btn.label}
+              type="button"
+              disabled={"disabled" in btn ? Boolean(btn.disabled) : false}
+              onMouseDown={(e) => e.preventDefault()}
+              onClick={btn.action}
+              className={cn(
+                "rounded-md px-2 py-1 text-xs font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-40",
+                btn.active ? "bg-ink text-white" : "text-foreground/70 hover:bg-black/[0.05]",
+              )}
+            >
+              {btn.label}
+            </button>
+          ))}
+        </div>
+        {linkActive && href ? (
+          <p className="mt-1 truncate px-1 text-[11px] text-foreground/45" title={href}>
+            {href}
+          </p>
+        ) : null}
       </div>
       <EditorContent editor={editor} />
     </div>
