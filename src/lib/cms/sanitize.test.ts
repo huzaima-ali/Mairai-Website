@@ -22,6 +22,24 @@ test("CMS tables keep structure, column widths, and cell alignment", () => {
   assert.match(out, /Ada/);
 });
 
+test("CMS table line visibility and color survive sanitization", () => {
+  const out = sanitizeArticleHtml(
+    '<table data-lines="grid" data-line-color="#c7253e"><tr><td>ok</td></tr></table>',
+  );
+  assert.match(out, /data-lines="grid"/);
+  assert.match(out, /data-line-color="#c7253e"/);
+  assert.match(out, /--table-line-color:#c7253e/);
+});
+
+test("unsafe table line attributes are dropped", () => {
+  const out = sanitizeArticleHtml(
+    '<table data-lines="javascript:alert(1)" data-line-color="url(javascript:alert(1))"><tr><td>ok</td></tr></table>',
+  );
+  assert.doesNotMatch(out, /javascript/i);
+  assert.doesNotMatch(out, /data-lines/);
+  assert.doesNotMatch(out, /data-line-color/);
+});
+
 test("unsafe table markup is stripped while cell text remains", () => {
   const out = sanitizeArticleHtml(
     '<table onclick="alert(1)"><tr><td><script>alert(1)</script>ok<img src="x" onerror="alert(1)"></td></tr></table>',

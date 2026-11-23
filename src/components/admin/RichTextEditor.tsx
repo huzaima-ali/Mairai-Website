@@ -5,10 +5,17 @@ import StarterKit from "@tiptap/starter-kit";
 import Link from "@tiptap/extension-link";
 import Image from "@tiptap/extension-image";
 import Placeholder from "@tiptap/extension-placeholder";
-import { TableKit } from "@tiptap/extension-table";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { canOpenCmsHref, CMS_LINK_OPTIONS, normalizeCmsHref } from "@/lib/cms/rich-text-link";
+import {
+  TABLE_LINE_COLOR_PRESETS,
+  TABLE_LINE_MODES,
+  normalizeTableLineColor,
+  normalizeTableLines,
+  type TableLineMode,
+} from "@/lib/cms/rich-text-table";
+import { cmsTableExtensions } from "@/components/admin/cms-table-extension";
 
 const EDITOR_CONTENT_CLASS = [
   "prose-mirai max-w-none min-h-[280px] px-4 py-3 focus:outline-none text-foreground text-[15px] leading-relaxed",
@@ -238,28 +245,90 @@ function TableInsertMenu({ editor }: { editor: Editor }) {
   );
 }
 
+const LINE_MODE_LABELS: Record<TableLineMode, string> = {
+  off: "Hide lines",
+  rows: "Row lines",
+  grid: "All lines",
+};
+
 function TableEditTools({ editor }: { editor: Editor }) {
   if (!editor.isActive("table")) return null;
 
+  const tableAttrs = editor.getAttributes("table");
+  const lines = normalizeTableLines(tableAttrs.lines) || "grid";
+  const lineColor = normalizeTableLineColor(tableAttrs.lineColor);
+
   return (
-    <div className="mt-1 flex flex-wrap gap-1 border-t border-black/6 pt-1.5">
-      <ToolbarButton label="+ Row" onClick={() => editor.chain().focus().addRowAfter().run()} />
-      <ToolbarButton label="+ Column" onClick={() => editor.chain().focus().addColumnAfter().run()} />
-      <ToolbarButton label="- Row" onClick={() => editor.chain().focus().deleteRow().run()} />
-      <ToolbarButton label="- Column" onClick={() => editor.chain().focus().deleteColumn().run()} />
-      <ToolbarButton label="Header row" onClick={() => editor.chain().focus().toggleHeaderRow().run()} />
-      <ToolbarButton label="Header column" onClick={() => editor.chain().focus().toggleHeaderColumn().run()} />
-      <ToolbarButton
-        label="Merge"
-        disabled={!editor.can().mergeCells()}
-        onClick={() => editor.chain().focus().mergeCells().run()}
-      />
-      <ToolbarButton
-        label="Split"
-        disabled={!editor.can().splitCell()}
-        onClick={() => editor.chain().focus().splitCell().run()}
-      />
-      <ToolbarButton label="Delete table" onClick={() => editor.chain().focus().deleteTable().run()} />
+    <div className="mt-1 space-y-1.5 border-t border-black/6 pt-1.5">
+      <div className="flex flex-wrap gap-1">
+        <ToolbarButton label="+ Row" onClick={() => editor.chain().focus().addRowAfter().run()} />
+        <ToolbarButton label="+ Column" onClick={() => editor.chain().focus().addColumnAfter().run()} />
+        <ToolbarButton label="- Row" onClick={() => editor.chain().focus().deleteRow().run()} />
+        <ToolbarButton label="- Column" onClick={() => editor.chain().focus().deleteColumn().run()} />
+        <ToolbarButton label="Header row" onClick={() => editor.chain().focus().toggleHeaderRow().run()} />
+        <ToolbarButton label="Header column" onClick={() => editor.chain().focus().toggleHeaderColumn().run()} />
+        <ToolbarButton
+          label="Merge"
+          disabled={!editor.can().mergeCells()}
+          onClick={() => editor.chain().focus().mergeCells().run()}
+        />
+        <ToolbarButton
+          label="Split"
+          disabled={!editor.can().splitCell()}
+          onClick={() => editor.chain().focus().splitCell().run()}
+        />
+        <ToolbarButton label="Delete table" onClick={() => editor.chain().focus().deleteTable().run()} />
+      </div>
+      <div className="flex flex-wrap items-center gap-1">
+        {TABLE_LINE_MODES.map((mode) => (
+          <ToolbarButton
+            key={mode}
+            label={LINE_MODE_LABELS[mode]}
+            active={lines === mode}
+            onClick={() => editor.chain().focus().updateAttributes("table", { lines: mode }).run()}
+          />
+        ))}
+        <span className="ml-1 mr-0.5 text-[11px] font-medium uppercase tracking-[0.12em] text-foreground/45">
+          Color
+        </span>
+        {TABLE_LINE_COLOR_PRESETS.map((preset) => {
+          const active = preset.value === null ? !lineColor : lineColor === preset.value;
+          return (
+            <button
+              key={preset.id}
+              type="button"
+              title={preset.label}
+              aria-label={`${preset.label} line color`}
+              onMouseDown={(event) => event.preventDefault()}
+              onClick={() => editor.chain().focus().updateAttributes("table", { lineColor: preset.value }).run()}
+              className={cn(
+                "h-5 w-5 rounded-full border",
+                active ? "border-ink ring-1 ring-ink/30" : "border-black/15",
+              )}
+              style={{ backgroundColor: preset.swatch }}
+            />
+          );
+        })}
+        <label className="relative h-5 w-5 overflow-hidden rounded-full border border-black/15" title="Custom line color">
+          <span className="sr-only">Custom line color</span>
+          <input
+            type="color"
+            value={lineColor || "#c9c3b8"}
+            onMouseDown={(event) => event.preventDefault()}
+            onChange={(event) =>
+              editor.chain().focus().updateAttributes("table", { lineColor: event.target.value }).run()
+            }
+            className="absolute inset-0 cursor-pointer opacity-0"
+          />
+          <span
+            className="block h-full w-full"
+            style={{
+              background:
+                "conic-gradient(#c7253e, #e6e1d8, #0a0a0a, #8a847a, #c9c3b8, #c7253e)",
+            }}
+          />
+        </label>
+      </div>
     </div>
   );
 }
@@ -285,9 +354,7 @@ export function RichTextEditor({
       Link.configure(CMS_LINK_OPTIONS),
       Image,
       Placeholder.configure({ placeholder }),
-      TableKit.configure({
-        table: { resizable: true },
-      }),
+      ...cmsTableExtensions,
     ],
     content: value || "",
     immediatelyRender: false,

@@ -135,6 +135,7 @@
   }
 
   .prose-mirai table {
+    --table-line-color: #c9c3b8;
     width: 100%;
     margin: 1.75rem 0;
     border-collapse: collapse;
@@ -144,7 +145,7 @@
 
   .prose-mirai th,
   .prose-mirai td {
-    border-bottom: 1px solid hsl(var(--border));
+    border-bottom: 1px solid var(--table-line-color);
     padding: 0.75rem 1rem;
     vertical-align: top;
     text-align: left;
@@ -156,9 +157,15 @@
     letter-spacing: -0.01em;
   }
 
-  .prose-mirai tbody tr:last-child th,
-  .prose-mirai tbody tr:last-child td {
-    border-bottom-color: transparent;
+  .prose-mirai table[data-lines="grid"] th,
+  .prose-mirai table[data-lines="grid"] td {
+    border: 1px solid var(--table-line-color);
+  }
+
+  .prose-mirai table[data-lines="off"] th,
+  .prose-mirai table[data-lines="off"] td {
+    border-color: transparent;
+    background-color: transparent;
   }
 
   .prose-mirai td p,
@@ -187,8 +194,20 @@
 }
 
 .ProseMirror table {
+  --table-line-color: #c9c3b8;
   table-layout: fixed;
   overflow: hidden;
+}
+
+.ProseMirror table[data-lines="grid"] th,
+.ProseMirror table[data-lines="grid"] td {
+  border: 1px solid var(--table-line-color);
+}
+
+.ProseMirror table[data-lines="off"] th,
+.ProseMirror table[data-lines="off"] td {
+  border-color: transparent;
+  background-color: transparent;
 }
 
 .ProseMirror td,
