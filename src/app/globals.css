@@ -125,6 +125,102 @@
   .pill {
     @apply inline-flex min-h-[44px] select-none items-center justify-center gap-2 rounded-full px-[22px] text-[15px] font-medium leading-none transition-all duration-300;
   }
+
+  /*
+    CMS tables share this look in the editor and on public pages so they
+    read as part of the article, not as a spreadsheet drop-in.
+  */
+  .prose-mirai:has(> table) {
+    overflow-x: auto;
+  }
+
+  .prose-mirai table {
+    width: 100%;
+    margin: 1.75rem 0;
+    border-collapse: collapse;
+    font-size: 0.95em;
+    color: hsl(var(--foreground));
+  }
+
+  .prose-mirai th,
+  .prose-mirai td {
+    border-bottom: 1px solid hsl(var(--border));
+    padding: 0.75rem 1rem;
+    vertical-align: top;
+    text-align: left;
+  }
+
+  .prose-mirai th {
+    background-color: hsl(var(--surface));
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  .prose-mirai tbody tr:last-child th,
+  .prose-mirai tbody tr:last-child td {
+    border-bottom-color: transparent;
+  }
+
+  .prose-mirai td p,
+  .prose-mirai th p {
+    margin: 0;
+  }
+
+  .prose-mirai td p + p,
+  .prose-mirai th p + p {
+    margin-top: 0.5rem;
+  }
+}
+
+/* TipTap adds these classes at runtime, so they must stay outside @layer. */
+.ProseMirror {
+  --default-cell-min-width: 72px;
+}
+
+.ProseMirror .tableWrapper {
+  overflow-x: auto;
+  margin: 1.75rem 0;
+}
+
+.ProseMirror .tableWrapper table {
+  margin: 0;
+}
+
+.ProseMirror table {
+  table-layout: fixed;
+  overflow: hidden;
+}
+
+.ProseMirror td,
+.ProseMirror th {
+  position: relative;
+  box-sizing: border-box;
+  min-width: var(--default-cell-min-width);
+}
+
+.ProseMirror .column-resize-handle {
+  position: absolute;
+  right: -2px;
+  top: 0;
+  bottom: 0;
+  z-index: 20;
+  width: 4px;
+  background-color: hsl(var(--ring));
+  pointer-events: none;
+}
+
+.ProseMirror.resize-cursor {
+  cursor: ew-resize;
+  cursor: col-resize;
+}
+
+.ProseMirror .selectedCell::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: hsl(var(--ring) / 0.1);
+  pointer-events: none;
 }
 
 @layer utilities {

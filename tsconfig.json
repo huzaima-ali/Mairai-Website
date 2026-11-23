@@ -42,6 +42,7 @@
     "src/lib/cms/admin-fixes.test.ts",
     "src/lib/cms/page-routes.test.ts",
     "src/lib/cms/rich-text-link.test.ts",
+    "src/lib/cms/sanitize.test.ts",
     "src/lib/seo.test.ts"
   ]
 }

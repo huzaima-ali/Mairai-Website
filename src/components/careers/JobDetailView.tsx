@@ -39,7 +39,7 @@ export function JobDetailView({ job, preview = false }: { job: JobRow; preview?:
 
             {job.description ? (
               <div
-                className="mt-10 text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg [&_li]:my-1 [&_ol]:my-4 [&_ol]:list-decimal [&_ol]:pl-5 [&_p]:my-4 [&_ul]:my-4 [&_ul]:list-disc [&_ul]:pl-5"
+                className="prose-mirai mt-10 text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg [&_li]:my-1 [&_ol]:my-4 [&_ol]:list-decimal [&_ol]:pl-5 [&_p]:my-4 [&_ul]:my-4 [&_ul]:list-disc [&_ul]:pl-5"
                 dangerouslySetInnerHTML={{ __html: job.description }}
               />
             ) : null}
@@ -48,7 +48,7 @@ export function JobDetailView({ job, preview = false }: { job: JobRow; preview?:
               <section className="mt-10">
                 <h2 className="display text-[clamp(1.35rem,2.2vw,1.85rem)]">Requirements</h2>
                 <div
-                  className="mt-4 text-base leading-relaxed text-muted-foreground [&_li]:my-1 [&_ul]:list-disc [&_ul]:pl-5"
+                  className="prose-mirai mt-4 text-base leading-relaxed text-muted-foreground [&_li]:my-1 [&_ul]:list-disc [&_ul]:pl-5"
                   dangerouslySetInnerHTML={{ __html: job.requirements }}
                 />
               </section>
@@ -58,7 +58,7 @@ export function JobDetailView({ job, preview = false }: { job: JobRow; preview?:
               <section className="mt-10">
                 <h2 className="display text-[clamp(1.35rem,2.2vw,1.85rem)]">Nice to have</h2>
                 <div
-                  className="mt-4 text-base leading-relaxed text-muted-foreground [&_li]:my-1 [&_ul]:list-disc [&_ul]:pl-5"
+                  className="prose-mirai mt-4 text-base leading-relaxed text-muted-foreground [&_li]:my-1 [&_ul]:list-disc [&_ul]:pl-5"
                   dangerouslySetInnerHTML={{ __html: job.nice_to_have }}
                 />
               </section>
